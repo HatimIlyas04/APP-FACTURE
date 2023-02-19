@@ -4,10 +4,14 @@ const light = {
   bgSecundary: "#FFFFFF",
   bgTertiary: "#F9FAFE",
   bgQuaternary: "#DFE3FA",
+  bgQuinary: "#373B53",
   textPrimary: "#888EB0",
   textSecundary: "#7E88C3",
+  textTertiary: "#858BB2",
+  textQuaternary: "#7C5DFA",
   title: "#0C0E16",
   shadowPrimary: "0px 10px 20px rgba(72, 84, 159, 0.25)",
+  shadowSecundary: "0px 10px 10px -10px rgba(72, 84, 159, 0.100397)",
 
   // Cores constantes (que não mudam)
   buttonText: "#FFFFFF",

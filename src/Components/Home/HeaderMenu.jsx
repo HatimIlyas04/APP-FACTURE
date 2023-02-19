@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Filter from "./Filter";
-import ButtonInvoice from "./Buttons/ButtonInvoice";
+import Filter from "../Filter";
+import ButtonInvoice from "../Buttons/ButtonInvoice";
 
 const HeaderMenu = () => {
-  const [filterValues, setFilterValues] = useState(['draft'])
-  console.log(filterValues)
+  const [filterValues, setFilterValues] = useState(["draft"]);
+  console.log(filterValues);
   return (
     <Container>
       <TitleContainer>
@@ -13,7 +13,7 @@ const HeaderMenu = () => {
         <p>There are 7 total invoices</p>
       </TitleContainer>
       <Content>
-        <Filter value={filterValues} setValue={setFilterValues}/>
+        <Filter value={filterValues} setValue={setFilterValues} />
         <ButtonInvoice> New Invoice</ButtonInvoice>
       </Content>
     </Container>
@@ -28,6 +28,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  h1 {
+    margin-bottom: 8px;
+  }
 `;
 
 const TitleContainer = styled.div`

@@ -5,7 +5,8 @@ import dark from "./styles/dark";
 import GlobalStyle from "./styles/global";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
-import Home from "./Components/Home";
+import Home from "./Components/Home/Home";
+import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";
 
 function App() {
   const [theme, setTheme] = useState(light);
@@ -15,9 +16,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <Container>
           <GlobalStyle />
-          <Header theme={theme} setTheme={setTheme}/>
+          <Header theme={theme} setTheme={setTheme} />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/invoice" element={<SingleInvoice />} />
           </Routes>
         </Container>
       </ThemeProvider>
@@ -28,7 +30,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  background: ${({theme}) => theme.bgPrimary};
+  background: ${({ theme }) => theme.bgPrimary};
   transition: 0.5s ease-in-out;
   min-height: 100vh;
   display: flex;

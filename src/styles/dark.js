@@ -4,17 +4,18 @@ const dark = {
   bgSecundary: "#1E2139",
   bgTertiary: "#252945",
   bgQuaternary: "#FFFFFF",
+  bgQuinary: "#373B53",
   textPrimary: "#DFE3FA",
   textSecundary: "#A0A5C3",
+  textTertiary: "#FFFFFF",
+  textQuaternary: "#888EB0",
   title: "#FFFFFF",
   shadowPrimary: "0px 10px 20px rgba(0, 0, 0, 0.25)",
+  shadowSecundary: "0px 10px 10px -10px rgba(72, 84, 159, 0.100397)",
 
   // Cores constantes (que não mudam)
-  paid: "#33D69F",
-  pending: "#FF8F00",
-  draft: "#373B53",
   buttonText: "#FFFFFF",
-  detailsGray: '#494E6E',
+  detailsGray: "#494E6E",
 
   variantColors: {
     primary: {
@@ -24,6 +25,18 @@ const dark = {
     delete: {
       normal: "#EC5757",
       hover: "#FF9797",
+    },
+    paid: {
+      normal: "#33D69F",
+      hover: "rgba(51, 214, 159, 0.1)",
+    },
+    pending: {
+      normal: "#FF8F00",
+      hover: "rgba(255, 143, 0, 0.1)",
+    },
+    draft: {
+      normal: "#DFE3FA",
+      hover: "rgba(55, 59, 83, 0.1)",
     },
   },
 };

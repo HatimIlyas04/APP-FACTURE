@@ -41,7 +41,7 @@ const HeaderContainer = styled.header`
 `;
 
 const Container = styled.div`
-  background: ${({ theme }) => theme.variantColors.draft.normal};
+  background: ${({ theme }) => theme.bgQuinary};
   height: calc(100vh - 20px);
   display: flex;
   flex-direction: column;

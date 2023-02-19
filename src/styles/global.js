@@ -21,11 +21,12 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 700;
     line-height: 15px;
     letter-spacing: 0.75px;
+    background: none;
   }
   body {
     font-size: 16px;
     font-family: 'League Spartan', sans-serif;
-    color: ${({ theme }) => theme.textPrimary};
+    color: ${({ theme }) => theme.title};
   }
 `;
 
