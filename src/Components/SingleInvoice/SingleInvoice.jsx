@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import HeaderSingleInvoice from "./HeaderSingleInvoice";
+import UniqueInvoiceData from "./UniqueInvoiceData";
 
 const SingleInvoice = () => {
+  const [data, setData] = useState(null);
+  const idInvoice = "AA1449";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("../data.json");
+      const json = await response.json();
+      const data = json.filter(({ id }) => id === idInvoice);
+      setData(...data);
+    };
+    fetchData();
+  }, []);
+
+  //console.log(data)
+  if (data === null) return null;
   return (
     <MainBg>
       <Container>
@@ -12,6 +28,9 @@ const SingleInvoice = () => {
           Go Back
         </Back>
         <HeaderSingleInvoice />
+        <Content>
+          <UniqueInvoiceData data={data} />
+        </Content>
       </Container>
     </MainBg>
   );
@@ -39,4 +58,11 @@ const Back = styled.button`
   &:hover {
     color: ${({ theme }) => theme.textQuaternary};
   }
+`;
+
+const Content = styled.div`
+  background: ${({ theme }) => theme.bgSecundary};
+  box-shadow: ${({ theme }) => theme.shadowSecundary};
+  border-radius: 8px;
+  margin-top: 30px;
 `;

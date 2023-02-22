@@ -38,6 +38,8 @@ export default Header;
 
 const HeaderContainer = styled.header`
   padding-top: 20px;
+  position: fixed;
+  z-index: 2000;
 `;
 
 const Container = styled.div`
@@ -46,6 +48,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-bottom-right-radius: 20px;
 `;
 
 const LogoContainer = styled.div`
@@ -86,11 +89,16 @@ const ButtonTheme = styled.button`
 
 const ContainerImg = styled.div`
   border-top: 1px solid ${({theme}) => theme.detailsGray};
-  padding: 24px 32px;
+  padding: 24px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   img {
     width: 40px;
     height: 40px;
     overflow: hidden;
     border-radius: 50%;
+    position: relative;
+    left: -2px;
   }
 `;

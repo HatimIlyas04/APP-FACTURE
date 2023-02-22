@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { AnimeDown } from "../styles/animations";
-import { ReactComponent as ArrowDown } from "../assets/icon-arrow-down.svg";
+import { AnimeDown } from "../../styles/animations";
+import { ReactComponent as ArrowDown } from "../../assets/icon-arrow-down.svg";
 import { current } from "@reduxjs/toolkit";
 
 const options = [
@@ -81,9 +81,9 @@ export default DropDown;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 240px;
   color: ${({ theme }) => theme.title};
   position: relative;
+  width: 100%
 `;
 
 const Select = styled.div`
@@ -91,6 +91,7 @@ const Select = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  width: 100%;
   border: 1px solid ${({ theme }) => theme.bgQuaternary};
   border-radius: 4px;
   background: ${({ theme }) =>

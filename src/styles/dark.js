@@ -5,6 +5,7 @@ const dark = {
   bgTertiary: "#252945",
   bgQuaternary: "#FFFFFF",
   bgQuinary: "#373B53",
+  bgSenary: '#0C0E16',
   textPrimary: "#DFE3FA",
   textSecundary: "#A0A5C3",
   textTertiary: "#FFFFFF",
@@ -16,6 +17,7 @@ const dark = {
   // Cores constantes (que não mudam)
   buttonText: "#FFFFFF",
   detailsGray: "#494E6E",
+  constPrimary: '#777F98',
 
   variantColors: {
     primary: {

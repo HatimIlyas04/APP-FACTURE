@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as ArrowLeft } from "../assets/icon-arrow-left.svg";
-import { ReactComponent as ArrowRight } from "../assets/icon-arrow-right.svg";
-import { ReactComponent as Calendar } from "../assets/icon-calendar.svg";
-import { AnimeDown } from "../styles/animations";
+import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
+import { ReactComponent as ArrowRight } from "../../assets/icon-arrow-right.svg";
+import { ReactComponent as Calendar } from "../../assets/icon-calendar.svg";
+import { AnimeDown } from "../../styles/animations";
 
 const allMonths = [
   "Jan",
@@ -156,7 +156,7 @@ export default DatePicker;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 240px;
+  width: 100%;
   position: relative;
 `;
 

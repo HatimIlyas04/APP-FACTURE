@@ -14,7 +14,7 @@ const HeaderMenu = () => {
       </TitleContainer>
       <Content>
         <Filter value={filterValues} setValue={setFilterValues} />
-        <ButtonInvoice> New Invoice</ButtonInvoice>
+        <ButtonInvoice>New Invoice</ButtonInvoice>
       </Content>
     </Container>
   );

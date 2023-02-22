@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as ArrowRight } from "../../assets/icon-arrow-right.svg";
-import { formartDate } from "../../Helper/formatDate";
+import { formatCurrency, formatDate } from "../../Helper/format";
 import InvoiceEmpty from "./InvoiceEmpty";
 import Status from "../Status";
 
@@ -18,8 +18,6 @@ const ListOfInvoices = () => {
   }, []);
   console.log(data);
 
-  const formatCurrency = (value) =>
-    value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const format = (date) => date.split("-").reverse().join("-");
 
   if (!data) return null;
@@ -34,7 +32,7 @@ const ListOfInvoices = () => {
               <span>#</span>
               {id}
             </Id>
-            <Due>Due {formartDate(format(paymentDue))}</Due>
+            <Due>Due {formatDate(format(paymentDue))}</Due>
             <Name>{clientName}</Name>
             <Total>{formatCurrency(total)}</Total>
             <LastColumn>

@@ -16,6 +16,7 @@ const light = {
   // Cores constantes (que não mudam)
   buttonText: "#FFFFFF",
   detailsGray: "#494E6E",
+  constPrimary: '#777F98',
 
   variantColors: {
     primary: {
