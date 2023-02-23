@@ -17,6 +17,12 @@ const light = {
   buttonText: "#FFFFFF",
   detailsGray: "#494E6E",
   constPrimary: '#777F98',
+  constSecundary: '#54555B',
+
+  //inputs
+  inputPrimary: '#DFE3FA',
+  inputSecundary: '#FFFFFF',
+  inputTertiary: '#7E88C3',
 
   variantColors: {
     primary: {

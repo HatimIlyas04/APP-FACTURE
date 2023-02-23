@@ -6,39 +6,84 @@ import DropDown from "./Forms/DropDown";
 import ButtonItem from "./Buttons/ButtonItem";
 import { idGenerator } from "../Helper/idGenerator";
 import { ReactComponent as Delete } from "../assets/icon-delete.svg";
+import { formatCurrencyNotSymbol } from "../Helper/format";
+import ButtonDefault from "./Buttons/ButtonDefault";
+import ButtonTheme from "./Buttons/ButtonTheme";
+import ButtonDraft from "./Buttons/ButtonDraft";
+import useForm from "../Hooks/useForm";
 
 const CreateInvoice = () => {
-  const [items, setItems] = useState([]);
-  const [itemsForm, setItemsForm] = useState([
-    {
-      id: "",
-      name: "",
-      quantity: "",
-      price: "",
-    },
-  ]);
+  const [itemsForm, setItemsForm] = useState([]);
+  const forms = {
+    sendAddress: useForm(),
+    city: useForm(),
+  };
+  //const sendAddress = useForm();
+  //console.log(sendAddress);
+
+  const sendInvoice = (e) => {
+    e.preventDefault();
+    const value = forms.sendAddress.ref.current.value;
+    //console.log(sendAddress.ref.current.value)
+    forms.sendAddress.validate(value);
+    forms.city.validate(value);
+    console.log(forms);
+  };
 
   const AddNewItem = () => {
     const idItem = idGenerator();
-    setItems((items) => [...items, { id: idItem }]);
+    setItemsForm((items) => [
+      ...items,
+      { id: idItem, name: "", quantity: "", price: "", total: "0.00" },
+    ]);
   };
 
   const removeItem = ({ currentTarget }) => {
     const idItem = currentTarget.dataset.id;
-    setItems((item) => item.filter(({ id }) => id !== idItem));
+    setItemsForm((item) => item.filter(({ id }) => id !== idItem));
   };
 
-  console.log(items);
+  const handleChangeItems = ({ target }) => {
+    const targetId = target.id;
+    const type = target.dataset.type;
+    setItemsForm((items) =>
+      items.reduce((accum, item) => {
+        if (targetId.includes(item.id)) {
+          item[type] = target.value;
+          if (type === "quantity" || type === "price") {
+            const empty = item.quantity && item.price ? true : false;
+            item.total = empty
+              ? formatCurrencyNotSymbol(item.quantity * item.price)
+              : "0,00";
+          }
+          console.log(item[type]);
+        }
+        return [...items];
+      }, {})
+    );
+  };
+
+  console.log(itemsForm);
 
   return (
     <Container>
-      <Content>
+      <Form onSubmit={sendInvoice}>
         <Title>New Invoice</Title>
 
         <BillTitle>Bill From</BillTitle>
-        <Input label="Street Address" id="sendStreet" />
+        <Input
+          label="Street Address"
+          id="sendStreet"
+          ref={forms.sendAddress.ref}
+          {...forms.sendAddress}
+        />
         <AddressFlex>
-          <Input label="City" id="clientStreet" />
+          <Input
+            label="City"
+            id="clientStreet"
+            ref={forms.city.ref}
+            {...forms.city}
+          />
           <Input label="Post Code" id="senPostCode" />
           <Input label="Country" id="senCountry" />
         </AddressFlex>
@@ -82,14 +127,29 @@ const CreateInvoice = () => {
           <p>Price</p>
           <p>Total</p>
         </ItemGridLabel>
-        {items.map(({ id }) => {
+        {itemsForm.map(({ id, total }) => {
           return (
             <ItemSolo key={id}>
-              <Input />
-              <Input />
-              <Input />
+              <Input
+                id={`${id}-1`}
+                data-type={"name"}
+                onChange={handleChangeItems}
+              />
+              <Input
+                id={`${id}-2`}
+                data-type={"quantity"}
+                onChange={handleChangeItems}
+                type="number"
+                p="8"
+              />
+              <Input
+                id={`${id}-3`}
+                data-type={"price"}
+                onChange={handleChangeItems}
+                type="number"
+              />
               <span>
-                <p>11223</p>
+                <p>{total}</p>
                 <DeleteContainer data-id={id} onClick={removeItem}>
                   <Delete />
                 </DeleteContainer>
@@ -100,7 +160,19 @@ const CreateInvoice = () => {
         <ButtonItem type="button" onClick={AddNewItem}>
           + Add New Item
         </ButtonItem>
-      </Content>
+
+        <FormErrors></FormErrors>
+
+        <ButtonsContainer>
+          <ButtonTheme type="button" custom={true}>
+            Discard
+          </ButtonTheme>
+          <div>
+            <ButtonDraft type="button">Save as Draft</ButtonDraft>
+            <ButtonDefault color="primary">Save & Send</ButtonDefault>
+          </div>
+        </ButtonsContainer>
+      </Form>
     </Container>
   );
 };
@@ -116,7 +188,7 @@ const Container = styled.div`
   background: rgba(0, 0, 0, 0.5);
 `;
 
-const Content = styled.form`
+const Form = styled.form`
   overflow-y: scroll;
   background: ${({ theme }) =>
     theme.name === "light" ? theme.bgSecundary : theme.bgPrimary};
@@ -192,4 +264,15 @@ const ItemGridLabel = styled.div`
   gap: 16px;
   color: ${({ theme }) =>
     theme.name === "light" ? theme.textSecundary : theme.textPrimary};
+`;
+
+const FormErrors = styled.div``;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div button:first-child {
+    margin-right: 8px;
+  }
 `;

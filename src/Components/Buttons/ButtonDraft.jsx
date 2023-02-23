@@ -8,7 +8,7 @@ const ButtonDraft = ({ children, ...props }) => {
 export default ButtonDraft;
 
 const Button = styled.button`
-  background: ${({ theme }) => theme.variantColors.draft.normal};
+  background: ${({ theme }) => theme.bgQuinary};
   color: ${({ theme }) => theme.textPrimary};
   padding: 16px 24px;
   border-radius: 24px;
@@ -16,6 +16,6 @@ const Button = styled.button`
   transition: 0.3s ease-in-out;
   &:hover {
     background: ${({ theme }) =>
-      theme.name == "dark" ? theme.bgSecundary : theme.title};
+      theme.name === "light" ? theme.title : theme.bgSecundary};
   }
 `;

@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ButtonItem = ({ children, ...props }) => {
-  return (
-    <Button {...props}>
-      {children}
-    </Button>
-  );
+  return <Button {...props}>{children}</Button>;
 };
 
 export default ButtonItem;
@@ -19,6 +15,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: 0.3s ease-in-out;
   &:hover {
-    background: ${({ theme }) => theme.bgQuaternary};
+    background: ${({ theme }) =>
+      theme.name === "light" ? theme.bgQuaternary : theme.textPrimary};
   }
 `;

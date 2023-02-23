@@ -28,6 +28,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'League Spartan', sans-serif;
     color: ${({ theme }) => theme.title};
   }
+  input[type=number] {
+  -moz-appearance: textfield;
+}
 `;
 
 export default GlobalStyle;

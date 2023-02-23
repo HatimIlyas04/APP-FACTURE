@@ -1,4 +1,3 @@
-
 const allMonths = [
   "Jan",
   "Feb",
@@ -11,8 +10,8 @@ const allMonths = [
   "Sept",
   "Oct",
   "Nov",
-  "Dec"
-]
+  "Dec",
+];
 
 export const formatDate = (date) => {
   const [day, month, year] = date.split(/\/|-/);
@@ -21,4 +20,14 @@ export const formatDate = (date) => {
 };
 
 export const formatCurrency = (value) =>
-value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+
+
+export const formatCurrencyNotSymbol = (value) => {
+  const currency = value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+  return currency.slice(3);
+};
