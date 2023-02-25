@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 const Input = forwardRef(
   ({ label, type = "text", id, p = "16", error, ...props }, ref) => {
-    console.log(error);
-
     return (
       <div>
         <Label htmlFor={id} error={error}>

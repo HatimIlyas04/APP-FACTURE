@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AnimeDown } from "../../styles/animations";
 import { ReactComponent as ArrowDown } from "../../assets/icon-arrow-down.svg";
-import { current } from "@reduxjs/toolkit";
 
 const options = [
   {
@@ -23,7 +22,7 @@ const options = [
   },
 ];
 
-const DropDown = () => {
+const DropDown = ({ setValue }) => {
   const [modal, setModal] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
     value: options[options.length - 1].value,
@@ -48,7 +47,15 @@ const DropDown = () => {
     const { value } = target.dataset;
     const label = getLabelFromSelectedValue(value);
     setSelectedValue({ value, label });
+    setValue({ value, label });
   };
+
+  useEffect(() => {
+    setValue({
+      value: options[options.length - 1].value,
+      label: options[options.length - 1].label,
+    });
+  }, []);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -83,7 +90,7 @@ const Container = styled.div`
   flex-direction: column;
   color: ${({ theme }) => theme.title};
   position: relative;
-  width: 100%
+  width: 100%;
 `;
 
 const Select = styled.div`

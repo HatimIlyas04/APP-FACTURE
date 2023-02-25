@@ -3,33 +3,27 @@ import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import HeaderSingleInvoice from "./HeaderSingleInvoice";
 import UniqueInvoiceData from "./UniqueInvoiceData";
+import { Link, useParams } from "react-router-dom";
+import { getEnvoiceById } from "../../store/invoice";
+import { useSelector } from "react-redux";
 
 const SingleInvoice = () => {
-  const [data, setData] = useState(null);
-  const idInvoice = "AA1449";
+  const { id } = useParams();
+  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id))
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("../data.json");
-      const json = await response.json();
-      const data = json.filter(({ id }) => id === idInvoice);
-      setData(...data);
-    };
-    fetchData();
-  }, []);
-
-  //console.log(data)
   if (data === null) return null;
   return (
     <MainBg>
       <Container>
-        <Back>
-          <ArrowLeft />
-          Go Back
-        </Back>
+        <Link to="/">
+          <Back>
+            <ArrowLeft />
+            Go Back
+          </Back>
+        </Link>
         <HeaderSingleInvoice />
         <Content>
-          <UniqueInvoiceData data={data} />
+          <UniqueInvoiceData />
         </Content>
       </Container>
     </MainBg>
@@ -54,6 +48,7 @@ const Back = styled.button`
   gap: 20px;
   font-weight: 700;
   font-size: 16px;
+  cursor: pointer;
   color: ${({ theme }) => theme.title};
   &:hover {
     color: ${({ theme }) => theme.textQuaternary};

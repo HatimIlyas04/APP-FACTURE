@@ -12,6 +12,9 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  a:visited {
+    color: initial;
+  }
   img{
     max-width: 100%;
   }

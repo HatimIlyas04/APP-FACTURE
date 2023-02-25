@@ -3,18 +3,47 @@ import styled from "styled-components";
 import Status from "../Status";
 import ButtonTheme from "../Buttons/ButtonTheme";
 import ButtonDefault from "../Buttons/ButtonDefault";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeStatus,
+  deleteInvoice,
+  getEnvoiceById,
+} from "../../store/invoice";
+import { useNavigate, useParams } from "react-router-dom";
 
 const HeaderSingleInvoice = () => {
+  const { id } = useParams();
+  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const markToPaid = () => {
+    dispatch(changeStatus({ id, status: "paid" }));
+  };
+
+  const deleteThisInvoice = () => {
+    const confirm = window.confirm("Tem Certeza que deseja deletar");
+    if (confirm) {
+      dispatch(deleteInvoice(id));
+      navigate("/");
+    }
+  };
+
+  if (!data) return null;
   return (
     <Container>
       <StatusContainer>
         <p>Status</p>
-        <Status status="pending" />
+        <Status status={data.status} />
       </StatusContainer>
       <ButtonsContainer>
         <ButtonTheme>Edit</ButtonTheme>
-        <ButtonDefault color="delete">Delete</ButtonDefault>
-        <ButtonDefault color="primary">Mark as Paid</ButtonDefault>
+        <ButtonDefault color="delete" onClick={deleteThisInvoice}>
+          Delete
+        </ButtonDefault>
+        <ButtonDefault color="primary" onClick={markToPaid}>
+          Mark as Paid
+        </ButtonDefault>
       </ButtonsContainer>
     </Container>
   );

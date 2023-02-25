@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { ReactComponent as ArrowRight } from "../../assets/icon-arrow-right.svg";
 import { ReactComponent as Calendar } from "../../assets/icon-calendar.svg";
+import { formatDate, getCurrentDate } from "../../Helper/format";
 import { AnimeDown } from "../../styles/animations";
 
 const allMonths = [
@@ -20,7 +21,7 @@ const allMonths = [
   "Dec",
 ];
 
-const DatePicker = () => {
+const DatePicker = forwardRef(({}, ref) => {
   const getDaysInMonth = (year, month) => {
     return new Date(year, month, 0).getDate();
   };
@@ -32,7 +33,6 @@ const DatePicker = () => {
   );
   const [selectedDate, setSelectedDate] = useState("");
   const [modal, setModal] = useState(false);
-  const inputDate = useRef(null);
   const dataPickerRef = useRef(null);
   const days = [];
   const [currentCalendar, setCurrentCalendar] = useState(() => {
@@ -41,20 +41,6 @@ const DatePicker = () => {
     }
     return days;
   });
-
-  const formartDate = (date) => {
-    const [day, month, year] = date.split("/");
-    const newDay = day.toString().padStart(2, "0");
-    return `${newDay} ${allMonths[month - 1]} ${year}`;
-  };
-
-  const getCurrentDate = () => {
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return formartDate(`${day}/${month}/${year}`);
-  };
 
   const nextMonth = () => {
     if (currentMonth < 12) {
@@ -90,9 +76,9 @@ const DatePicker = () => {
   };
 
   const getSelectedDay = ({ target }) => {
-    const formattedDate = formartDate(target.dateTime);
+    const formattedDate = formatDate(target.dateTime);
     setSelectedDate(target.dateTime);
-    inputDate.current.value = formattedDate;
+    ref.current.value = formattedDate;
   };
 
   const handleClickOutside = ({ target }) => {
@@ -112,29 +98,29 @@ const DatePicker = () => {
     <Container ref={dataPickerRef}>
       <InputContainer onClick={() => setModal(!modal)}>
         <Input
-          ref={inputDate}
+          ref={ref}
           onChange={teste}
-          placeholder={getCurrentDate()}
+          placeholder={formatDate(getCurrentDate())}
         />
         <Calendar />
       </InputContainer>
       {modal && (
         <CalendarModal>
           <MonthAndYearContainer>
-            <button onClick={previousMonth}>
+            <button type="button" onClick={previousMonth}>
               <ArrowLeft />
             </button>
             <MonthAndYear>
               {allMonths[currentMonth - 1]} {currentYear}
             </MonthAndYear>
-            <button onClick={nextMonth}>
+            <button type="button" onClick={nextMonth}>
               <ArrowRight />
             </button>
           </MonthAndYearContainer>
           <DateGrid>
             {currentCalendar.map((day) => {
               return (
-                <ButtonDay key={day}>
+                <ButtonDay type="button" key={day}>
                   <Time
                     onClick={getSelectedDay}
                     dateTime={`${day}/${currentMonth}/${currentYear}`}
@@ -149,7 +135,7 @@ const DatePicker = () => {
       )}
     </Container>
   );
-};
+});
 
 export default DatePicker;
 

@@ -19,7 +19,7 @@ function App() {
           <Header theme={theme} setTheme={setTheme} />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/invoice" element={<SingleInvoice />} />
+            <Route path="invoice/:id" element={<SingleInvoice />} />
           </Routes>
         </Container>
       </ThemeProvider>

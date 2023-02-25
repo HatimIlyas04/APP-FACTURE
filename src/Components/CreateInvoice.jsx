@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Input from "./Forms/Input";
 import DatePicker from "./Forms/DatePicker";
@@ -6,28 +6,113 @@ import DropDown from "./Forms/DropDown";
 import ButtonItem from "./Buttons/ButtonItem";
 import { idGenerator } from "../Helper/idGenerator";
 import { ReactComponent as Delete } from "../assets/icon-delete.svg";
-import { formatCurrencyNotSymbol } from "../Helper/format";
+import {
+  addDate,
+  formatCurrencyNotSymbol,
+  formatDateToNumbers,
+  getCurrentDate,
+} from "../Helper/format";
 import ButtonDefault from "./Buttons/ButtonDefault";
 import ButtonTheme from "./Buttons/ButtonTheme";
 import ButtonDraft from "./Buttons/ButtonDraft";
 import useForm from "../Hooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewInvoice } from "../store/invoice";
+import { closeModal } from "../store/modal";
 
 const CreateInvoice = () => {
   const [itemsForm, setItemsForm] = useState([]);
+  const [formsValue, setFormsValue] = useState({});
+  const date = useRef(null);
+  const [paymentTerms, setPaymentTerms] = useState(null);
+  const [valid, setValid] = useState(false);
   const forms = {
-    sendAddress: useForm(),
-    city: useForm(),
+    clientName: useForm(),
+    clientEmail: useForm(),
+    description: useForm(),
+    senderAddress: {
+      city: useForm(),
+      street: useForm(),
+      postCode: useForm(),
+      country: useForm(),
+    },
+    clientAddress: {
+      street: useForm(),
+      city: useForm(),
+      postCode: useForm(),
+      country: useForm(),
+    },
   };
-  //const sendAddress = useForm();
-  //console.log(sendAddress);
+
+  const store = useSelector((store) => store);
+  const dispatch = useDispatch();
+  console.log(store);
+
+  const validateAllFormInputs = () => {
+    const allValidate = [];
+    for (const key in forms) {
+      if (!forms[key]?.ref) {
+        for (const address in forms[key]) {
+          const value = forms[key][address].ref.current.value;
+          allValidate.push(forms[key][address].validate(value));
+          setFormsValue((values) => ({
+            ...values,
+            [key]: { ...values[key], [address]: value },
+          }));
+        }
+      } else {
+        const value = forms[key].ref.current.value;
+        allValidate.push(forms[key].validate(value));
+        const total = itemsForm.reduce((accum, { quantity, price }) => {
+          accum += price * quantity;
+          return accum;
+        }, 0);
+        setFormsValue((values) => ({
+          ...values,
+          [key]: value,
+          items: [...itemsForm],
+          total,
+        }));
+      }
+    }
+    setValid((prev) => allValidate.every((valid) => valid));
+  };
+
+  console.log(formsValue);
+
+  useEffect(() => {
+    if (valid) {
+      dispatch(addNewInvoice(formsValue));
+      dispatch(closeModal());
+    }
+  }, [formsValue]);
+
+  const getDates = () => {
+    let finalDate = date?.current?.value;
+    if (!finalDate) {
+      finalDate = getCurrentDate();
+    }
+    const paymentDue = addDate(finalDate, paymentTerms.value);
+    return {
+      createdAt: formatDateToNumbers(finalDate),
+      paymentDue,
+      paymentTerms: paymentTerms.value,
+    };
+  };
 
   const sendInvoice = (e) => {
     e.preventDefault();
-    const value = forms.sendAddress.ref.current.value;
-    //console.log(sendAddress.ref.current.value)
-    forms.sendAddress.validate(value);
-    forms.city.validate(value);
-    console.log(forms);
+    validateAllFormInputs();
+    setFormsValue((values) => ({
+      ...values,
+      id: idGenerator(),
+      status: "pending",
+      ...getDates(),
+    }));
+  };
+
+  const close = () => {
+    dispatch(closeModal());
   };
 
   const AddNewItem = () => {
@@ -74,43 +159,80 @@ const CreateInvoice = () => {
         <Input
           label="Street Address"
           id="sendStreet"
-          ref={forms.sendAddress.ref}
-          {...forms.sendAddress}
+          ref={forms.senderAddress.street.ref}
+          {...forms.senderAddress.street}
         />
         <AddressFlex>
           <Input
             label="City"
             id="clientStreet"
-            ref={forms.city.ref}
-            {...forms.city}
+            ref={forms.senderAddress.city.ref}
+            {...forms.senderAddress.city}
           />
-          <Input label="Post Code" id="senPostCode" />
-          <Input label="Country" id="senCountry" />
+          <Input
+            label="Post Code"
+            id="sendPostCode"
+            ref={forms.senderAddress.postCode.ref}
+            {...forms.senderAddress.postCode}
+          />
+          <Input
+            label="Country"
+            id="sendCountry"
+            ref={forms.senderAddress.country.ref}
+            {...forms.senderAddress.country}
+          />
         </AddressFlex>
 
         <BillTitle>Bill To</BillTitle>
-        <Input label="Client´s Name" id="clientName" />
+        <Input
+          label="Client´s Name"
+          id="clientName"
+          ref={forms.clientName.ref}
+          {...forms.clientName}
+        />
         <Input
           label="Client´s Email"
           id="clientEmail"
           placeholder="e.g. email@example.com"
+          ref={forms.clientEmail.ref}
+          {...forms.clientEmail}
         />
-        <Input label="Street Address" id="ClientStreet" />
+        <Input
+          label="Street Address"
+          id="ClientStreet"
+          ref={forms.clientAddress.street.ref}
+          {...forms.clientAddress.street}
+        />
 
         <AddressFlex>
-          <Input label="City" id="clientStreet" />
-          <Input label="Post Code" id="senPostCode" />
-          <Input label="Country" id="senCountry" />
+          <Input
+            label="City"
+            id="clientStreet"
+            ref={forms.clientAddress.city.ref}
+            {...forms.clientAddress.city}
+          />
+          <Input
+            label="Post Code"
+            id="clientPostCode"
+            ref={forms.clientAddress.postCode.ref}
+            {...forms.clientAddress.postCode}
+          />
+          <Input
+            label="Country"
+            id="clientCountry"
+            ref={forms.clientAddress.country.ref}
+            {...forms.clientAddress.country}
+          />
         </AddressFlex>
 
         <ContentDropDownInputs>
           <ContainerForInput>
             <PseudoLabel>Invoice Date</PseudoLabel>
-            <DatePicker />
+            <DatePicker ref={date} />
           </ContainerForInput>
           <ContainerForInput>
             <PseudoLabel>Payment Terms</PseudoLabel>
-            <DropDown />
+            <DropDown setValue={setPaymentTerms} />
           </ContainerForInput>
         </ContentDropDownInputs>
 
@@ -118,6 +240,8 @@ const CreateInvoice = () => {
           label="Project Description"
           id="description"
           placeholder="e.g. Graphic Design Service"
+          ref={forms.description.ref}
+          {...forms.description}
         />
 
         <ItemListTitle>Item List</ItemListTitle>
@@ -164,7 +288,7 @@ const CreateInvoice = () => {
         <FormErrors></FormErrors>
 
         <ButtonsContainer>
-          <ButtonTheme type="button" custom={true}>
+          <ButtonTheme type="button" custom={true} onClick={close}>
             Discard
           </ButtonTheme>
           <div>
@@ -210,6 +334,7 @@ const Title = styled.h1`
 
 const BillTitle = styled.p`
   color: ${({ theme }) => theme.variantColors.primary.normal};
+  font-weight: 700;
 `;
 
 const AddressFlex = styled.div`

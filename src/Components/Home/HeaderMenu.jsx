@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Filter from "../Filter";
 import ButtonInvoice from "../Buttons/ButtonInvoice";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/modal";
 
 const HeaderMenu = () => {
   const [filterValues, setFilterValues] = useState(["draft"]);
   console.log(filterValues);
+  const dispatch = useDispatch();
+  const open = () => {
+    dispatch(openModal());
+  };
+
   return (
     <Container>
       <TitleContainer>
@@ -14,7 +21,7 @@ const HeaderMenu = () => {
       </TitleContainer>
       <Content>
         <Filter value={filterValues} setValue={setFilterValues} />
-        <ButtonInvoice>New Invoice</ButtonInvoice>
+        <ButtonInvoice onClick={open}>New Invoice</ButtonInvoice>
       </Content>
     </Container>
   );

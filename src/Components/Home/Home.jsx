@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CreateInvoice from "../CreateInvoice";
 import HeaderMenu from "./HeaderMenu";
 import ListOfInvoices from "./ListOfInvoices";
 
 const Home = () => {
+  const { modal } = useSelector((state) => state.modal);
+
   return (
     <Container>
       <HeaderMenu />
       <ListOfInvoices />
-      <CreateInvoice />
+      {modal && <CreateInvoice />}
     </Container>
   );
 };

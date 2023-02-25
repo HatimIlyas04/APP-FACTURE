@@ -4,42 +4,35 @@ import { ReactComponent as ArrowRight } from "../../assets/icon-arrow-right.svg"
 import { formatCurrency, formatDate } from "../../Helper/format";
 import InvoiceEmpty from "./InvoiceEmpty";
 import Status from "../Status";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ListOfInvoices = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("../data.json");
-      const json = await response.json();
-      setData(json);
-    };
-    fetchData();
-  }, []);
-  console.log(data);
+  const { invoices } = useSelector((state) => state.invoices);
 
   const format = (date) => date.split("-").reverse().join("-");
 
-  if (!data) return null;
-  if (data.length === 0) return <InvoiceEmpty />;
+  if (!invoices) return null;
+  if (invoices.length === 0) return <InvoiceEmpty />;
   return (
     <Container>
-      {data.map(({ id, paymentDue, total, status, clientName }) => {
+      {invoices.map(({ id, paymentDue, total, status, clientName }) => {
         return (
-          <InvoiceItem key={id}>
-            <Id>
-              {" "}
-              <span>#</span>
-              {id}
-            </Id>
-            <Due>Due {formatDate(format(paymentDue))}</Due>
-            <Name>{clientName}</Name>
-            <Total>{formatCurrency(total)}</Total>
-            <LastColumn>
-              <Status status={status} />
-              <ArrowRight />
-            </LastColumn>
-          </InvoiceItem>
+          <Link to={`invoice/${id}`} key={id}>
+            <InvoiceItem>
+              <Id>
+                <span>#</span>
+                {id}
+              </Id>
+              <Due>Due {formatDate(format(paymentDue))}</Due>
+              <Name>{clientName}</Name>
+              <Total>{formatCurrency(total)}</Total>
+              <LastColumn>
+                <Status status={status} />
+                <ArrowRight />
+              </LastColumn>
+            </InvoiceItem>
+          </Link>
         );
       })}
     </Container>
@@ -58,7 +51,7 @@ const InvoiceItem = styled.div`
   grid-template-columns: auto repeat(4, 1fr);
   justify-content: space-between;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   padding: 24px;
   background: ${({ theme }) => theme.bgSecundary};
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);

@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formatDate } from "../../Helper/format";
+import { getEnvoiceById } from "../../store/invoice";
 import ItemsInvoice from "./ItemsInvoice";
 
-const UniqueInvoiceData = ({ data }) => {
-  console.log(data);
-  const { senderAddress, clientAddress } = data;
+const UniqueInvoiceData = () => {
+  const { id } = useParams();
+  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id))
+  const senderAddress = data?.senderAddress;
+  const clientAddress = data?.clientAddress;
+  
+
+  useEffect(() => {
+    
+  }, [])
 
   const format = (date) => date.split("-").reverse().join("-");
 
+  if(!data) return null
   return (
     <Container>
       <SendContent>
@@ -30,7 +41,7 @@ const UniqueInvoiceData = ({ data }) => {
         <Dates>
           <div>
             <p>Invoice Date</p>
-            <TextBold>{formatDate(format(data.createdAt))}</TextBold>
+            <TextBold>{formatDate(data.createdAt)}</TextBold>
           </div>
           <div>
             <p>Payment Due</p>
@@ -94,7 +105,7 @@ const ClientContent = styled.div`
 
 const TextBold = styled.p`
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   color: ${({ theme }) => theme.title};
   margin-top: 12px;
 `;
