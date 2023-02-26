@@ -41,6 +41,7 @@ const InputStyle = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+    display: none;
   }
 `;
 

@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Filter from "../Filter";
 import ButtonInvoice from "../Buttons/ButtonInvoice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/modal";
+import { changeFilters } from "../../store/invoice";
 
 const HeaderMenu = () => {
-  const [filterValues, setFilterValues] = useState(["draft"]);
+  const { invoices } = useSelector(({invoices}) => invoices)
+  const [filterValues, setFilterValues] = useState([]);
   console.log(filterValues);
   const dispatch = useDispatch();
   const open = () => {
     dispatch(openModal());
   };
 
+  useEffect(() => {
+    dispatch(changeFilters(filterValues))
+  }, [filterValues])
+
   return (
     <Container>
       <TitleContainer>
         <h1>Invoices</h1>
-        <p>There are 7 total invoices</p>
+        <p>There are {invoices.length} total invoices</p>
       </TitleContainer>
       <Content>
         <Filter value={filterValues} setValue={setFilterValues} />

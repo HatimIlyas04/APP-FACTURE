@@ -6,6 +6,9 @@ const slice = createSlice({
   initialState: {
     data: {},
     invoices: getLocalStorage("invoices", []),
+    filters: {
+      status: [],
+    },
   },
   reducers: {
     addNewInvoice(state, action) {
@@ -15,23 +18,35 @@ const slice = createSlice({
       localStorage.setItem("invoices", json);
     },
     changeStatus(state, action) {
-      const index = state.invoices.findIndex(({ id }) => id === action.payload.id);
+      const index = state.invoices.findIndex(
+        ({ id }) => id === action.payload.id
+      );
       state.invoices[index].status = action.payload.status;
       const json = JSON.stringify(state.invoices);
       localStorage.setItem("invoices", json);
     },
     deleteInvoice(state, action) {
-      state.invoices = state.invoices.filter(({id}) => id !== action.payload)
+      state.invoices = state.invoices.filter(({ id }) => id !== action.payload);
       const json = JSON.stringify(state.invoices);
       localStorage.setItem("invoices", json);
-    }
+    },
+    changeFilters(state, action) {
+      state.filters.status = action.payload;
+    },
   },
 });
 
-export const { addNewInvoice, changeStatus, deleteInvoice } = slice.actions;
+export const { addNewInvoice, changeStatus, deleteInvoice, changeFilters } =
+  slice.actions;
 
 export const getEnvoiceById = ({ invoices }, idInvoice) => {
   return invoices.find(({ id }) => id === idInvoice);
+};
+
+export const getEnvoicesByStatus = ({ invoices, filters }) => {
+  return invoices.filter(
+    ({ status }) => !filters.status.length || filters.status.includes(status)
+  );
 };
 
 export default slice.reducer;

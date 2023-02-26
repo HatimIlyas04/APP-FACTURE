@@ -6,10 +6,12 @@ import UniqueInvoiceData from "./UniqueInvoiceData";
 import { Link, useParams } from "react-router-dom";
 import { getEnvoiceById } from "../../store/invoice";
 import { useSelector } from "react-redux";
+import ConfirmDelete from "./ConfirmDelete";
 
 const SingleInvoice = () => {
   const { id } = useParams();
-  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id))
+  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
+  const { modal } = useSelector((state) => state.modal);
 
   if (data === null) return null;
   return (
@@ -26,6 +28,7 @@ const SingleInvoice = () => {
           <UniqueInvoiceData />
         </Content>
       </Container>
+      {modal && <ConfirmDelete />}
     </MainBg>
   );
 };

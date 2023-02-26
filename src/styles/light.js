@@ -12,6 +12,7 @@ const light = {
   title: "#0C0E16",
   shadowPrimary: "0px 10px 20px rgba(72, 84, 159, 0.25)",
   shadowSecundary: "0px 10px 10px -10px rgba(72, 84, 159, 0.100397)",
+  shadowColor: '#bdacff',
 
   // Cores constantes (que não mudam)
   buttonText: "#FFFFFF",

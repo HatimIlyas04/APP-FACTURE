@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
   a:visited {
-    color: initial;
+    
   }
   img{
     max-width: 100%;

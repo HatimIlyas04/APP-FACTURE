@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import CreateInvoice from "../CreateInvoice";
+import CreateInvoice from "../CreateInvoice/CreateInvoice";
 import HeaderMenu from "./HeaderMenu";
 import ListOfInvoices from "./ListOfInvoices";
 
@@ -22,4 +22,5 @@ export default Home;
 const Container = styled.div`
   width: 100%;
   position: relative;
+  //height: 100vh;
 `;

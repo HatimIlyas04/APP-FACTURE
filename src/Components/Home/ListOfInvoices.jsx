@@ -6,9 +6,12 @@ import InvoiceEmpty from "./InvoiceEmpty";
 import Status from "../Status";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getEnvoicesByStatus } from "../../store/invoice";
 
 const ListOfInvoices = () => {
-  const { invoices } = useSelector((state) => state.invoices);
+  const invoices = useSelector(({ invoices }) =>
+    getEnvoicesByStatus(invoices)
+  );
 
   const format = (date) => date.split("-").reverse().join("-");
 
@@ -44,6 +47,9 @@ export default ListOfInvoices;
 const Container = styled.div`
   max-width: 730px;
   margin: 0px auto;
+  a {
+    color: ${({ theme }) => theme.title};
+  }
 `;
 
 const InvoiceItem = styled.div`

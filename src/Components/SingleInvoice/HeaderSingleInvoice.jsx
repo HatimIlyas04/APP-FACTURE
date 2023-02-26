@@ -9,24 +9,20 @@ import {
   deleteInvoice,
   getEnvoiceById,
 } from "../../store/invoice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { openModal } from "../../store/modal";
 
 const HeaderSingleInvoice = () => {
   const { id } = useParams();
   const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const markToPaid = () => {
     dispatch(changeStatus({ id, status: "paid" }));
   };
 
   const deleteThisInvoice = () => {
-    const confirm = window.confirm("Tem Certeza que deseja deletar");
-    if (confirm) {
-      dispatch(deleteInvoice(id));
-      navigate("/");
-    }
+    dispatch(openModal());
   };
 
   if (!data) return null;

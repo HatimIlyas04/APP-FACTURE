@@ -13,6 +13,7 @@ const dark = {
   title: "#FFFFFF",
   shadowPrimary: "0px 10px 20px rgba(0, 0, 0, 0.25)",
   shadowSecundary: "0px 10px 10px -10px rgba(72, 84, 159, 0.100397)",
+  shadowColor: '#000000',
 
   // Cores constantes (que não mudam)
   buttonText: "#FFFFFF",
