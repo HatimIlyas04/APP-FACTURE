@@ -14,6 +14,7 @@ function App() {
 
   
   useEffect(() => {
+    window.scrollTo(0, 0);
     document.body.style.overflow = modal ? "hidden" : "auto";
   }, [modal]);
 

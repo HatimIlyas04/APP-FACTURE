@@ -15,32 +15,40 @@ import ButtonTheme from "../Buttons/ButtonTheme";
 import ButtonDraft from "../Buttons/ButtonDraft";
 import useForm from "../../Hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewInvoice } from "../../store/invoice";
+import {
+  addNewInvoice,
+  editInvoice,
+  getEnvoiceById,
+} from "../../store/invoice";
 import { closeModal } from "../../store/modal";
 import ItemList from "./ItemList";
+import { useParams } from "react-router-dom";
 
 const CreateInvoice = () => {
+  const { id } = useParams();
+  const invoice = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const [itemsForm, setItemsForm] = useState([]);
   const [formsValue, setFormsValue] = useState({});
   const date = useRef(null);
   const [paymentTerms, setPaymentTerms] = useState(null);
   const [valid, setValid] = useState(false);
   const [isDraft, setIsDraft] = useState(false);
+  const [savedChanges, setSavedChanges] = useState(false);
   const forms = {
-    clientName: useForm(),
-    clientEmail: useForm(),
-    description: useForm(),
+    clientName: useForm(invoice ? invoice.clientName : ""),
+    clientEmail: useForm(invoice ? invoice.clientEmail : ""),
+    description: useForm(invoice ? invoice.description : ""),
     senderAddress: {
-      city: useForm(),
-      street: useForm(),
-      postCode: useForm(),
-      country: useForm(),
+      city: useForm(invoice ? invoice.senderAddress.city : ""),
+      street: useForm(invoice ? invoice.senderAddress.street : ""),
+      postCode: useForm(invoice ? invoice.senderAddress.postCode : ""),
+      country: useForm(invoice ? invoice.senderAddress.country : ""),
     },
     clientAddress: {
-      street: useForm(),
-      city: useForm(),
-      postCode: useForm(),
-      country: useForm(),
+      street: useForm(invoice ? invoice.clientAddress.street : ""),
+      city: useForm(invoice ? invoice.clientAddress.city : ""),
+      postCode: useForm(invoice ? invoice.clientAddress.postCode : ""),
+      country: useForm(invoice ? invoice.clientAddress.country : ""),
     },
   };
 
@@ -75,17 +83,14 @@ const CreateInvoice = () => {
         }));
       }
     }
-    verify && setValid((prev) => allValidate.every((valid) => valid));
+    if (id) {
+      setSavedChanges((prev) => allValidate.every((valid) => valid));
+    } else {
+      verify && setValid((prev) => allValidate.every((valid) => valid));
+    }
   };
 
   console.log(formsValue);
-
-  useEffect(() => {
-    if (valid) {
-      dispatch(addNewInvoice(formsValue));
-      dispatch(closeModal());
-    }
-  }, [formsValue]);
 
   const getDates = () => {
     let finalDate = date?.current?.value;
@@ -111,6 +116,13 @@ const CreateInvoice = () => {
     }));
   };
 
+  useEffect(() => {
+    if (valid) {
+      dispatch(addNewInvoice(formsValue));
+      dispatch(closeModal());
+    }
+  }, [formsValue]);
+
   const saveToDraft = () => {
     validateAllFormInputs(false);
     setFormsValue((values) => ({
@@ -119,25 +131,51 @@ const CreateInvoice = () => {
       status: "draft",
       ...getDates(),
     }));
-    setIsDraft((state) => state = true)
+    setIsDraft((state) => (state = true));
   };
 
   useEffect(() => {
-    if(isDraft) {
-    dispatch(addNewInvoice(formsValue));
-    dispatch(closeModal());
+    if (isDraft) {
+      dispatch(addNewInvoice(formsValue));
+      dispatch(closeModal());
     }
-  }, [isDraft])
+  }, [isDraft]);
 
   const close = () => {
     dispatch(closeModal());
   };
 
+  const saveEdit = () => {
+    validateAllFormInputs(true);
+    setFormsValue((values) => ({
+      ...values,
+      id: id,
+      status: "pending",
+      ...getDates(),
+    }));
+  };
+
+  useEffect(() => {
+    if (savedChanges) {
+      dispatch(editInvoice({ id: id, invoice: formsValue }));
+      dispatch(closeModal());
+    }
+  }, [savedChanges]);
+
   return (
     <Container>
       <Form onSubmit={sendInvoice}>
         <Content>
-          <Title>New Invoice</Title>
+          <Title>
+            {id ? (
+              <>
+                Edit <span>#</span>
+                {id}
+              </>
+            ) : (
+              "New Invoice"
+            )}
+          </Title>
 
           <BillTitle>Bill From</BillTitle>
           <Input
@@ -235,15 +273,30 @@ const CreateInvoice = () => {
         </Content>
 
         <ButtonsContainer>
-          <ButtonTheme type="button" custom={true} onClick={close}>
-            Discard
-          </ButtonTheme>
-          <div>
-            <ButtonDraft type="button" onClick={saveToDraft}>
-              Save as Draft
-            </ButtonDraft>
-            <ButtonDefault color="primary">Save & Send</ButtonDefault>
-          </div>
+          {!id && (
+            <>
+              {" "}
+              <ButtonTheme type="button" custom={true} onClick={close}>
+                Discard
+              </ButtonTheme>
+              <div>
+                <ButtonDraft type="button" onClick={saveToDraft}>
+                  Save as Draft
+                </ButtonDraft>
+                <ButtonDefault color="primary">Save & Send</ButtonDefault>
+              </div>
+            </>
+          )}
+          {id && (
+            <ButtonsContainerEdit>
+              <ButtonTheme type="button" onClick={close}>
+                Cancel
+              </ButtonTheme>
+              <ButtonDefault type="button" color="primary" onClick={saveEdit}>
+                Save Changes
+              </ButtonDefault>
+            </ButtonsContainerEdit>
+          )}
         </ButtonsContainer>
       </Form>
     </Container>
@@ -282,6 +335,9 @@ const Title = styled.h1`
   font-size: 30px;
   color: ${({ theme }) => theme.title};
   margin-bottom: 12px;
+  span {
+    color: ${({ theme }) => theme.textSecundary};
+  }
 `;
 
 const BillTitle = styled.p`
@@ -336,4 +392,10 @@ const ButtonsContainer = styled.div`
   div button:first-child {
     margin-right: 8px;
   }
+`;
+
+const ButtonsContainerEdit = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 `;

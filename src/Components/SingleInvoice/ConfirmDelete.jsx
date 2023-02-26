@@ -3,25 +3,23 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { deleteInvoice } from "../../store/invoice";
-import { closeModal } from "../../store/modal";
 import { AnimeScale } from "../../styles/animations";
 import ButtonDefault from "../Buttons/ButtonDefault";
 import ButtonTheme from "../Buttons/ButtonTheme";
 
-const ConfirmDelete = () => {
-  const { id } = useParams()
+const ConfirmDelete = ({ setShowDelete }) => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const cancelDelete = () => {
-    dispatch(closeModal())
-  }
+    setShowDelete((state) => (state = false));
+  };
 
   const deleteConfirmed = () => {
     dispatch(deleteInvoice(id));
-    dispatch(closeModal())
     navigate("/");
-  }
+  };
 
   return (
     <Container>
@@ -33,7 +31,9 @@ const ConfirmDelete = () => {
         </Paragraph>
         <ContainerButtons>
           <ButtonTheme onClick={cancelDelete}>Cancel</ButtonTheme>
-          <ButtonDefault color="delete" onClick={deleteConfirmed}>Delete</ButtonDefault>
+          <ButtonDefault color="delete" onClick={deleteConfirmed}>
+            Delete
+          </ButtonDefault>
         </ContainerButtons>
       </Content>
     </Container>

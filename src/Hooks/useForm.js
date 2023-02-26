@@ -11,7 +11,7 @@ const types = {
   },
 };
 
-const useForm = (type) => {
+const useForm = (defaultValue,type) => {
   const ref = React.useRef(null);
   const [error, setError] = React.useState(null);
 
@@ -32,6 +32,7 @@ const useForm = (type) => {
   return {
     ref,
     error,
+    defaultValue,
     validate,
   };
 };

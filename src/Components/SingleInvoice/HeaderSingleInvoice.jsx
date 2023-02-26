@@ -4,15 +4,11 @@ import Status from "../Status";
 import ButtonTheme from "../Buttons/ButtonTheme";
 import ButtonDefault from "../Buttons/ButtonDefault";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeStatus,
-  deleteInvoice,
-  getEnvoiceById,
-} from "../../store/invoice";
+import { changeStatus, getEnvoiceById } from "../../store/invoice";
 import { useParams } from "react-router-dom";
 import { openModal } from "../../store/modal";
 
-const HeaderSingleInvoice = () => {
+const HeaderSingleInvoice = ({ setShowDelete }) => {
   const { id } = useParams();
   const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const dispatch = useDispatch();
@@ -22,6 +18,10 @@ const HeaderSingleInvoice = () => {
   };
 
   const deleteThisInvoice = () => {
+    setShowDelete((state) => (state = true));
+  };
+
+  const editInvoice = () => {
     dispatch(openModal());
   };
 
@@ -33,7 +33,7 @@ const HeaderSingleInvoice = () => {
         <Status status={data.status} />
       </StatusContainer>
       <ButtonsContainer>
-        <ButtonTheme>Edit</ButtonTheme>
+        <ButtonTheme onClick={editInvoice}>Edit</ButtonTheme>
         <ButtonDefault color="delete" onClick={deleteThisInvoice}>
           Delete
         </ButtonDefault>

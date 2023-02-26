@@ -41,7 +41,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  padding-left: 92px;
   h1 {
     margin-bottom: 8px;
   }
