@@ -8,12 +8,14 @@ import { getEnvoiceById } from "../../store/invoice";
 import { useSelector } from "react-redux";
 import ConfirmDelete from "./ConfirmDelete";
 import CreateInvoice from "../CreateInvoice/CreateInvoice";
+import useMedia from "../../Hooks/useMedia";
+import ButtonsContainer from "./ButtonsContainer";
 
 const SingleInvoice = () => {
+  const mobile = useMedia("(max-width: 700px)");
   const { id } = useParams();
   const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const { modal } = useSelector((state) => state.modal);
-  const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
   if (data === null) return null;
@@ -26,13 +28,16 @@ const SingleInvoice = () => {
             Go Back
           </Back>
         </Link>
-        <HeaderSingleInvoice
-          setShowDelete={setShowDelete}
-        />
+        <HeaderSingleInvoice setShowDelete={setShowDelete} />
         <Content>
           <UniqueInvoiceData />
         </Content>
       </Container>
+      {mobile && (
+        <ButtonsInMobile>
+          <ButtonsContainer setShowDelete={setShowDelete} />
+        </ButtonsInMobile>
+      )}
       {showDelete && <ConfirmDelete setShowDelete={setShowDelete} />}
       {modal && <CreateInvoice />}
     </MainBg>
@@ -50,18 +55,22 @@ const Container = styled.main`
   margin: 0 auto;
   margin-top: 30px;
   padding-left: 92px;
+  @media (max-width: 800px) {
+    padding: 0px 18px;
+  }
 `;
 
 const Back = styled.button`
   margin-bottom: 32px;
-  display: flex;
-  gap: 20px;
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
   color: ${({ theme }) => theme.title};
   &:hover {
     color: ${({ theme }) => theme.textQuaternary};
+  }
+  svg {
+    margin-right: 20px;
   }
 `;
 
@@ -70,4 +79,11 @@ const Content = styled.div`
   box-shadow: ${({ theme }) => theme.shadowSecundary};
   border-radius: 8px;
   margin-top: 30px;
+`;
+
+const ButtonsInMobile = styled.div`
+  background: ${({ theme }) => theme.bgSecundary};
+  padding: 22px 12px;
+  display: flex;
+  justify-content: space-between;
 `;

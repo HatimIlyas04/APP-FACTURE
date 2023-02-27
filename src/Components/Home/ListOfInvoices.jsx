@@ -7,8 +7,10 @@ import Status from "../Status";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getEnvoicesByStatus } from "../../store/invoice";
+import useMedia from "../../Hooks/useMedia";
 
 const ListOfInvoices = () => {
+  const mobile = useMedia("(max-width: 700px)");
   const invoices = useSelector(({ invoices }) => getEnvoicesByStatus(invoices));
 
   const format = (date) => date.split("-").reverse().join("-");
@@ -30,7 +32,7 @@ const ListOfInvoices = () => {
               <Total>{formatCurrency(total)}</Total>
               <LastColumn>
                 <Status status={status} />
-                <ArrowRight />
+                {!mobile && <ArrowRight />}
               </LastColumn>
             </InvoiceItem>
           </Link>
@@ -45,13 +47,13 @@ export default ListOfInvoices;
 const Container = styled.div`
   max-width: 750px;
   margin: 0px auto;
-  padding: 0px 10px;
+  padding: 0px 18px;
   padding-left: 92px;
   a {
     color: ${({ theme }) => theme.title};
   }
   @media (max-width: 800px) {
-    padding-left: 10px;
+    padding-left: 18px;
   }
 `;
 
@@ -72,11 +74,18 @@ const InvoiceItem = styled.div`
   &:hover {
     border-color: ${({ theme }) => theme.variantColors.primary.normal};
   }
+  @media (max-width: 700px) {
+    grid-template-columns: 2fr;
+    gap: 8px;
+  }
 `;
 const Id = styled.p`
   font-weight: 700;
   span {
     color: ${({ theme }) => theme.variantColors.primary.normal};
+  }
+  @media (max-width: 700px) {
+    margin-bottom: 8px;
   }
 `;
 const Due = styled.p`
@@ -85,17 +94,35 @@ const Due = styled.p`
     theme.name === "light"
       ? theme.variantColors.primary.normal
       : theme.textPrimary};
+  @media (max-width: 700px) {
+    grid-column: 1;
+    grid-row: 2;
+  }
 `;
 const Name = styled.p`
   color: ${({ theme }) => theme.textTertiary};
+  @media (max-width: 700px) {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: flex-end;
+  }
 `;
 const Total = styled.p`
   font-size: 20px;
   font-weight: 700;
+  @media (max-width: 700px) {
+    grid-column: 1;
+    grid-row: 3;
+  }
 `;
 
 const LastColumn = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  @media (max-width: 700px) {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    justify-self: flex-end;
+  }
 `;

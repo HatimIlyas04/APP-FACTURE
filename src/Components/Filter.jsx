@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { ReactComponent as ArrowDown } from "../assets/icon-arrow-down.svg";
 import { ReactComponent as CheckIcon } from "../assets/icon-check.svg";
+import useMedia from "../Hooks/useMedia";
 import { AnimeDown } from "../styles/animations";
 
 const data = {
@@ -10,6 +11,7 @@ const data = {
 };
 
 const Filter = ({ value, setValue }) => {
+  const mobile = useMedia("(max-width: 700px)");
   const [dropdown, setDropdown] = useState(false);
   const dropDownRef = useRef(null);
   const handleChange = ({ target }) => {
@@ -37,7 +39,7 @@ const Filter = ({ value, setValue }) => {
   return (
     <Container ref={dropDownRef}>
       <LabelType onClick={() => setDropdown(!dropdown)} active={dropdown}>
-        Filter by {data.type} <ArrowDown />
+        Filter {!mobile && <>by {data.type}</>} <ArrowDown />
       </LabelType>
       {dropdown && (
         <Dropdown>
@@ -68,10 +70,12 @@ const Filter = ({ value, setValue }) => {
 export default Filter;
 
 const Container = styled.div`
-  width: 190px;
+  width: 100%;
   position: relative;
+  z-index: 100;
   display: flex;
   justify-content: center;
+  padding: 0px 20px;
 `;
 
 const LabelType = styled.p`
@@ -80,10 +84,10 @@ const LabelType = styled.p`
   gap: 12px;
   text-align: center;
   cursor: pointer;
-  svg  {
+  svg {
     transition: 0.4s ease-in-out;
-    transform: ${({active}) => active ? 'rotate(180deg)' : 'rotate(0deg)'};
-    fill: ${({active}) => active ? 'red' : 'green'};
+    transform: ${({ active }) => (active ? "rotate(180deg)" : "rotate(0deg)")};
+    fill: ${({ active }) => (active ? "red" : "green")};
   }
 `;
 
@@ -100,6 +104,10 @@ const Dropdown = styled.div`
   box-shadow: ${({ theme }) => theme.shadowPrimary};
   border-radius: 8px;
   animation: ${AnimeDown} 0.5s;
+  @media (max-width: 700px) {
+    padding: 12px;
+    min-width: 130px;
+  }
 `;
 
 const PseudoCheck = styled.div`

@@ -46,6 +46,7 @@ export const addDate = (date, value) => {
 
 export const formatCurrency = (value) => {
   console.log(value);
+  console.log(value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }))
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 };
 

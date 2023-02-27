@@ -1,29 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import Status from "../Status";
-import ButtonTheme from "../Buttons/ButtonTheme";
-import ButtonDefault from "../Buttons/ButtonDefault";
-import { useDispatch, useSelector } from "react-redux";
-import { changeStatus, getEnvoiceById } from "../../store/invoice";
+import { useSelector } from "react-redux";
+import { getEnvoiceById } from "../../store/invoice";
 import { useParams } from "react-router-dom";
-import { openModal } from "../../store/modal";
+import useMedia from "../../Hooks/useMedia";
+import ButtonsContainer from "./ButtonsContainer";
 
 const HeaderSingleInvoice = ({ setShowDelete }) => {
+  const mobile = useMedia("(max-width: 700px)");
   const { id } = useParams();
   const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
-  const dispatch = useDispatch();
-
-  const markToPaid = () => {
-    dispatch(changeStatus({ id, status: "paid" }));
-  };
-
-  const deleteThisInvoice = () => {
-    setShowDelete((state) => (state = true));
-  };
-
-  const editInvoice = () => {
-    dispatch(openModal());
-  };
 
   if (!data) return null;
   return (
@@ -32,15 +19,7 @@ const HeaderSingleInvoice = ({ setShowDelete }) => {
         <p>Status</p>
         <Status status={data.status} />
       </StatusContainer>
-      <ButtonsContainer>
-        <ButtonTheme onClick={editInvoice}>Edit</ButtonTheme>
-        <ButtonDefault color="delete" onClick={deleteThisInvoice}>
-          Delete
-        </ButtonDefault>
-        <ButtonDefault color="primary" onClick={markToPaid}>
-          Mark as Paid
-        </ButtonDefault>
-      </ButtonsContainer>
+      {!mobile && <ButtonsContainer setShowDelete={setShowDelete} />}
     </Container>
   );
 };
@@ -64,10 +43,8 @@ const StatusContainer = styled.div`
   & p {
     color: ${({ theme }) => theme.textPrimary};
   }
-`;
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  @media (max-width: 700px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 `;

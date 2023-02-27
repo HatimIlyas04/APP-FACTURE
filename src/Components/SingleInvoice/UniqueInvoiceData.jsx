@@ -3,23 +3,23 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { formatDate } from "../../Helper/format";
+import useMedia from "../../Hooks/useMedia";
 import { getEnvoiceById } from "../../store/invoice";
 import ItemsInvoice from "./ItemsInvoice";
+import ItemsInvoiceMobile from "./ItemsInvoiceMobile";
 
 const UniqueInvoiceData = () => {
+  const mobile = useMedia("(max-width: 700px)");
   const { id } = useParams();
-  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id))
+  const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const senderAddress = data?.senderAddress;
   const clientAddress = data?.clientAddress;
-  
 
-  useEffect(() => {
-    
-  }, [])
+  useEffect(() => {}, []);
 
   const format = (date) => date.split("-").reverse().join("-");
 
-  if(!data) return null
+  if (!data) return null;
   return (
     <Container>
       <SendContent>
@@ -63,7 +63,11 @@ const UniqueInvoiceData = () => {
           <TextBold>{data.clientEmail}</TextBold>
         </Email>
       </ClientContent>
-      <ItemsInvoice data={data} />
+      {!mobile ? (
+        <ItemsInvoice data={data} />
+      ) : (
+        <ItemsInvoiceMobile data={data} />
+      )}
     </Container>
   );
 };
@@ -73,14 +77,7 @@ export default UniqueInvoiceData;
 const Container = styled.div`
   color: ${({ theme }) =>
     theme.name === "light" ? theme.textSecundary : theme.textPrimary};
-    margin-bottom: 48px;
-`;
-
-const SendContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 48px 48px 0px 48px;
+  margin-bottom: 48px;
 `;
 
 const Id = styled.h2`
@@ -92,15 +89,47 @@ const Id = styled.h2`
   }
 `;
 
+const SendContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 48px 48px 0px 48px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: start;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 16px 16px 0px 16px;
+  }
+`;
+
 const SenderAddress = styled.div`
   text-align: end;
   line-height: 22px;
+  @media (max-width: 600px) {
+    text-align: start;
+  }
 `;
 
 const ClientContent = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 0px 48px;
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding: 0px 16px;
+  }
+`;
+
+const ClientAddress = styled.div`
+  div {
+    margin-top: 8px;
+    line-height: 22px;
+  }
+  @media (max-width: 700px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const TextBold = styled.p`
@@ -108,6 +137,9 @@ const TextBold = styled.p`
   font-size: 18px;
   color: ${({ theme }) => theme.title};
   margin-top: 12px;
+  @media (max-width: 700px) {
+    font-size: 16px;
+  }
 `;
 
 const Dates = styled.div`
@@ -116,11 +148,8 @@ const Dates = styled.div`
   gap: 40px;
 `;
 
-const ClientAddress = styled.div`
-  div {
-    margin-top: 8px;
-    line-height: 22px;
+const Email = styled.div`
+  @media (max-width: 700px) {
+    grid-column: 1 /-1;
   }
 `;
-
-const Email = styled.div``;

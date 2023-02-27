@@ -31,6 +31,10 @@ const Button = styled.button`
   svg path {
     fill: ${({ theme }) => theme.variantColors.primary.normal};
   }
+  @media (max-width: 700px) {
+    padding: 6px 12px 6px 6px;
+    gap: 8px;
+  }
 `;
 
 const IconBg = styled.div`

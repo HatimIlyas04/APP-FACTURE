@@ -321,7 +321,7 @@ const Container = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   @media (max-width: 800px) {
-    padding-top: 90px;
+    
   }
 `;
 

@@ -5,9 +5,11 @@ import ButtonInvoice from "../Buttons/ButtonInvoice";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/modal";
 import { changeFilters } from "../../store/invoice";
+import useMedia from "../../Hooks/useMedia";
 
 const HeaderMenu = () => {
-  const { invoices } = useSelector(({invoices}) => invoices)
+  const mobile = useMedia("(max-width: 700px)");
+  const { invoices } = useSelector(({ invoices }) => invoices);
   const [filterValues, setFilterValues] = useState([]);
   console.log(filterValues);
   const dispatch = useDispatch();
@@ -16,18 +18,22 @@ const HeaderMenu = () => {
   };
 
   useEffect(() => {
-    dispatch(changeFilters(filterValues))
-  }, [filterValues])
+    dispatch(changeFilters(filterValues));
+  }, [filterValues]);
 
   return (
     <Container>
       <TitleContainer>
         <h1>Invoices</h1>
-        <p>There are {invoices.length} total invoices</p>
+        {!mobile ? (
+          <p>There are {invoices.length} total invoices</p>
+        ) : (
+          <p>{invoices.length} invoices</p>
+        )}
       </TitleContainer>
       <Content>
         <Filter value={filterValues} setValue={setFilterValues} />
-        <ButtonInvoice onClick={open}>New Invoice</ButtonInvoice>
+        <ButtonInvoice onClick={open}>New {!mobile && "Invoice"}</ButtonInvoice>
       </Content>
     </Container>
   );
@@ -41,13 +47,13 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
+  padding: 0px 18px;
   padding-left: 92px;
   h1 {
     margin-bottom: 8px;
   }
   @media (max-width: 800px) {
-    padding-left: 10px;
+    padding-left: 18px;
   }
 `;
 

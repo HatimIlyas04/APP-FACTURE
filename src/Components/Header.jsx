@@ -42,6 +42,7 @@ const HeaderContainer = styled.header`
   z-index: 2000;
   @media (max-width: 800px) {
     padding: 0px;
+    position: initial;
   }
 `;
 
@@ -54,7 +55,7 @@ const Container = styled.div`
   border-bottom-right-radius: 20px;
   @media (max-width: 800px) {
     height: initial;
-    width: 100vw;
+    width: 100%;
     flex-direction: row;
     border-bottom-right-radius: 0px;
   }
@@ -134,7 +135,6 @@ const ContainerImg = styled.div`
     border-top: none;
     border-left: 1px solid ${({theme}) => theme.detailsGray};
     padding: 24px 32px;
-    margin-right: 12px;
     display: flex;
   }
   @media (max-width: 500px) {
