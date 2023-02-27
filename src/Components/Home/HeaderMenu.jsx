@@ -41,9 +41,13 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0px 10px;
   padding-left: 92px;
   h1 {
     margin-bottom: 8px;
+  }
+  @media (max-width: 800px) {
+    padding-left: 10px;
   }
 `;
 
@@ -60,4 +64,7 @@ const Content = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
+  @media (max-width: 800px) {
+    gap: 10px;
+  }
 `;

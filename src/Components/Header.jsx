@@ -40,6 +40,9 @@ const HeaderContainer = styled.header`
   padding-top: 20px;
   position: fixed;
   z-index: 2000;
+  @media (max-width: 800px) {
+    padding: 0px;
+  }
 `;
 
 const Container = styled.div`
@@ -49,6 +52,12 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   border-bottom-right-radius: 20px;
+  @media (max-width: 800px) {
+    height: initial;
+    width: 100vw;
+    flex-direction: row;
+    border-bottom-right-radius: 0px;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -72,18 +81,38 @@ const LogoContainer = styled.div`
   svg {
     position: relative;
     z-index: 1000;
+    overflow: visible;
+  }
+  @media (max-width: 800px) {
+    width: 72px;
+    top: 0px;
+    display: flex;
+    justify-content: center;
   }
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  @media (max-width: 800px) {
+    display: flex;
+    align-items: center;
+  }
+`;
 const ButtonTheme = styled.button`
   background: transparent;
-  width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 32px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-bottom: 22px;
   svg {
     animation: ${AnimeScale} 0.5s forwards;
+  }
+  @media (max-width: 800px) {
+    margin-right: 32px;
+    margin-bottom: 0px;
+  }
+  @media (max-width: 500px) {
+    margin-right: 20px;
   }
 `;
 
@@ -100,5 +129,15 @@ const ContainerImg = styled.div`
     border-radius: 50%;
     position: relative;
     left: -2px;
+  }
+  @media (max-width: 800px) {
+    border-top: none;
+    border-left: 1px solid ${({theme}) => theme.detailsGray};
+    padding: 24px 32px;
+    margin-right: 12px;
+    display: flex;
+  }
+  @media (max-width: 500px) {
+    padding: 20px 24px;
   }
 `;

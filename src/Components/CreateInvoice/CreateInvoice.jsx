@@ -23,8 +23,11 @@ import {
 import { closeModal } from "../../store/modal";
 import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
+import useMedia from "../../Hooks/useMedia";
+import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 
 const CreateInvoice = () => {
+  const mobile = useMedia("(max-width: 700px)");
   const { id } = useParams();
   const invoice = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const [itemsForm, setItemsForm] = useState([]);
@@ -165,18 +168,23 @@ const CreateInvoice = () => {
   return (
     <Container>
       <Form onSubmit={sendInvoice}>
+        {mobile && (
+          <Back onClick={close}>
+            <ArrowLeft />
+            Go Back
+          </Back>
+        )}
+        <Title>
+          {id ? (
+            <>
+              Edit <span>#</span>
+              {id}
+            </>
+          ) : (
+            "New Invoice"
+          )}
+        </Title>
         <Content>
-          <Title>
-            {id ? (
-              <>
-                Edit <span>#</span>
-                {id}
-              </>
-            ) : (
-              "New Invoice"
-            )}
-          </Title>
-
           <BillTitle>Bill From</BillTitle>
           <Input
             label="Street Address"
@@ -310,31 +318,68 @@ const Container = styled.div`
   z-index: 1000;
   width: 100%;
   top: 0px;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
+  @media (max-width: 800px) {
+    padding-top: 90px;
+  }
 `;
 
 const Form = styled.form`
   background: ${({ theme }) =>
     theme.name === "light" ? theme.bgSecundary : theme.bgPrimary};
-  width: clamp(650px, 50%, 800px);
+  width: clamp(700px, 50%, 800px);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding-left: 94px;
-  height: 100vh;
-  overflow-y: scroll;
+  padding: 32px 0px 0px 92px;
+  height: 100%;
+  @media (max-width: 800px) {
+    padding-left: 0px;
+  }
+  @media (max-width: 700px) {
+    width: 100%;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    //overflow-y: scroll;
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 46px 46px 0px 46px;
+  height: calc(100vh - 170px);
+  padding: 16px 16px 16px 32px;
+  margin-right: 24px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    //box-shadow: inset 0 0 5px grey;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.inputPrimary};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    //background: ${({ theme }) => theme.textPrimary};
+  }
+  @media (max-width: 800px) {
+    height: calc(100vh - 262px);
+  }
+  @media (max-width: 700px) {
+    height: calc(100vh - 300px);
+    //overflow-y: hidden;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 30px;
   color: ${({ theme }) => theme.title};
   margin-bottom: 12px;
+  padding-left: 32px;
   span {
     color: ${({ theme }) => theme.textSecundary};
   }
@@ -380,17 +425,21 @@ const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 26px 46px;
-  position: sticky;
+  padding: 26px 36px 26px 46px;
+  position: relative;
   z-index: 4000;
   bottom: 0px;
-  width: 100%;
+  left: -15px;
+  width: calc(100% + 15px);
   border-radius: 0px 20px 20px 0px;
   background: ${({ theme }) =>
     theme.name === "light" ? theme.bgSecundary : theme.bgPrimary};
-  box-shadow: 0px -10px 130px ${({ theme }) => theme.shadowColor};
+  box-shadow: 0 -10px 130px -15px ${({ theme }) => theme.shadowColor};
   div button:first-child {
     margin-right: 8px;
+  }
+  @media (max-width: 800px) {
+    //bottom: 90px;
   }
 `;
 
@@ -398,4 +447,18 @@ const ButtonsContainerEdit = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
+`;
+
+const Back = styled.button`
+  margin-bottom: 32px;
+  display: flex;
+  gap: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  padding-left: 32px;
+  color: ${({ theme }) => theme.title};
+  &:hover {
+    color: ${({ theme }) => theme.textQuaternary};
+  }
 `;

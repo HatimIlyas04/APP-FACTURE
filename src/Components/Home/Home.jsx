@@ -22,4 +22,7 @@ export default Home;
 const Container = styled.div`
   width: 100%;
   position: relative;
+  @media (max-width: 800px) {
+    padding-top: 90px;
+  }
 `;

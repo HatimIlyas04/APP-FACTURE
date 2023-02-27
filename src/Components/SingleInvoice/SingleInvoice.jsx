@@ -49,6 +49,7 @@ const Container = styled.main`
   max-width: 730px;
   margin: 0 auto;
   margin-top: 30px;
+  padding-left: 92px;
 `;
 
 const Back = styled.button`

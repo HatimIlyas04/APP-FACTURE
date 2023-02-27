@@ -41,4 +41,7 @@ const Container = styled.div`
   transition: 0.5s ease-in-out;
   min-height: 100vh;
   display: flex;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;

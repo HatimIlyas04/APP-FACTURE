@@ -9,9 +9,7 @@ import { Link } from "react-router-dom";
 import { getEnvoicesByStatus } from "../../store/invoice";
 
 const ListOfInvoices = () => {
-  const invoices = useSelector(({ invoices }) =>
-    getEnvoicesByStatus(invoices)
-  );
+  const invoices = useSelector(({ invoices }) => getEnvoicesByStatus(invoices));
 
   const format = (date) => date.split("-").reverse().join("-");
 
@@ -45,17 +43,21 @@ const ListOfInvoices = () => {
 export default ListOfInvoices;
 
 const Container = styled.div`
-  max-width: 730px;
+  max-width: 750px;
   margin: 0px auto;
+  padding: 0px 10px;
   padding-left: 92px;
   a {
     color: ${({ theme }) => theme.title};
+  }
+  @media (max-width: 800px) {
+    padding-left: 10px;
   }
 `;
 
 const InvoiceItem = styled.div`
   display: grid;
-  grid-template-columns: auto repeat(4, 1fr);
+  grid-template-columns: auto auto repeat(3, 1fr);
   justify-content: space-between;
   align-items: center;
   gap: 20px;
@@ -78,6 +80,7 @@ const Id = styled.p`
   }
 `;
 const Due = styled.p`
+  font-size: 14px;
   color: ${({ theme }) =>
     theme.name === "light"
       ? theme.variantColors.primary.normal
