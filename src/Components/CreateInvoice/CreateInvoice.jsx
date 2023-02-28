@@ -57,6 +57,17 @@ const CreateInvoice = () => {
     },
   };
 
+  console.log(invoice);
+  useEffect(() => {
+    if (id) {
+      const itemsInvoice = invoice.items.map((item) => ({
+        ...item,
+        disabled: true,
+      }));
+      setItemsForm((items) => [...itemsInvoice]);
+    }
+  }, []);
+
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
   console.log(store);
@@ -90,7 +101,7 @@ const CreateInvoice = () => {
     }
     validErrors(allValidate);
     if (id) {
-      console.log(id)
+      console.log(id);
       setSavedChanges((prev) => allValidate.every((valid) => valid));
     } else {
       verify && setValid((prev) => allValidate.every((valid) => valid));
@@ -188,13 +199,11 @@ const CreateInvoice = () => {
   };
 
   useEffect(() => {
-    console.log(formErrors.length)
     if (savedChanges && !formErrors.length) {
-      console.log('eeee')
       dispatch(editInvoice({ id: id, invoice: formsValue }));
       dispatch(closeModal());
     }
-  }, [savedChanges]);
+  });
 
   return (
     <Container>

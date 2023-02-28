@@ -34,6 +34,7 @@ const InputStyle = styled.input`
     ${({ theme, error }) =>
       !error ? theme.inputPrimary : theme.variantColors.delete.normal};
   border-radius: 4px;
+  color: ${({ theme }) => theme.title};
   outline: none;
   font-weight: 700;
   background: ${({ theme }) => theme.inputSecundary};

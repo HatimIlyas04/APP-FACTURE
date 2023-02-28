@@ -18,7 +18,6 @@ const UniqueInvoiceData = () => {
   useEffect(() => {}, []);
 
   const format = (date) => date.split("-").reverse().join("-");
-
   if (!data) return null;
   return (
     <Container>
@@ -41,7 +40,7 @@ const UniqueInvoiceData = () => {
         <Dates>
           <div>
             <p>Invoice Date</p>
-            <TextBold>{formatDate(data.createdAt)}</TextBold>
+            <TextBold>{formatDate(format(data.createdAt))}</TextBold>
           </div>
           <div>
             <p>Payment Due</p>

@@ -33,6 +33,14 @@ export const getCurrentDate = () => {
   return `${year}-${month}-${day}`;
 };
 
+export const getCurrentDateBR = () => {
+  const date = new Date();
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+};
+
 export const addDate = (date, value) => {
   const newDate = new Date(date);
   const finalDate = new Date(
@@ -45,8 +53,6 @@ export const addDate = (date, value) => {
 };
 
 export const formatCurrency = (value) => {
-  console.log(value);
-  console.log(value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }))
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 };
 

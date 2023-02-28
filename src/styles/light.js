@@ -24,6 +24,7 @@ const light = {
   inputPrimary: '#DFE3FA',
   inputSecundary: '#FFFFFF',
   inputTertiary: '#7E88C3',
+  inputQuaternary: '#DFE3FA',
 
   variantColors: {
     primary: {

@@ -9,6 +9,7 @@ import { AnimeScale } from "../../styles/animations";
 import useMedia from "../../Hooks/useMedia";
 
 const ItemList = ({ itemsForm, setItemsForm }) => {
+  console.log(itemsForm);
   const mobile = useMedia("(max-width: 700px)");
   const AddNewItem = () => {
     const idItem = idGenerator();
@@ -51,7 +52,7 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
         <p>Price</p>
         <p>Total</p>
       </ItemGridLabel>
-      {itemsForm.map(({ id, total }) => {
+      {itemsForm.map(({ id, name, quantity, price, total, disabled }) => {
         return (
           <ItemSolo key={id}>
             <FirstColumn>
@@ -60,6 +61,8 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
                 id={`${id}-1`}
                 data-type={"name"}
                 onChange={handleChangeItems}
+                value={name}
+                disabled={disabled ? true : false}
               />
             </FirstColumn>
             <InputCont>
@@ -70,6 +73,8 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
                 onChange={handleChangeItems}
                 type="number"
                 p="8"
+                value={quantity}
+                disabled={disabled ? true : false}
               />
             </InputCont>
             <InputCont>
@@ -79,6 +84,8 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
                 data-type={"price"}
                 onChange={handleChangeItems}
                 type="number"
+                value={price}
+                disabled={disabled ? true : false}
               />
             </InputCont>
             <span>

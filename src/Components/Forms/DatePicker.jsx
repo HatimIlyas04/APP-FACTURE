@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { ReactComponent as ArrowRight } from "../../assets/icon-arrow-right.svg";
 import { ReactComponent as Calendar } from "../../assets/icon-calendar.svg";
-import { formatDate, getCurrentDate } from "../../Helper/format";
+import { formatDate, getCurrentDate, getCurrentDateBR } from "../../Helper/format";
 import { AnimeDown } from "../../styles/animations";
 
 const allMonths = [
@@ -100,7 +100,9 @@ const DatePicker = forwardRef(({}, ref) => {
         <Input
           ref={ref}
           onChange={teste}
-          placeholder={formatDate(getCurrentDate())}
+          placeholder={formatDate(getCurrentDateBR())}
+          disabled
+          focus={modal}
         />
         <Calendar />
       </InputContainer>
@@ -161,17 +163,15 @@ const InputContainer = styled.div`
 const Input = styled.input`
   width: 100%;
   padding: 16px 40px 16px 16px;
-  border: 1px solid ${({ theme }) => theme.bgQuaternary};
+  border: 1px solid ${({ theme, focus }) => !focus ? theme.inputQuaternary : theme.variantColors.primary.normal};
   border-radius: 4px;
   font-family: "League Spartan", sans-serif;
   font-weight: 700;
+  cursor: pointer;
   background: ${({ theme }) =>
     theme.name === "light" ? theme.bgSecundary : theme.bgTertiary};
   color: ${({ theme }) => theme.title};
   outline: none;
-  &:focus {
-    border-color: ${({ theme }) => theme.variantColors.primary.normal};
-  }
 `;
 
 const CalendarModal = styled.div`
@@ -220,4 +220,8 @@ const Time = styled.time`
   color: ${({ theme }) => theme.title};
   padding: 2px;
   width: 100%;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    color: ${({ theme }) => theme.variantColors.primary.normal};
+  }
 `;

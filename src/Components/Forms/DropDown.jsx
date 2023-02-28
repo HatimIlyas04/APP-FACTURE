@@ -64,7 +64,7 @@ const DropDown = ({ setValue }) => {
 
   return (
     <Container ref={dropDownRef}>
-      <Select onClick={() => setModal(!modal)}>
+      <Select onClick={() => setModal(!modal)} focus={modal}>
         <span>{selectedValue.label}</span>
         <ArrowDown />
       </Select>
@@ -99,13 +99,12 @@ const Select = styled.div`
   align-items: center;
   padding: 16px;
   width: 100%;
-  border: 1px solid ${({ theme }) => theme.bgQuaternary};
+  cursor: pointer;
+  max-height: 46px;
+  border: 1px solid ${({ theme, focus }) => !focus ? theme.inputQuaternary : theme.variantColors.primary.normal};
   border-radius: 4px;
   background: ${({ theme }) =>
     theme.name === "light" ? theme.bgSecundary : theme.bgTertiary};
-  &:focus {
-    border-color: ${({ theme }) => theme.variantColors.primary.normal};
-  }
 `;
 
 const OptionsContainer = styled.div`

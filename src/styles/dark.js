@@ -25,6 +25,7 @@ const dark = {
   inputPrimary: '#1E2139',
   inputSecundary: '#252945',
   inputTertiary: '#DFE3FA',
+  inputQuaternary: '#252945',
 
   variantColors: {
     primary: {
