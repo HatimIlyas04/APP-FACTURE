@@ -48,9 +48,14 @@ export default SingleInvoice;
 
 const MainBg = styled.main`
   width: 100%;
+  position: relative;
+  height: 100vh;
+  @media (max-width: 800px) {
+    height: calc(100vh - 90px);
+  }
 `;
 
-const Container = styled.main`
+const Container = styled.div`
   max-width: 730px;
   margin: 0 auto;
   margin-top: 30px;

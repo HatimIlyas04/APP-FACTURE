@@ -5,6 +5,7 @@ import { ReactComponent as Delete } from "../../assets/icon-delete.svg";
 import { formatCurrencyNotSymbol } from "../../Helper/format";
 import { idGenerator } from "../../Helper/idGenerator";
 import Input from "../Forms/Input";
+import { AnimeScale } from "../../styles/animations";
 
 const ItemList = ({ itemsForm, setItemsForm }) => {
   const AddNewItem = () => {
@@ -97,6 +98,7 @@ const ItemSolo = styled.div`
     justify-content: end;
     gap: 32px;
   }
+  animation: ${AnimeScale} 0.5s forwards;
 `;
 
 const DeleteContainer = styled.div`

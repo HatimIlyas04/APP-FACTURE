@@ -52,6 +52,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0px 20px;
 `;
 
 const Content = styled.div`
@@ -60,12 +61,22 @@ const Content = styled.div`
   border-radius: 8px;
   animation: ${AnimeScale} 0.5s forwards;
   position: fixed;
+  @media (max-width: 600px) {
+    padding: 32px 24px;
+  }
 `;
 
 const Title = styled.h2`
   color: ${({ theme }) => theme.title};
   font-size: 32px;
   margin-bottom: 12px;
+  @media (max-width: 600px) {
+    font-size: 28px;
+  }
+  @media (max-width: 370px) {
+    text-align: center;
+    font-size: 24px;
+  }
 `;
 
 const Paragraph = styled.p`
@@ -73,6 +84,14 @@ const Paragraph = styled.p`
   margin-bottom: 12px;
   line-height: 22px;
   color: ${({ theme }) => theme.textPrimary};
+  @media (max-width: 600px) {
+    max-width: 32ch;
+  }
+  @media (max-width: 370px) {
+    max-width: 24ch;
+    text-align: center;
+    margin-bottom: 24px;
+  }
 `;
 
 const ContainerButtons = styled.div`

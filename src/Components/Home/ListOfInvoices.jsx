@@ -47,8 +47,7 @@ export default ListOfInvoices;
 const Container = styled.div`
   max-width: 750px;
   margin: 0px auto;
-  padding: 0px 18px;
-  padding-left: 92px;
+  padding: 0px 18px 20px 92px;
   a {
     color: ${({ theme }) => theme.title};
   }
@@ -65,7 +64,7 @@ const InvoiceItem = styled.div`
   gap: 20px;
   padding: 24px;
   background: ${({ theme }) => theme.bgSecundary};
-  box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+  box-shadow: 0px 2px 5px rgba(76, 78, 100, 0.22);
   border-radius: 8px;
   margin-bottom: 16px;
   cursor: pointer;

@@ -25,6 +25,7 @@ import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
 import useMedia from "../../Hooks/useMedia";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
+import { AnimeDownBig, AnimeLeft } from "../../styles/animations";
 
 const CreateInvoice = () => {
   const mobile = useMedia("(max-width: 700px)");
@@ -36,6 +37,7 @@ const CreateInvoice = () => {
   const [paymentTerms, setPaymentTerms] = useState(null);
   const [valid, setValid] = useState(false);
   const [isDraft, setIsDraft] = useState(false);
+  const [formErrors, setFormErros] = useState([]);
   const [savedChanges, setSavedChanges] = useState(false);
   const forms = {
     clientName: useForm(invoice ? invoice.clientName : ""),
@@ -86,6 +88,7 @@ const CreateInvoice = () => {
         }));
       }
     }
+    validErrors(allValidate);
     if (id) {
       setSavedChanges((prev) => allValidate.every((valid) => valid));
     } else {
@@ -94,6 +97,7 @@ const CreateInvoice = () => {
   };
 
   console.log(formsValue);
+  console.log(itemsForm);
 
   const getDates = () => {
     let finalDate = date?.current?.value;
@@ -108,6 +112,30 @@ const CreateInvoice = () => {
     };
   };
 
+  const setErrors = (test, errorText) => {
+    if (test) {
+      setFormErros((errors) => {
+        if (!formErrors.includes(errorText)) {
+          return [...errors, errorText];
+        } else return errors;
+      });
+    } else {
+      setFormErros((errors) => {
+        const index = errors.indexOf(errorText);
+        const newErrors = errors.filter((error, i) => index !== i);
+        return newErrors;
+      });
+    }
+  };
+
+  const validErrors = (allValidate) => {
+    const errorItem = "An item must be added";
+    const inputsError = "All fields must be added";
+    const validValue = allValidate.every((valid) => valid);
+    setErrors(itemsForm.length === 0, errorItem);
+    setErrors(!validValue, inputsError);
+  };
+
   const sendInvoice = (e) => {
     e.preventDefault();
     validateAllFormInputs(true);
@@ -120,7 +148,7 @@ const CreateInvoice = () => {
   };
 
   useEffect(() => {
-    if (valid) {
+    if (valid && !formErrors.length) {
       dispatch(addNewInvoice(formsValue));
       dispatch(closeModal());
     }
@@ -138,7 +166,7 @@ const CreateInvoice = () => {
   };
 
   useEffect(() => {
-    if (isDraft) {
+    if (isDraft && !formErrors.length) {
       dispatch(addNewInvoice(formsValue));
       dispatch(closeModal());
     }
@@ -168,23 +196,23 @@ const CreateInvoice = () => {
   return (
     <Container>
       <Form onSubmit={sendInvoice}>
-        {mobile && (
-          <Back onClick={close}>
-            <ArrowLeft />
-            Go Back
-          </Back>
-        )}
-        <Title>
-          {id ? (
-            <>
-              Edit <span>#</span>
-              {id}
-            </>
-          ) : (
-            "New Invoice"
-          )}
-        </Title>
         <Content>
+          {mobile && (
+            <Back onClick={close}>
+              <ArrowLeft />
+              Go Back
+            </Back>
+          )}
+          <Title>
+            {id ? (
+              <>
+                Edit <span>#</span>
+                {id}
+              </>
+            ) : (
+              "New Invoice"
+            )}
+          </Title>
           <BillTitle>Bill From</BillTitle>
           <Input
             label="Street Address"
@@ -205,12 +233,14 @@ const CreateInvoice = () => {
               ref={forms.senderAddress.postCode.ref}
               {...forms.senderAddress.postCode}
             />
-            <Input
-              label="Country"
-              id="sendCountry"
-              ref={forms.senderAddress.country.ref}
-              {...forms.senderAddress.country}
-            />
+            <Country>
+              <Input
+                label="Country"
+                id="sendCountry"
+                ref={forms.senderAddress.country.ref}
+                {...forms.senderAddress.country}
+              />
+            </Country>
           </AddressFlex>
 
           <BillTitle>Bill To</BillTitle>
@@ -247,12 +277,14 @@ const CreateInvoice = () => {
               ref={forms.clientAddress.postCode.ref}
               {...forms.clientAddress.postCode}
             />
-            <Input
-              label="Country"
-              id="clientCountry"
-              ref={forms.clientAddress.country.ref}
-              {...forms.clientAddress.country}
-            />
+            <Country>
+              <Input
+                label="Country"
+                id="clientCountry"
+                ref={forms.clientAddress.country.ref}
+                {...forms.clientAddress.country}
+              />
+            </Country>
           </AddressFlex>
 
           <ContentDropDownInputs>
@@ -277,9 +309,12 @@ const CreateInvoice = () => {
           <ItemListTitle>Item List</ItemListTitle>
           <ItemList itemsForm={itemsForm} setItemsForm={setItemsForm} />
 
-          <FormErrors></FormErrors>
+          <FormErrors>
+            {formErrors.map((error) => (
+              <Error key={error}>- {error}</Error>
+            ))}
+          </FormErrors>
         </Content>
-
         <ButtonsContainer>
           {!id && (
             <>
@@ -318,11 +353,8 @@ const Container = styled.div`
   z-index: 1000;
   width: 100%;
   top: 0px;
-  height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  @media (max-width: 800px) {
-    
-  }
+  height: 100vh;
 `;
 
 const Form = styled.form`
@@ -333,6 +365,8 @@ const Form = styled.form`
   border-bottom-right-radius: 20px;
   padding: 32px 0px 0px 92px;
   height: 100%;
+  position: relative;
+  animation: ${AnimeLeft} 0.5s forwards;
   @media (max-width: 800px) {
     padding-left: 0px;
   }
@@ -340,7 +374,7 @@ const Form = styled.form`
     width: 100%;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    //overflow-y: scroll;
+    animation: ${AnimeDownBig} 0.5s forwards;
   }
 `;
 
@@ -348,7 +382,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  height: calc(100vh - 170px);
+  height: calc(100% - 102px);
   padding: 16px 16px 16px 32px;
   margin-right: 24px;
   overflow-y: scroll;
@@ -356,7 +390,6 @@ const Content = styled.div`
     width: 8px;
   }
   &::-webkit-scrollbar-track {
-    //box-shadow: inset 0 0 5px grey;
     border-radius: 4px;
   }
   &::-webkit-scrollbar-thumb {
@@ -367,11 +400,7 @@ const Content = styled.div`
     //background: ${({ theme }) => theme.textPrimary};
   }
   @media (max-width: 800px) {
-    height: calc(100vh - 262px);
-  }
-  @media (max-width: 700px) {
-    height: calc(100vh - 300px);
-    //overflow-y: hidden;
+    padding-bottom: 90px;
   }
 `;
 
@@ -379,7 +408,6 @@ const Title = styled.h1`
   font-size: 30px;
   color: ${({ theme }) => theme.title};
   margin-bottom: 12px;
-  padding-left: 32px;
   span {
     color: ${({ theme }) => theme.textSecundary};
   }
@@ -391,19 +419,30 @@ const BillTitle = styled.p`
 `;
 
 const AddressFlex = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 24px;
   margin-bottom: 24px;
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const ContentDropDownInputs = styled.div`
   display: flex;
   gap: 20px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 const ContainerForInput = styled.div`
   width: 100%;
+`;
+
+const Country = styled.div`
+  grid-column: 1 / -1;
 `;
 
 const PseudoLabel = styled.p`
@@ -417,16 +456,17 @@ const ItemListTitle = styled.p`
   color: ${({ theme }) => theme.constPrimary};
   font-size: 22px;
   font-weight: 700;
+  @media (max-width: 700px) {
+    margin-top: 32px;
+  }
 `;
-
-const FormErrors = styled.div``;
 
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 26px 36px 26px 46px;
-  position: relative;
+  padding: 26px 36px 26px 140px;
+  position: absolute;
   z-index: 4000;
   bottom: 0px;
   left: -15px;
@@ -439,7 +479,26 @@ const ButtonsContainer = styled.div`
     margin-right: 8px;
   }
   @media (max-width: 800px) {
-    //bottom: 90px;
+    padding: 24px;
+    bottom: 90px;
+  }
+  @media (max-width: 700px) {
+    padding: 24px;
+    border-radius: 0px;
+    bottom: 90px;
+  }
+  @media (max-width: 410px) {
+    padding: 32px 24px;
+    button {
+      font-size: 12px;
+      padding: 10px 18px;
+    }
+  }
+  @media (max-width: 350px) {
+    button {
+      font-size: 10px;
+      padding: 8px 14px;
+    }
   }
 `;
 
@@ -451,14 +510,26 @@ const ButtonsContainerEdit = styled.div`
 
 const Back = styled.button`
   margin-bottom: 32px;
-  display: flex;
-  gap: 20px;
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
-  padding-left: 32px;
+  margin-right: auto;
   color: ${({ theme }) => theme.title};
   &:hover {
     color: ${({ theme }) => theme.textQuaternary};
   }
+  svg {
+    margin-right: 20px;
+  }
+`;
+
+const FormErrors = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+`;
+
+const Error = styled.li`
+  color: ${({ theme }) => theme.variantColors.delete.normal};
 `;

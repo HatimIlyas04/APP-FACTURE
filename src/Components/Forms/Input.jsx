@@ -1,13 +1,16 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
+import useMedia from "../../Hooks/useMedia";
 
 const Input = forwardRef(
   ({ label, type = "text", id, p = "16", error, ...props }, ref) => {
+    const mobile = useMedia("(max-width: 450px)");
+
     return (
       <div>
         <Label htmlFor={id} error={error}>
           {label}
-          <span> {error && error}</span>
+          {!mobile && <span> {error && error}</span>}
         </Label>
         <InputStyle
           type={type}

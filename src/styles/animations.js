@@ -11,11 +11,34 @@ export const AnimeDown = keyframes`
   }
 `;
 
+export const AnimeLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(-90px, 0px, 0px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+  }
+`;
+
 export const AnimeScale = keyframes`
   from {
     transform: scale(0.4);
   }
   to {
     transform: scale(1);
+  }
+`;
+
+
+export const AnimeDownBig = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0px, -90px, 0px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
   }
 `;
