@@ -402,7 +402,8 @@ const Content = styled.div`
     padding-bottom: 90px;
   }
   @media (max-width: 700px) {
-    margin-right: 12px;
+    margin-right: 8px;
+    padding: 16px 8px 16px 18px;
   }
 `;
 
@@ -426,7 +427,7 @@ const AddressFlex = styled.div`
   align-items: center;
   gap: 24px;
   margin-bottom: 24px;
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     grid-template-columns: 1fr 1fr;
   }
 `;

@@ -6,6 +6,7 @@ import { getEnvoiceById } from "../../store/invoice";
 import { useParams } from "react-router-dom";
 import useMedia from "../../Hooks/useMedia";
 import ButtonsContainer from "./ButtonsContainer";
+import { AnimeLeft } from "../../styles/animations";
 
 const HeaderSingleInvoice = ({ setShowDelete }) => {
   const mobile = useMedia("(max-width: 700px)");
@@ -32,6 +33,7 @@ const Container = styled.div`
   align-items: center;
   padding: 20px 32px;
   border-radius: 8px;
+  animation: ${AnimeLeft} 0.7s forwards;
   background: ${({ theme }) => theme.bgSecundary};
   box-shadow: ${({ theme }) => theme.shadowSecundary};
 `;

@@ -10,6 +10,7 @@ import ConfirmDelete from "./ConfirmDelete";
 import CreateInvoice from "../CreateInvoice/CreateInvoice";
 import useMedia from "../../Hooks/useMedia";
 import ButtonsContainer from "./ButtonsContainer";
+import { AnimeLeft } from "../../styles/animations";
 
 const SingleInvoice = () => {
   const mobile = useMedia("(max-width: 700px)");
@@ -70,6 +71,7 @@ const Back = styled.button`
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
+  animation: ${AnimeLeft} 0.5s forwards;
   color: ${({ theme }) => theme.title};
   &:hover {
     color: ${({ theme }) => theme.textQuaternary};
@@ -84,6 +86,7 @@ const Content = styled.div`
   box-shadow: ${({ theme }) => theme.shadowSecundary};
   border-radius: 8px;
   margin-top: 30px;
+  animation: ${AnimeLeft} 1s forwards;
 `;
 
 const ButtonsInMobile = styled.div`
