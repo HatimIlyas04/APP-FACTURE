@@ -14,6 +14,7 @@ const Button = styled.button`
   border-radius: 24px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  white-space: nowrap;
   &:hover {
     background: ${({ theme }) =>
       theme.name === "light" ? theme.bgQuaternary : theme.textPrimary};

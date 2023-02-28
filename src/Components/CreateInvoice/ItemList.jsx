@@ -6,8 +6,10 @@ import { formatCurrencyNotSymbol } from "../../Helper/format";
 import { idGenerator } from "../../Helper/idGenerator";
 import Input from "../Forms/Input";
 import { AnimeScale } from "../../styles/animations";
+import useMedia from "../../Hooks/useMedia";
 
 const ItemList = ({ itemsForm, setItemsForm }) => {
+  const mobile = useMedia("(max-width: 700px)");
   const AddNewItem = () => {
     const idItem = idGenerator();
     setItemsForm((items) => [
@@ -52,26 +54,38 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
       {itemsForm.map(({ id, total }) => {
         return (
           <ItemSolo key={id}>
-            <Input
-              id={`${id}-1`}
-              data-type={"name"}
-              onChange={handleChangeItems}
-            />
-            <Input
-              id={`${id}-2`}
-              data-type={"quantity"}
-              onChange={handleChangeItems}
-              type="number"
-              p="8"
-            />
-            <Input
-              id={`${id}-3`}
-              data-type={"price"}
-              onChange={handleChangeItems}
-              type="number"
-            />
+            <FirstColumn>
+              {mobile && <Label>Item Name</Label>}
+              <Input
+                id={`${id}-1`}
+                data-type={"name"}
+                onChange={handleChangeItems}
+              />
+            </FirstColumn>
+            <inputCont>
+              {mobile && <Label>Qty.</Label>}
+              <Input
+                id={`${id}-2`}
+                data-type={"quantity"}
+                onChange={handleChangeItems}
+                type="number"
+                p="8"
+              />
+            </inputCont>
+            <inputCont>
+              {mobile && <Label>Price</Label>}
+              <Input
+                id={`${id}-3`}
+                data-type={"price"}
+                onChange={handleChangeItems}
+                type="number"
+              />
+            </inputCont>
             <span>
-              <p>{total}</p>
+              <inputCont>
+                {mobile && <Label>Total</Label>}
+                <Total>{total}</Total>
+              </inputCont>
               <DeleteContainer data-id={id} onClick={removeItem}>
                 <Delete />
               </DeleteContainer>
@@ -99,10 +113,20 @@ const ItemSolo = styled.div`
     gap: 32px;
   }
   animation: ${AnimeScale} 0.5s forwards;
+  @media (max-width: 700px) {
+    grid-template-columns: 3fr 5fr 5fr;
+    span {
+      justify-content: space-between;
+      height: 100%;
+    }
+  }
 `;
 
 const DeleteContainer = styled.div`
   cursor: pointer;
+  @media (max-width: 700px) {
+    margin-top: 40px;
+  }
 `;
 
 const ItemGridLabel = styled.div`
@@ -112,4 +136,28 @@ const ItemGridLabel = styled.div`
   gap: 16px;
   color: ${({ theme }) =>
     theme.name === "light" ? theme.textSecundary : theme.textPrimary};
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
+
+const Label = styled.p`
+  color: ${({ theme }) =>
+    theme.name === "light" ? theme.textSecundary : theme.textPrimary};
+`;
+
+const FirstColumn = styled.div`
+  @media (max-width: 700px) {
+    grid-column: 1 / -1;
+  }
+`;
+
+const GridInMobile = styled.div``;
+
+const inputCont = styled.div``;
+
+const Total = styled.div`
+  @media (max-width: 700px) {
+    margin-top: 28px;
+  }
 `;

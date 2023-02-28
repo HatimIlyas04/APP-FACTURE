@@ -317,8 +317,7 @@ const CreateInvoice = () => {
         </Content>
         <ButtonsContainer>
           {!id && (
-            <>
-              {" "}
+            <ButtonsContainerCreate>
               <ButtonTheme type="button" custom={true} onClick={close}>
                 Discard
               </ButtonTheme>
@@ -328,7 +327,7 @@ const CreateInvoice = () => {
                 </ButtonDraft>
                 <ButtonDefault color="primary">Save & Send</ButtonDefault>
               </div>
-            </>
+            </ButtonsContainerCreate>
           )}
           {id && (
             <ButtonsContainerEdit>
@@ -363,7 +362,7 @@ const Form = styled.form`
   width: clamp(700px, 50%, 800px);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding: 32px 0px 0px 92px;
+  padding: 10px 0px 0px 92px;
   height: 100%;
   position: relative;
   animation: ${AnimeLeft} 0.5s forwards;
@@ -401,6 +400,9 @@ const Content = styled.div`
   }
   @media (max-width: 800px) {
     padding-bottom: 90px;
+  }
+  @media (max-width: 700px) {
+    margin-right: 12px;
   }
 `;
 
@@ -462,9 +464,6 @@ const ItemListTitle = styled.p`
 `;
 
 const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 26px 36px 26px 140px;
   position: absolute;
   z-index: 4000;
@@ -489,16 +488,6 @@ const ButtonsContainer = styled.div`
   }
   @media (max-width: 410px) {
     padding: 32px 24px;
-    button {
-      font-size: 12px;
-      padding: 10px 18px;
-    }
-  }
-  @media (max-width: 350px) {
-    button {
-      font-size: 10px;
-      padding: 8px 14px;
-    }
   }
 `;
 
@@ -506,6 +495,24 @@ const ButtonsContainerEdit = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
+`;
+
+const ButtonsContainerCreate = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 420px) {
+    button {
+      font-size: 12px;
+      padding: 10px 18px;
+    }
+  }
+  @media (max-width: 360px) {
+    button {
+      font-size: 10px;
+      padding: 8px 14px;
+    }
+  }
 `;
 
 const Back = styled.button`
