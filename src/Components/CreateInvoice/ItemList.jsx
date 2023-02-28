@@ -62,7 +62,7 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
                 onChange={handleChangeItems}
               />
             </FirstColumn>
-            <inputCont>
+            <InputCont>
               {mobile && <Label>Qty.</Label>}
               <Input
                 id={`${id}-2`}
@@ -71,8 +71,8 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
                 type="number"
                 p="8"
               />
-            </inputCont>
-            <inputCont>
+            </InputCont>
+            <InputCont>
               {mobile && <Label>Price</Label>}
               <Input
                 id={`${id}-3`}
@@ -80,12 +80,12 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
                 onChange={handleChangeItems}
                 type="number"
               />
-            </inputCont>
+            </InputCont>
             <span>
-              <inputCont>
+              <InputCont>
                 {mobile && <Label>Total</Label>}
                 <Total>{total}</Total>
-              </inputCont>
+              </InputCont>
               <DeleteContainer data-id={id} onClick={removeItem}>
                 <Delete />
               </DeleteContainer>
@@ -154,7 +154,7 @@ const FirstColumn = styled.div`
 
 const GridInMobile = styled.div``;
 
-const inputCont = styled.div``;
+const InputCont = styled.div``;
 
 const Total = styled.div`
   @media (max-width: 700px) {

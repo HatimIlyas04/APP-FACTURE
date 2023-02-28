@@ -7,16 +7,20 @@ import Header from "./Components/Header";
 import Home from "./Components/Home/Home";
 import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";
 import { useSelector } from "react-redux";
+import useMedia from "./Hooks/useMedia";
 
 function App() {
   const [theme, setTheme] = useState(light);
   const { modal } = useSelector((state) => state.modal);
+  const mobile = useMedia("(max-width: 700px)");
 
   
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.body.style.overflow = modal ? "hidden" : "auto";
-  }, [modal]);
+    if(!mobile) {
+      document.body.style.overflow = modal ? "hidden" : "auto"; 
+    }
+  }, [modal, mobile]);
 
   return (
     <BrowserRouter>

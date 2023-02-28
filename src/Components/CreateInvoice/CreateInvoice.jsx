@@ -90,6 +90,7 @@ const CreateInvoice = () => {
     }
     validErrors(allValidate);
     if (id) {
+      console.log(id)
       setSavedChanges((prev) => allValidate.every((valid) => valid));
     } else {
       verify && setValid((prev) => allValidate.every((valid) => valid));
@@ -166,7 +167,7 @@ const CreateInvoice = () => {
   };
 
   useEffect(() => {
-    if (isDraft && !formErrors.length) {
+    if (isDraft) {
       dispatch(addNewInvoice(formsValue));
       dispatch(closeModal());
     }
@@ -187,7 +188,9 @@ const CreateInvoice = () => {
   };
 
   useEffect(() => {
-    if (savedChanges) {
+    console.log(formErrors.length)
+    if (savedChanges && !formErrors.length) {
+      console.log('eeee')
       dispatch(editInvoice({ id: id, invoice: formsValue }));
       dispatch(closeModal());
     }
@@ -354,6 +357,9 @@ const Container = styled.div`
   top: 0px;
   background: rgba(0, 0, 0, 0.5);
   height: 100vh;
+  @media (max-width: 700px) {
+    height: 100%;
+  }
 `;
 
 const Form = styled.form`
@@ -371,6 +377,7 @@ const Form = styled.form`
   }
   @media (max-width: 700px) {
     width: 100%;
+    height: initial;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     animation: ${AnimeDownBig} 0.5s forwards;
@@ -404,6 +411,8 @@ const Content = styled.div`
   @media (max-width: 700px) {
     margin-right: 8px;
     padding: 16px 8px 16px 18px;
+    overflow-y: hidden;
+    height: 100%;
   }
 `;
 
@@ -483,9 +492,11 @@ const ButtonsContainer = styled.div`
     bottom: 90px;
   }
   @media (max-width: 700px) {
-    padding: 24px;
     border-radius: 0px;
-    bottom: 90px;
+    left: 0px;
+    width: 100%;
+    position: static;
+    box-shadow: none;
   }
   @media (max-width: 410px) {
     padding: 32px 24px;
@@ -502,13 +513,13 @@ const ButtonsContainerCreate = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 420px) {
+  @media (max-width: 430px) {
     button {
       font-size: 12px;
       padding: 10px 18px;
     }
   }
-  @media (max-width: 360px) {
+  @media (max-width: 375px) {
     button {
       font-size: 10px;
       padding: 8px 14px;
