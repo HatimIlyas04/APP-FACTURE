@@ -8,6 +8,7 @@ import Home from "./Components/Home/Home";
 import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";
 import { useSelector } from "react-redux";
 import useMedia from "./Hooks/useMedia";
+import Graphic from "./Components/Graphic/Graphic";
 
 function App() {
   const [theme, setTheme] = useState(light);
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="invoice/:id" element={<SingleInvoice />} />
+            <Route path="graphic" element={<Graphic />} />
           </Routes>
         </Container>
       </ThemeProvider>

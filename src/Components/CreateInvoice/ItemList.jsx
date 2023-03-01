@@ -131,8 +131,13 @@ const ItemSolo = styled.div`
 
 const DeleteContainer = styled.div`
   cursor: pointer;
+  margin-top: 14px;
   @media (max-width: 700px) {
     margin-top: 40px;
+  }
+  svg path:hover {
+    fill: ${({theme}) => theme.variantColors.delete.normal};
+    transition: 0.2s ease-in-out;
   }
 `;
 
@@ -164,6 +169,7 @@ const GridInMobile = styled.div``;
 const InputCont = styled.div``;
 
 const Total = styled.div`
+  margin-top: 16px;
   @media (max-width: 700px) {
     margin-top: 28px;
   }

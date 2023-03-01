@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getEnvoicesByStatus } from "../../store/invoice";
 import useMedia from "../../Hooks/useMedia";
+import { AnimeLeft } from "../../styles/animations";
 
 const ListOfInvoices = () => {
   const mobile = useMedia("(max-width: 700px)");
@@ -70,6 +71,7 @@ const InvoiceItem = styled.div`
   cursor: pointer;
   border: 1px solid transparent;
   transition: 0.2s ease-in-out;
+  animation: ${AnimeLeft} 0.5s forwards;
   &:hover {
     border-color: ${({ theme }) => theme.variantColors.primary.normal};
   }

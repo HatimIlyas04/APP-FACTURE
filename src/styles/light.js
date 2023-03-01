@@ -48,6 +48,10 @@ const light = {
       hover: "rgba(55, 59, 83, 0.1)",
     },
   },
+
+  paid: "#33D69F",
+  pending: 'rgba(255, 143, 0, 0.8)',
+  draft: '#373B53'
 };
 
 export default light;

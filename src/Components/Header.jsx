@@ -7,6 +7,7 @@ import avatar from "../assets/image-avatar.jpg";
 import light from "../styles/light";
 import dark from "../styles/dark";
 import { AnimeScale } from "../styles/animations";
+import { Link } from "react-router-dom";
 
 const Header = ({ theme, setTheme }) => {
   const changeTheme = () => {
@@ -18,10 +19,23 @@ const Header = ({ theme, setTheme }) => {
   return (
     <HeaderContainer>
       <Container>
-        <LogoContainer>
-          <Logo />
-        </LogoContainer>
+        <Link to="/">
+          <LogoContainer>
+            <Logo />
+          </LogoContainer>
+        </Link>
         <Content>
+          <Link to="graphic">
+            <span
+              style={{
+                display: "inline-block",
+                color: "#FFF",
+                margin: "0px 0px 20px 17px",
+              }}
+            >
+              Graphic
+            </span>
+          </Link>
           <ButtonTheme onClick={changeTheme}>
             {theme.name === "light" ? <Moon /> : <Sun />}
           </ButtonTheme>
@@ -118,7 +132,7 @@ const ButtonTheme = styled.button`
 `;
 
 const ContainerImg = styled.div`
-  border-top: 1px solid ${({theme}) => theme.detailsGray};
+  border-top: 1px solid ${({ theme }) => theme.detailsGray};
   padding: 24px 0px;
   width: 100%;
   display: flex;
@@ -133,7 +147,7 @@ const ContainerImg = styled.div`
   }
   @media (max-width: 800px) {
     border-top: none;
-    border-left: 1px solid ${({theme}) => theme.detailsGray};
+    border-left: 1px solid ${({ theme }) => theme.detailsGray};
     padding: 24px 32px;
     display: flex;
   }
