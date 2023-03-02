@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { AnimeRotate } from "../../styles/animations";
 
 const GraphPieChart = () => {
   const { invoices } = useSelector(({ invoices }) => invoices);
-  const [invoicesForStatus, setInvoicesForStatus] = useState({
-    paid: [],
-    pending: [],
-    draft: [],
-  });
+  const [invoicesForStatus, setInvoicesForStatus] = useState({});
+  const pieRef = useRef(null);
   const [statusInDeg, setStatusInDeg] = useState([]);
   const [statusInPercentage, setStatusInPercentage] = useState([]);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipCoords, setTooltipCoords] = useState({ x: 0, y: 0 });
+  const [tooltipCurrentData, setTooltipCurrentData] = useState({});
+  const circleCenter = useRef(null);
 
   useEffect(() => {
-    invoices.forEach((invoice) => {
-      setInvoicesForStatus((invoices) => ({
-        ...invoices,
-        [invoice.status]: [...invoices[invoice.status], invoice],
-      }));
-    });
+    const data = invoices.reduce(
+      (accum, { status }) => ({
+        ...accum,
+        [status]: (accum[status] || 0) + 1,
+      }),
+      {}
+    );
+    setInvoicesForStatus(() => data);
   }, []);
 
   const calculatePercentage = (value, total) =>
@@ -39,24 +42,25 @@ const GraphPieChart = () => {
   const getPercentage = () => {
     let total = 0;
     for (const key in invoicesForStatus) {
-      total += invoicesForStatus[key].length;
+      total += invoicesForStatus[key];
     }
     const calcule = (status) =>
-      calculatePercentage(invoicesForStatus[status].length, total);
+      calculatePercentage(invoicesForStatus[status], total);
     const percentages = [
       {
         type: "paid",
-        value: calcule("paid"),
+        value: calcule("paid") || 0,
       },
       {
         type: "pending",
-        value: calcule("pending"),
+        value: calcule("pending") || 0,
       },
       {
         type: "draft",
-        value: calcule("draft"),
+        value: calcule("draft") || 0,
       },
     ];
+    console.log(percentages);
     setStatusInDeg(() => calculateDeg(percentages));
     setStatusInPercentage(() => percentages);
   };
@@ -65,19 +69,76 @@ const GraphPieChart = () => {
     getPercentage();
   }, [invoicesForStatus]);
 
-  console.log(statusInPercentage);
-  console.log(statusInDeg[0], statusInDeg[1], statusInDeg[2]);
+  const getCoordsOfMouse = (e) => {
+    const test = e.target === circleCenter?.current ? false : true;
+    test ? setShowTooltip(() => true) : setShowTooltip(() => false);
+    setTooltipCoords(() => ({ x: e.clientX + 20, y: e.clientY + 20 }));
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(() => false);
+  };
+
+  const getColorByMouseMove = (e) => {
+    getCoordsOfMouse(e);
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    // Obtém a posição da div em relação à janela
+    const rect = pieRef?.current.getBoundingClientRect();
+    const divX = rect.left;
+    const divY = rect.top;
+
+    // Calcula a posição do mouse em relação à div
+    const x = mouseX - divX;
+    const y = mouseY - divY;
+
+    // Obtém a geometria da div
+    const width = pieRef?.current.offsetWidth;
+    const height = pieRef?.current.offsetHeight;
+
+    const angle = Math.atan2(y - height / 2, x - width / 2);
+    let degrees = (angle * 180) / Math.PI + 90;
+    degrees -= degrees > 360 ? 360 : 0;
+
+    //console.log(degrees);
+
+    if (degrees < statusInDeg[0].value && degrees > 0) {
+      getDataForStatus(statusInDeg[0].type);
+    } else if (degrees < statusInDeg[1].value && degrees > 0) {
+      getDataForStatus(statusInDeg[1].type);
+    } else {
+      getDataForStatus(statusInDeg[2].type);
+    }
+  };
+
+  const getDataForStatus = (status) => {
+    const value = invoicesForStatus[status];
+    setTooltipCurrentData(() => ({ type: status, value }));
+  };
+
+  //console.log(statusInPercentage)
 
   return (
     <Container>
       <GraphContainer>
-        <PieChart
-          small={statusInDeg[0]}
-          mid={statusInDeg[1]}
-          big={statusInDeg[2]}
-        >
-          <Center />
-        </PieChart>
+        <PieChartContainer>
+          <PieChart
+            small={statusInDeg[0]}
+            mid={statusInDeg[1]}
+            big={statusInDeg[2]}
+            onMouseMove={getColorByMouseMove}
+            onMouseLeave={handleMouseLeave}
+            ref={pieRef}
+          >
+            <Center ref={circleCenter} />
+          </PieChart>
+          {showTooltip && (
+            <Tooltip coords={tooltipCoords} color={tooltipCurrentData.type}>
+              Total: {tooltipCurrentData.value}
+            </Tooltip>
+          )}
+        </PieChartContainer>
         <LegendContainer>
           <LegendTitle>For Status</LegendTitle>
           <Legend>
@@ -133,6 +194,10 @@ const GraphContainer = styled.div`
   }
 `;
 
+const PieChartContainer = styled.div`
+  //position: relative;
+`;
+
 const PieChart = styled.div`
   width: 300px;
   height: 300px;
@@ -162,9 +227,22 @@ const Center = styled.div`
   }
 `;
 
-const LegendContainer = styled.div`
+const Tooltip = styled.span`
+  width: 150px;
+  height: 50px;
+  border-radius: 12px;
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background: ${({ theme, color }) => theme[color]};
+  top: ${({ coords }) => coords.y}px;
+  left: ${({ coords }) => coords.x}px;
+`;
 
-`
+const LegendContainer = styled.div``;
 
 const Legend = styled.div`
   padding: 20px;
@@ -179,11 +257,11 @@ const Legend = styled.div`
 const LegendTitle = styled.p`
   text-align: center;
   margin-bottom: 10px;
-  font-weight: 700;
+  //font-weight: 700;
   font-size: 20px;
-`
+`;
 
-const LegendItem = styled.p`
+const LegendItem = styled.span`
   display: flex;
   align-items: center;
   gap: 10px;
