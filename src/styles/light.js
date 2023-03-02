@@ -49,9 +49,11 @@ const light = {
     },
   },
 
-  paid: "#33D69F",
-  pending: 'rgba(255, 143, 0, 0.8)',
-  draft: '#373B53'
+  paid: "#2ef8a0",
+  pending: '#ff7c39',
+  draft: '#6a6e73'
 };
 
 export default light;
+
+'#fc4b08'

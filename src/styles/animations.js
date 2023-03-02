@@ -42,3 +42,12 @@ export const AnimeDownBig = keyframes`
     transform: translate3d(0px, 0px, 0px);
   }
 `;
+
+export const AnimeRotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;

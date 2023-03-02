@@ -49,9 +49,10 @@ const dark = {
       hover: "rgba(55, 59, 83, 0.1)",
     },
   },
-  paid: "#33D69F",
-  pending: '#FF8F00',
-  draft: '#373B53'
+
+  paid: "#2ef8a0",
+  pending: '#ff7c39',
+  draft: '#6a6e73'
 };
 
 export default dark;

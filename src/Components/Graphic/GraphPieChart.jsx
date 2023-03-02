@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { AnimeRotate } from "../../styles/animations";
 
 const GraphPieChart = () => {
   const { invoices } = useSelector(({ invoices }) => invoices);
@@ -9,7 +10,8 @@ const GraphPieChart = () => {
     pending: [],
     draft: [],
   });
-  const [percentageOfStatus, setPercentageOfStatus] = useState([]);
+  const [statusInDeg, setStatusInDeg] = useState([]);
+  const [statusInPercentage, setStatusInPercentage] = useState([]);
 
   useEffect(() => {
     invoices.forEach((invoice) => {
@@ -20,13 +22,14 @@ const GraphPieChart = () => {
     });
   }, []);
 
-  const calculatePercentage = (value, total) => (value / total) * 100;
+  const calculatePercentage = (value, total) =>
+    Math.floor((value / total) * 100);
 
   const calculateDeg = (percentages) => {
     const array = percentages.sort((a, b) => a.value - b.value);
     const degs = array.map((item) => ({
       ...item,
-      value: (item.value / 100) * 360,
+      value: Math.floor((item.value / 100) * 360),
     }));
     degs[1].value += degs[0].value;
     degs[2].value += degs[1].value;
@@ -54,27 +57,37 @@ const GraphPieChart = () => {
         value: calcule("draft"),
       },
     ];
-    setPercentageOfStatus(() => calculateDeg(percentages));
+    setStatusInDeg(() => calculateDeg(percentages));
+    setStatusInPercentage(() => percentages);
   };
 
   useEffect(() => {
     getPercentage();
   }, [invoicesForStatus]);
 
-  const getValueforType = (status) => {
-    console.log(status)
-    if(percentageOfStatus[0]?.value)  {
-      const type = percentageOfStatus.filter(({type}) => type === status);
-      return type[0].value
-    }
-  };
-  console.log(percentageOfStatus);
+  console.log(statusInPercentage);
+  console.log(statusInDeg[0], statusInDeg[1], statusInDeg[2]);
 
   return (
     <Container>
       <GraphContainer>
-        <Graph1 small={percentageOfStatus[0]} mid={percentageOfStatus[1]} big={percentageOfStatus[2]} />
-        <Graph2 />
+        <PieChart
+          small={statusInDeg[0]}
+          mid={statusInDeg[1]}
+          big={statusInDeg[2]}
+        >
+          <Center />
+        </PieChart>
+        <LegendContainer>
+          <LegendTitle>For Status</LegendTitle>
+          <Legend>
+            {statusInPercentage.map(({ type, value }) => (
+              <LegendItem key={type} color={type}>
+                <p>{type}</p> <span>{value}%</span>
+              </LegendItem>
+            ))}
+          </Legend>
+        </LegendContainer>
       </GraphContainer>
     </Container>
   );
@@ -82,33 +95,103 @@ const GraphPieChart = () => {
 
 export default GraphPieChart;
 
+const checkIfOnly1Status = (a, b, c) => {
+  return (a === 0) + (b === 0) + (c === 0) === 2;
+};
+
+const getGradient = ({ theme, small, mid, big }) => {
+  const sValue = small?.value;
+  const mValue = mid?.value;
+  const bValue = big?.value;
+  const oneStatus = checkIfOnly1Status(sValue, mValue, bValue);
+
+  return `
+    background: conic-gradient(
+      ${oneStatus ? theme[big?.type] : theme.bgPrimary} 1deg ${
+    oneStatus ? bValue : 4
+  }deg,
+      ${theme[small?.type]} ${sValue ? 1 : 0}deg ${sValue}deg,
+      ${theme.bgPrimary} 1deg ${sValue + 4}deg,
+      ${theme[mid?.type]} ${mValue ? 1 : 0}deg ${mValue}deg,
+      ${theme.bgPrimary} 1deg ${mValue + 4}deg,
+      ${theme[big?.type]} ${bValue ? 1 : 0}deg ${bValue}deg
+    );
+  `;
+};
+
 const Container = styled.div`
-  max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
-  //background: ${({theme}) => theme['paid']};
 `;
 
 const GraphContainer = styled.div`
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
-const Graph1 = styled.div`
+const PieChart = styled.div`
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: conic-gradient(
-    ${({theme, small}) => theme[small?.type]} 1deg ${({small}) => small?.value}deg,
-    ${({theme, mid}) => theme[mid?.type]} 1deg ${({mid}) => mid?.value}deg,
-    ${({theme, big}) => theme[big?.type]} 1deg ${({big}) => big?.value}deg
-  );
-`;
-
-const Graph2 = styled.div`
-  width: 100px;
-  height: 100px;
+  ${(props) => getGradient(props)}
+  position: relative;
+  animation: ${AnimeRotate} 2s forwards 2 linear;
+  @media (max-width: 500px) {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 const Center = styled.div`
-  background: #fff;
+  background: ${({ theme }) => theme.bgPrimary};
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  @media (max-width: 500px) {
+    width: 120px;
+    height: 120px;
+    top: 40px;
+    right: 40px;
+  }
+`;
+
+const LegendContainer = styled.div`
+
+`
+
+const Legend = styled.div`
+  padding: 20px;
+  border: 2px solid ${({ theme }) => theme.textPrimary};
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 20px;
+`;
+
+const LegendTitle = styled.p`
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 20px;
+`
+
+const LegendItem = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: ${({ theme, color }) => theme[color]};
+  }
 `;
