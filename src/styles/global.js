@@ -30,6 +30,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 16px;
     font-family: 'League Spartan', sans-serif;
     color: ${({ theme }) => theme.title};
+    overflow-x: hidden;
   }
   input[type=number] {
   -moz-appearance: textfield;

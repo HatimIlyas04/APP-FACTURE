@@ -35,6 +35,11 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 730px;
   margin: 40px auto 65px auto;
+  padding: 20px;
+  padding-left: 90px;
+  @media (max-width: 800px) {
+    padding-left: 20px;
+  }
 `;
 
 const Title = styled.h1`

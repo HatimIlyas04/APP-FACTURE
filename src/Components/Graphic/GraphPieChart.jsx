@@ -70,9 +70,13 @@ const GraphPieChart = () => {
   }, [invoicesForStatus]);
 
   const getCoordsOfMouse = (e) => {
+    let clientX = e.clientX  + 20
+    if(clientX + 260 > window.innerWidth) {
+      clientX -= 140
+    }
     const test = e.target === circleCenter?.current ? false : true;
     test ? setShowTooltip(() => true) : setShowTooltip(() => false);
-    setTooltipCoords(() => ({ x: e.clientX + 20, y: e.clientY + 20 }));
+    setTooltipCoords(() => ({ x: clientX, y: e.clientY + 20 }));
   };
 
   const handleMouseLeave = () => {
@@ -101,7 +105,6 @@ const GraphPieChart = () => {
     let degrees = (angle * 180) / Math.PI + 90;
     degrees -= degrees > 360 ? 360 : 0;
 
-    //console.log(degrees);
 
     if (degrees < statusInDeg[0].value && degrees > 0) {
       getDataForStatus(statusInDeg[0].type);
@@ -117,7 +120,6 @@ const GraphPieChart = () => {
     setTooltipCurrentData(() => ({ type: status, value }));
   };
 
-  //console.log(statusInPercentage)
 
   return (
     <Container>
@@ -140,7 +142,7 @@ const GraphPieChart = () => {
           )}
         </PieChartContainer>
         <LegendContainer>
-          <LegendTitle>For Status</LegendTitle>
+          <LegendTitle>Quantity of status</LegendTitle>
           <Legend>
             {statusInPercentage.map(({ type, value }) => (
               <LegendItem key={type} color={type}>
@@ -182,15 +184,21 @@ const getGradient = ({ theme, small, mid, big }) => {
 
 const Container = styled.div`
   margin: 0 auto;
+  width: 100%;
 `;
 
 const GraphContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 60px;
-  @media (max-width: 600px) {
+  gap: 90px;
+  padding: 30px;
+  width: 100%;
+  box-shadow: ${({ theme }) => theme.shadowPrimary};
+  border-radius: 20px;
+  @media (max-width: 680px) {
     flex-direction: column;
+    gap: 40px;
   }
 `;
 
@@ -202,9 +210,9 @@ const PieChart = styled.div`
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  ${(props) => getGradient(props)}
   position: relative;
   animation: ${AnimeRotate} 2s forwards 2 linear;
+  ${(props) => getGradient(props)}
   @media (max-width: 500px) {
     width: 200px;
     height: 200px;
@@ -241,15 +249,13 @@ const Tooltip = styled.span`
   top: ${({ coords }) => coords.y}px;
   left: ${({ coords }) => coords.x}px;
   animation: ${AnimeLeft} 0.5s;
-  @media (max-width: 500px) {
-  }
 `;
 
 const LegendContainer = styled.div``;
 
 const Legend = styled.div`
   padding: 20px;
-  border: 2px solid ${({ theme }) => theme.textPrimary};
+  border: 2px solid ${({ theme }) => theme.draft};
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -260,7 +266,6 @@ const Legend = styled.div`
 const LegendTitle = styled.p`
   text-align: center;
   margin-bottom: 10px;
-  //font-weight: 700;
   font-size: 20px;
 `;
 
