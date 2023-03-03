@@ -51,3 +51,14 @@ export const AnimeRotate = keyframes`
     transform: rotate(360deg);
   }
 `;
+
+export const AnimeBackAndFront = keyframes`
+  from {
+    //opacity: 0;
+    transform: translate3d(90px, 0px, 0px);
+  }
+  to {
+    //opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+  }
+`;

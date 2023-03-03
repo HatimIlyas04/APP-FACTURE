@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { AnimeRotate } from "../../styles/animations";
+import { AnimeLeft, AnimeRotate } from "../../styles/animations";
 
 const GraphPieChart = () => {
   const { invoices } = useSelector(({ invoices }) => invoices);
@@ -228,7 +228,7 @@ const Center = styled.div`
 `;
 
 const Tooltip = styled.span`
-  width: 150px;
+  width: 100px;
   height: 50px;
   border-radius: 12px;
   position: absolute;
@@ -240,6 +240,9 @@ const Tooltip = styled.span`
   background: ${({ theme, color }) => theme[color]};
   top: ${({ coords }) => coords.y}px;
   left: ${({ coords }) => coords.x}px;
+  animation: ${AnimeLeft} 0.5s;
+  @media (max-width: 500px) {
+  }
 `;
 
 const LegendContainer = styled.div``;

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GraphPieChart from "./GraphPieChart";
+import TriangleChart from "./TriangleChart";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { AnimeLeft } from "../../styles/animations";
 
@@ -16,7 +17,10 @@ const Graphic = () => {
           </Back>
         </Link>
         <Title>Graphics</Title>
-        <GraphPieChart />
+        <ContainerGraphs>
+          {<GraphPieChart />}
+          <TriangleChart />
+        </ContainerGraphs>
       </Content>
     </Container>
   );
@@ -52,4 +56,10 @@ const Back = styled.button`
   svg {
     margin-right: 20px;
   }
+`;
+
+const ContainerGraphs = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
 `;
