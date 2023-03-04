@@ -37,6 +37,7 @@ const Content = styled.div`
   margin: 40px auto 65px auto;
   padding: 20px;
   padding-left: 90px;
+  animation: ${AnimeLeft} 0.5s;
   @media (max-width: 800px) {
     padding-left: 20px;
   }
@@ -53,7 +54,6 @@ const Back = styled.button`
   font-weight: 700;
   font-size: 16px;
   cursor: pointer;
-  animation: ${AnimeLeft} 0.5s forwards;
   color: ${({ theme }) => theme.title};
   &:hover {
     color: ${({ theme }) => theme.textQuaternary};

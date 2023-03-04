@@ -11,7 +11,6 @@ const HeaderMenu = () => {
   const mobile = useMedia("(max-width: 700px)");
   const { invoices } = useSelector(({ invoices }) => invoices);
   const [filterValues, setFilterValues] = useState([]);
-  console.log(filterValues);
   const dispatch = useDispatch();
   const open = () => {
     dispatch(openModal());

@@ -32,30 +32,25 @@ const TriangleChart = () => {
     const total = valueForStatus.reduce((accum, { total }) => accum + total, 0);
     const sortStatus = valueForStatus.sort((a, b) => a.total - b.total);
     const dataOfTriangle = sortStatus.map((item, i) => {
-      //console.log(calculatePercentage(item.total, total));
       const multiplyHeight = mobile ? 5 : 7;
       const value = calculatePercentage(item.total, total) * multiplyHeight;
-      const height = value < 100 ? 150 : value > 300 ? 350 : value;
+      const height = value < 100 ? 150 : value > 350 ? 350 : value;
       const zIndex = i === 0 ? 100 : i === 1 ? 50 : 10;
       let left = i === 1 ? 120 : i === 2 ? 220 : 0;
       if (mobile) {
         left = i === 1 ? 60 : i === 2 ? 120 : 0;
       }
-      console.log(height)
       return {
         ...item,
         left,
-        height: i === 1 && height < 151 && height < 310? height + 40 : height,
+        height: i === 1 && height < 151 && height < 300 ? height + 40 : height,
         zIndex,
         percentage: calculatePercentage(item.total, total) || 0,
       };
     });
-    console.log(dataOfTriangle[1])
     setTriangleData(() => dataOfTriangle);
-    console.log(dataOfTriangle);
   }, [valueForStatus, mobile]);
 
-  console.log(valueForStatus);
 
   return (
     <Container>

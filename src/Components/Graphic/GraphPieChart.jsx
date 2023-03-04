@@ -60,7 +60,6 @@ const GraphPieChart = () => {
         value: calcule("draft") || 0,
       },
     ];
-    console.log(percentages);
     setStatusInDeg(() => calculateDeg(percentages));
     setStatusInPercentage(() => percentages);
   };
@@ -132,6 +131,7 @@ const GraphPieChart = () => {
             onMouseMove={getColorByMouseMove}
             onMouseLeave={handleMouseLeave}
             onTouchMove={getColorByMouseMove}
+            onTouchEnd={handleMouseLeave}
             ref={pieRef}
           >
             <Center ref={circleCenter} />

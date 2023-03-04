@@ -25,7 +25,6 @@ const Filter = ({ value, setValue }) => {
   const handleClickOutside = ({ target }) => {
     if (dropdown) {
       if (dropDownRef.current && !dropDownRef.current.contains(target)) {
-        console.log("ue");
         setDropdown(false);
       }
     }

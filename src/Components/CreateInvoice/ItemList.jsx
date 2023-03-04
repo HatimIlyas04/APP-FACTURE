@@ -9,7 +9,6 @@ import { AnimeScale } from "../../styles/animations";
 import useMedia from "../../Hooks/useMedia";
 
 const ItemList = ({ itemsForm, setItemsForm }) => {
-  console.log(itemsForm);
   const mobile = useMedia("(max-width: 700px)");
   const AddNewItem = () => {
     const idItem = idGenerator();
@@ -37,7 +36,6 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
               ? formatCurrencyNotSymbol(item.quantity * item.price)
               : "0,00";
           }
-          console.log(item[type]);
         }
         return [...items];
       }, {})

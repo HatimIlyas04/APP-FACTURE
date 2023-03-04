@@ -57,7 +57,6 @@ const CreateInvoice = () => {
     },
   };
 
-  console.log(invoice);
   useEffect(() => {
     if (id) {
       const itemsInvoice = invoice.items.map((item) => ({
@@ -70,7 +69,6 @@ const CreateInvoice = () => {
 
   const store = useSelector((store) => store);
   const dispatch = useDispatch();
-  console.log(store);
 
   const validateAllFormInputs = (verify) => {
     const allValidate = [];
@@ -101,15 +99,11 @@ const CreateInvoice = () => {
     }
     validErrors(allValidate);
     if (id) {
-      console.log(id);
       setSavedChanges((prev) => allValidate.every((valid) => valid));
     } else {
       verify && setValid((prev) => allValidate.every((valid) => valid));
     }
   };
-
-  console.log(formsValue);
-  console.log(itemsForm);
 
   const getDates = () => {
     let finalDate = date?.current?.value;
