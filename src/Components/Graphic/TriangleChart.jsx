@@ -45,7 +45,7 @@ const TriangleChart = () => {
       return {
         ...item,
         left,
-        height: i === 1 && height < 150 && height < 310? height + 40 : height,
+        height: i === 1 && height < 151 && height < 310? height + 40 : height,
         zIndex,
         percentage: calculatePercentage(item.total, total) || 0,
       };
@@ -175,7 +175,6 @@ const Triangle = styled.div`
     position: absolute;
     left: -75px;
     top: 0px;
-    z-index: ${({ data }) => data.zIndex - 1};
   }
   @media (max-width: 540px) {
     border-left: 50px solid transparent;

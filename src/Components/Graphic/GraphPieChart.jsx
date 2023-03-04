@@ -131,6 +131,7 @@ const GraphPieChart = () => {
             big={statusInDeg[2]}
             onMouseMove={getColorByMouseMove}
             onMouseLeave={handleMouseLeave}
+            onTouchMove={getColorByMouseMove}
             ref={pieRef}
           >
             <Center ref={circleCenter} />
@@ -235,7 +236,13 @@ const Center = styled.div`
   }
 `;
 
-const Tooltip = styled.span`
+const Tooltip = styled.span.attrs(props => ({
+  style: {
+    background: props.theme[props.color],
+    top: props.coords.y + 'px',
+    left: props.coords.x + 'px'
+  }
+}))`
   width: 100px;
   height: 50px;
   border-radius: 12px;
@@ -245,11 +252,9 @@ const Tooltip = styled.span`
   display: flex;
   align-items: center;
   color: #fff;
-  background: ${({ theme, color }) => theme[color]};
-  top: ${({ coords }) => coords.y}px;
-  left: ${({ coords }) => coords.x}px;
   animation: ${AnimeLeft} 0.5s;
 `;
+
 
 const LegendContainer = styled.div``;
 
