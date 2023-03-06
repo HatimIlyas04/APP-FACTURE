@@ -46,6 +46,7 @@ const Container = styled.div`
   background: ${({ theme }) => theme.bgPrimary};
   min-height: 100vh;
   display: flex;
+  transition: 0.5s ease-in-out;
   @media (max-width: 800px) {
     flex-direction: column;
   }

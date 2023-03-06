@@ -51,9 +51,6 @@ const MainBg = styled.main`
   width: 100%;
   position: relative;
   height: 100%;
-  @media (max-width: 800px) {
-    height: calc(100vh - 90px);
-  }
 `;
 
 const Container = styled.div`
