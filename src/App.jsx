@@ -44,7 +44,6 @@ export default App;
 
 const Container = styled.div`
   background: ${({ theme }) => theme.bgPrimary};
-  transition: 0.5s ease-in-out;
   min-height: 100vh;
   display: flex;
   @media (max-width: 800px) {

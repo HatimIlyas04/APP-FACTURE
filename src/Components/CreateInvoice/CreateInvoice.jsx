@@ -26,6 +26,7 @@ import { useParams } from "react-router-dom";
 import useMedia from "../../Hooks/useMedia";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { AnimeDownBig, AnimeLeft } from "../../styles/animations";
+import debounce from "../../Helper/debounce";
 
 const CreateInvoice = () => {
   const mobile = useMedia("(max-width: 700px)");
@@ -56,6 +57,9 @@ const CreateInvoice = () => {
       country: useForm(invoice ? invoice.clientAddress.country : ""),
     },
   };
+  const dispatch = useDispatch();
+  const formContent = useRef(null);
+  const [formShadow, setFormShadow] = useState(true);
 
   useEffect(() => {
     if (id) {
@@ -66,9 +70,6 @@ const CreateInvoice = () => {
       setItemsForm((items) => [...itemsInvoice]);
     }
   }, []);
-
-  const store = useSelector((store) => store);
-  const dispatch = useDispatch();
 
   const validateAllFormInputs = (verify) => {
     const allValidate = [];
@@ -199,10 +200,26 @@ const CreateInvoice = () => {
     }
   });
 
+  const handleScrollForm = () => {
+    console.log('foi')
+    const target = formContent?.current
+    if (target.scrollTop + target.offsetHeight + 50 > target.scrollHeight) {
+      setFormShadow(() => false);
+    } else {
+      setFormShadow(() => true);
+    }
+  };
+
+  const debounceHandleScrollForm = debounce(handleScrollForm, 100);
+
+  useEffect(() => {
+    debounceHandleScrollForm()
+  }, [itemsForm]);
+
   return (
     <Container>
       <Form onSubmit={sendInvoice}>
-        <Content>
+        <Content ref={formContent} onScroll={debounceHandleScrollForm}>
           {mobile && (
             <Back onClick={close}>
               <ArrowLeft />
@@ -321,7 +338,7 @@ const CreateInvoice = () => {
             ))}
           </FormErrors>
         </Content>
-        <ButtonsContainer>
+        <ButtonsContainer shadow={formShadow}>
           {!id && (
             <ButtonsContainerCreate>
               <ButtonTheme type="button" custom={true} onClick={close}>
@@ -371,7 +388,7 @@ const Form = styled.form`
   width: clamp(700px, 50%, 800px);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding: 10px 0px 0px 92px;
+  padding: 26px 0px 0px 92px;
   height: 100%;
   position: relative;
   animation: ${AnimeLeft} 0.5s forwards;
@@ -392,7 +409,7 @@ const Content = styled.div`
   flex-direction: column;
   gap: 24px;
   height: calc(100% - 102px);
-  padding: 16px 16px 16px 32px;
+  padding: 0px 16px 16px 32px;
   margin-right: 24px;
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -484,9 +501,10 @@ const ButtonsContainer = styled.div`
   left: -15px;
   width: calc(100% + 15px);
   border-radius: 0px 20px 20px 0px;
+  transition: 0.4s ease-in-out;
   background: ${({ theme }) =>
     theme.name === "light" ? theme.bgSecundary : theme.bgPrimary};
-  box-shadow: 0 -10px 130px -15px ${({ theme }) => theme.shadowColor};
+  box-shadow: ${({theme, shadow}) => shadow && `0 -10px 120px -5px ${theme.shadowColor}`};
   div button:first-child {
     margin-right: 8px;
   }
@@ -542,6 +560,9 @@ const Back = styled.button`
   }
   svg {
     margin-right: 20px;
+  }
+  @media (max-width: 700px) {
+    margin-bottom: 12px;
   }
 `;
 

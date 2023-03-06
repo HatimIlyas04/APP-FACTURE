@@ -59,7 +59,7 @@ const MainBg = styled.main`
 const Container = styled.div`
   max-width: 730px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 40px;
   padding-left: 92px;
   @media (max-width: 800px) {
     padding: 0px 18px;

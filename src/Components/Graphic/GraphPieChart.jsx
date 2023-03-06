@@ -204,7 +204,7 @@ const GraphContainer = styled.div`
 `;
 
 const PieChartContainer = styled.div`
-  //position: relative;
+
 `;
 
 const PieChart = styled.div`
@@ -212,6 +212,7 @@ const PieChart = styled.div`
   height: 300px;
   border-radius: 50%;
   position: relative;
+  transition: 0.5s ease-in-out;
   animation: ${AnimeRotate} 2s forwards 2 linear;
   ${(props) => getGradient(props)}
   @media (max-width: 500px) {
@@ -228,6 +229,7 @@ const Center = styled.div`
   position: absolute;
   top: 50px;
   right: 50px;
+  transition: 0.5s ease-in-out;
   @media (max-width: 500px) {
     width: 120px;
     height: 120px;

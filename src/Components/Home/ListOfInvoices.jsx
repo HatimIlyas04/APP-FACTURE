@@ -48,7 +48,7 @@ export default ListOfInvoices;
 const Container = styled.div`
   max-width: 750px;
   margin: 0px auto;
-  padding: 0px 18px 20px 92px;
+  padding: 0px 18px 18px 110px;
   a {
     color: ${({ theme }) => theme.title};
   }

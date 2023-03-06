@@ -17,6 +17,7 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
       { id: idItem, name: "", quantity: "", price: "", total: "0.00" },
     ]);
   };
+  console.log(itemsForm)
 
   const removeItem = ({ currentTarget }) => {
     const idItem = currentTarget.dataset.id;

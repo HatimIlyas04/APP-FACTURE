@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GraphPieChart from "./GraphPieChart";
 import TriangleChart from "./TriangleChart";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { AnimeLeft } from "../../styles/animations";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../../store/modal";
 
 const Graphic = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(closeModal());
+  }, []);
+
   return (
     <Container>
       <Content>
@@ -35,8 +43,7 @@ const Container = styled.div`
 const Content = styled.div`
   max-width: 730px;
   margin: 40px auto 65px auto;
-  padding: 20px;
-  padding-left: 90px;
+  padding: 0px 20px 20px 90px;
   animation: ${AnimeLeft} 0.5s;
   @media (max-width: 800px) {
     padding-left: 20px;

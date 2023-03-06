@@ -47,7 +47,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 18px;
-  padding-left: 92px;
+  padding-left: 110px;
   h1 {
     margin-bottom: 8px;
   }

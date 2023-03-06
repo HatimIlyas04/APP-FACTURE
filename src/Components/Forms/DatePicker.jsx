@@ -154,6 +154,7 @@ const InputContainer = styled.div`
     position: absolute;
     right: 16px;
     bottom: 15px;
+    cursor: pointer;
   }
   svg path {
     fill: ${({ theme }) => theme.variantColors.primary.normal};

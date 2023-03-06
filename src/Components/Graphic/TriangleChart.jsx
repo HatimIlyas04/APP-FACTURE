@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useMedia from "../../Hooks/useMedia";
 import styled, { css, keyframes } from "styled-components";
-import { AnimeBackAndFront } from "../../styles/animations";
-import { ReactComponent as Play } from "../../assets/play-circle.svg";
-import { ReactComponent as Stop } from "../../assets/stop-circle.svg";
 import { formatCurrency } from "../../Helper/format";
 
 const TriangleChart = () => {
@@ -12,7 +9,7 @@ const TriangleChart = () => {
   const mobile = useMedia("(max-width: 540px)");
   const [valueForStatus, setValueForStatus] = useState([]);
   const [triangleData, setTriangleData] = useState([]);
-  const [animation, setAnimation] = useState(true);
+  const [containerHeight, setContainerHeight] = useState(490);
 
   useEffect(() => {
     const arrayOfValuesByStatus = Object.values(
@@ -25,6 +22,19 @@ const TriangleChart = () => {
     setValueForStatus(() => arrayOfValuesByStatus);
   }, []);
 
+  const changeHeightContainer = (percent) => {
+    if (percent >= 60) {
+      setContainerHeight(() => 560);
+    }
+  };
+
+  const genetareHeight = (percent) => {
+    let height = percent * (mobile ? 3 : 4);
+    height = height > 300 ? 300 : height;
+    height = height < 60 ? 60 : height;
+    return height;
+  };
+
   const calculatePercentage = (value, total) =>
     Math.floor((value / total) * 100);
 
@@ -32,9 +42,9 @@ const TriangleChart = () => {
     const total = valueForStatus.reduce((accum, { total }) => accum + total, 0);
     const sortStatus = valueForStatus.sort((a, b) => a.total - b.total);
     const dataOfTriangle = sortStatus.map((item, i) => {
-      const multiplyHeight = mobile ? 5 : 7;
-      const value = calculatePercentage(item.total, total) * multiplyHeight;
-      const height = value < 100 ? 150 : value > 350 ? 350 : value;
+      const percent = calculatePercentage(item.total, total);
+      changeHeightContainer(percent);
+      const height = genetareHeight(percent);
       const zIndex = i === 0 ? 100 : i === 1 ? 50 : 10;
       let left = i === 1 ? 120 : i === 2 ? 220 : 0;
       if (mobile) {
@@ -43,7 +53,7 @@ const TriangleChart = () => {
       return {
         ...item,
         left,
-        height: i === 1 && height < 151 && height < 300 ? height + 40 : height,
+        height,
         zIndex,
         percentage: calculatePercentage(item.total, total) || 0,
       };
@@ -51,20 +61,13 @@ const TriangleChart = () => {
     setTriangleData(() => dataOfTriangle);
   }, [valueForStatus, mobile]);
 
-
   return (
     <Container>
-      <GraphContainer>
+      <GraphContainer height={containerHeight}>
         <TriangleContainer color={triangleData[2]?.type}>
           {triangleData.map((data) => (
-            <Triangle key={data.type} data={data} anime={animation} />
+            <Triangle key={data.type} data={data} />
           ))}
-          <ButtonAnime
-            color={triangleData[2]?.type}
-            onClick={() => setAnimation(!animation)}
-          >
-            {animation ? <Stop /> : <Play />}
-          </ButtonAnime>
           <LegendContainer>
             <LegendTitle>Value of status</LegendTitle>
             <Legend>
@@ -86,13 +89,13 @@ export default TriangleChart;
 const Container = styled.div``;
 
 const GraphContainer = styled.div`
-  padding: 30px 30px 80px 30px;
+  padding: 30px;
   box-shadow: ${({ theme }) => theme.shadowPrimary};
   border-radius: 20px;
   display: flex;
   justify-content: center;
   position: relative;
-  height: 690px;
+  height: ${({ height }) => height}px;
 `;
 
 const TriangleContainer = styled.div`
@@ -101,26 +104,7 @@ const TriangleContainer = styled.div`
   position: relative;
   @media (max-width: 540px) {
     width: 220px;
-    left: 10px;
-  }
-  @media (max-width: 420px) {
-    border-bottom: none;
-    left: 30px;
-    &::after {
-      content: "";
-      width: calc(100% + 60px);
-      height: 5px;
-      display: block;
-      position: absolute;
-      left: -60px;
-      bottom: 0px;
-      background: ${({ theme, color }) => theme[color]};
-    }
-  }
-  @media (max-width: 360px) {
-    &::after {
-
-    }
+    //left: 10px;
   }
 `;
 
@@ -140,27 +124,16 @@ const Triangle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     color: #fff;
     background: ${({ theme, data }) => theme[data.type]};
     position: absolute;
-    top: -23px;
-    left: -120px;
+    top: -20px;
+    left: -90px;
     z-index: ${({ data }) => data.zIndex + 1};
-    ${({ anime }) =>
-      anime &&
-      css`
-        animation: ${keyframes`
-          0% {
-            transform: translate3d(90px, 0px, 0px);
-          }
-          100% {
-            transform: translate3d(0px, 0px, 0px);
-          }
-        `} 2s alternate infinite;
-      `}
+    font-size: 12px;
   }
   &::after {
     content: "";
@@ -175,59 +148,25 @@ const Triangle = styled.div`
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
     &::before {
-      width: 50px;
-      height: 50px;
-      font-size: 14px;
+      left: -50px;
+    }
+    &::after {
+      display: none;
     }
   }
   @media (max-width: 360px) {
-    &::before {
-      width: 40px;
-      height: 40px;
-      font-size: 14px;
-      ${({ anime }) =>
-      anime &&
-      css`
-        animation: ${keyframes`
-          0% {
-            transform: translate3d(90px, 0px, 0px);
-          }
-          100% {
-            transform: translate3d(30px, 0px, 0px);
-          }
-        `} 2s alternate infinite;
-      `}
-    }
-    &::after {
-      width: 50px;
-      left: -65px;
-    }
-  }
-`;
-
-const ButtonAnime = styled.span`
-  display: flex;
-  justify-content: center;
-  position: relative;
-  bottom: -600px;
-  svg path {
-    fill: ${({ theme, color }) => theme[color]};
-  }
-  @media (max-width: 420px) {
-    left: -30px;
   }
 `;
 
 const LegendContainer = styled.div`
   position: relative;
-  top: -40px;
   @media (max-width: 540px) {
     width: 300px;
-    left: -50px;
+    left: -45px;
   }
   @media (max-width: 420px) {
-    width: 260px;
-    left: -50px;
+    width: 240px;
+    left: -10px;
   }
 `;
 
