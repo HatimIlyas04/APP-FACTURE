@@ -1,6 +1,6 @@
-# Frontend Mentor - Invoice app solution
+ # Frontend Mentor - Invoice app solution
 
-![Visualização do design para o desafio de codificação - Invoice app](./ui.jpg)
+![Visualização do design para o desafio de codificação - Invoice app](./ui.PNG)
 
 Esta é uma solução para o [desafio do aplicativo de faturas no Frontend Mentor](https://www.frontendmentor.io/challenges/invoice-app-i7KaLTQjl). Com um Adição a mais por conta própria uma tela de gráficos para você vizualizar as estatísticas de suas faturas. Os desafios do Frontend Mentor ajudam você a melhorar suas habilidades de codificação criando projetos realistas.
 
