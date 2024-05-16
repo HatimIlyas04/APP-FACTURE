@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as Moon } from "../assets/icon-moon.svg";
 import { ReactComponent as Sun } from "../assets/icon-sun.svg";
 import { ReactComponent as Graph } from "../assets/icon-graph.svg";
-import avatar from "../assets/image-avatar.jpg";
+import avatar from "../assets/image-avatar.png";
 import light from "../styles/light";
 import dark from "../styles/dark";
 import { AnimeScale } from "../styles/animations";
@@ -27,11 +27,25 @@ const Header = ({ theme, setTheme }) => {
         </Link>
         <Content>
           <NavIcons>
-            <Link to="graphic">
-              <ButtonGraph>
-                <Graph />
-              </ButtonGraph>
-            </Link>
+            <LinkWrapper>
+              <Link to="/graphic">
+                <ButtonGraph>
+                  <Graph />
+                </ButtonGraph>
+              </Link>
+            </LinkWrapper>
+            <LinkWrapper>
+              <Link to="/login">
+                <ButtonLogin>
+                  <img
+                    width="40"
+                    height="40"
+                    src="https://img.icons8.com/pastel-glyph/64/b3a0ff/person-male--v3.png"
+                    alt="person-male--v3"
+                  />
+                </ButtonLogin>
+              </Link>
+            </LinkWrapper>
             <ButtonTheme onClick={changeTheme}>
               {theme.name === "light" ? <Moon /> : <Sun />}
             </ButtonTheme>
@@ -106,22 +120,27 @@ const LogoContainer = styled.div`
 const Content = styled.div`
   @media (max-width: 800px) {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top */
   }
 `;
 
 const NavIcons = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Align items to the top */
   align-items: center;
-  gap: 5px;
+  gap: 20px; /* Added space between the links */
   margin-bottom: 10px;
   @media (max-width: 800px) {
     flex-direction: row;
-    margin: 0px 10px 0px 0px ;
+    margin: 0px 10px 0px 0px;
     gap: 10px;
   }
+`;
+
+const LinkWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const ButtonTheme = styled.button`
@@ -144,6 +163,7 @@ const ButtonTheme = styled.button`
 const ButtonGraph = styled.button`
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 5px;
   cursor: pointer;
   position: relative;
@@ -156,6 +176,11 @@ const ButtonGraph = styled.button`
       width: 22px;
     }
   }
+`;
+
+const ButtonLogin = styled.button`
+  padding: 5px;
+  cursor: pointer;
 `;
 
 const ContainerImg = styled.div`

@@ -62,25 +62,25 @@ const TriangleChart = () => {
   }, [valueForStatus, mobile]);
 
   return (
-    <Container>
-      <GraphContainer height={containerHeight}>
-        <TriangleContainer color={triangleData[2]?.type}>
-          {triangleData.map((data) => (
-            <Triangle key={data.type} data={data} />
+<Container>
+  <GraphContainer height={containerHeight}>
+    <TriangleContainer color={triangleData[2]?.type}>
+      {triangleData.map((data) => (
+        <Triangle key={data.type} data={data} />
+      ))}
+      <LegendContainer>
+        <LegendTitle>Valeur du statut</LegendTitle>
+        <Legend>
+          {triangleData.map(({ type, total }) => (
+            <LegendItem key={type} color={type}>
+              <p>{type} -</p> <span>{formatCurrency(total)}</span>
+            </LegendItem>
           ))}
-          <LegendContainer>
-            <LegendTitle>Value of status</LegendTitle>
-            <Legend>
-              {triangleData.map(({ type, total }) => (
-                <LegendItem key={type} color={type}>
-                  <p>{type} -</p> <span>{formatCurrency(total)}</span>
-                </LegendItem>
-              ))}
-            </Legend>
-          </LegendContainer>
-        </TriangleContainer>
-      </GraphContainer>
-    </Container>
+        </Legend>
+      </LegendContainer>
+    </TriangleContainer>
+  </GraphContainer>
+</Container>
   );
 };
 

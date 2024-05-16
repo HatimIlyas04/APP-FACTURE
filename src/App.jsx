@@ -9,6 +9,7 @@ import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";
 import { useSelector } from "react-redux";
 import useMedia from "./Hooks/useMedia";
 import Graphic from "./Components/Graphic/Graphic";
+import Login from "./Components/Login/Login"; // Import the Login component
 
 function App() {
   const [theme, setTheme] = useState(light);
@@ -33,7 +34,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="invoice/:id" element={<SingleInvoice />} />
             <Route path="graphic" element={<Graphic />} />
+            <Route path="/login" element={<Login />} /> {/* Add the login route */}
           </Routes>
+          
         </Container>
       </ThemeProvider>
     </BrowserRouter>

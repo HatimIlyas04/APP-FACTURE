@@ -4,16 +4,15 @@ import { ReactComponent as EmptyImg } from "../../assets/illustration-empty.svg"
 
 const InvoiceEmpty = () => {
   return (
-    <Container>
-      <ImgContainer>
-        <EmptyImg />
-      </ImgContainer>
-      <Title>There is nothing here</Title>
-      <EmptyParagraph>
-        Create an invoice by clicking the <span>New Invoice </span> button and
-        get started
-      </EmptyParagraph>
-    </Container>
+<Container>
+  <ImgContainer>
+    <EmptyImg />
+  </ImgContainer>
+  <Title>Rien n'est ici</Title>
+  <EmptyParagraph>
+    Créez une facture en cliquant sur le bouton <span>Nouvelle facture</span> et commencez
+  </EmptyParagraph>
+</Container>
   );
 };
 

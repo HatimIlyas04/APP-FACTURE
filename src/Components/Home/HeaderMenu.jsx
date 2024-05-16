@@ -21,27 +21,27 @@ const HeaderMenu = () => {
   }, [filterValues]);
 
   return (
-    <Container>
-      <TitleContainer>
-        <h1>Invoices</h1>
-        {!mobile ? (
-          <p>There are {invoices.length} total invoices</p>
-        ) : (
-          <p>{invoices.length} invoices</p>
-        )}
-      </TitleContainer>
-      <Content>
-        <Filter value={filterValues} setValue={setFilterValues} />
-        <ButtonInvoice onClick={open}>New {!mobile && "Invoice"}</ButtonInvoice>
-      </Content>
-    </Container>
+<Container>
+  <TitleContainer>
+    <h1>Factures</h1>
+    {!mobile ? (
+      <p>Il y a un total de {invoices.length} factures</p>
+    ) : (
+      <p>{invoices.length} factures</p>
+    )}
+  </TitleContainer>
+  <Content>
+    <Filter value={filterValues} setValue={setFilterValues} />
+    <ButtonInvoice onClick={open}>Nouvelle {!mobile && "facture"}</ButtonInvoice>
+  </Content>
+</Container>
   );
 };
 
 export default HeaderMenu;
 
 const Container = styled.div`
-  max-width: 730px;
+  max-width: 900px;
   margin: 40px auto 65px auto;
   display: flex;
   justify-content: space-between;

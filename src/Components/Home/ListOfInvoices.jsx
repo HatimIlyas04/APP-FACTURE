@@ -28,7 +28,7 @@ const ListOfInvoices = () => {
                 <span>#</span>
                 {id}
               </Id>
-              <Due>Due {formatDate(format(paymentDue))}</Due>
+              <Due>Échéance {formatDate(format(paymentDue))}</Due>
               <Name>{clientName}</Name>
               <Total>{formatCurrency(total)}</Total>
               <LastColumn>
@@ -46,9 +46,9 @@ const ListOfInvoices = () => {
 export default ListOfInvoices;
 
 const Container = styled.div`
-  max-width: 750px;
-  margin: 0px auto;
-  padding: 0px 18px 18px 110px;
+  max-width: 950px; /* Increased max-width */
+  margin: 0 auto;
+  padding: 0 18px 18px 110px;
   a {
     color: ${({ theme }) => theme.title};
   }
@@ -80,15 +80,17 @@ const InvoiceItem = styled.div`
     gap: 8px;
   }
 `;
+
 const Id = styled.p`
   font-weight: 700;
   span {
     color: ${({ theme }) => theme.variantColors.primary.normal};
-  }
+  } 
   @media (max-width: 700px) {
     margin-bottom: 8px;
   }
 `;
+
 const Due = styled.p`
   font-size: 14px;
   color: ${({ theme }) =>
@@ -100,6 +102,7 @@ const Due = styled.p`
     grid-row: 2;
   }
 `;
+
 const Name = styled.p`
   color: ${({ theme }) => theme.textTertiary};
   @media (max-width: 700px) {
@@ -108,6 +111,7 @@ const Name = styled.p`
     justify-self: flex-end;
   }
 `;
+
 const Total = styled.p`
   font-size: 20px;
   font-weight: 700;

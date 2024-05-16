@@ -26,7 +26,7 @@ const SingleInvoice = () => {
         <Link to="/">
           <Back>
             <ArrowLeft />
-            Go Back
+            Retour
           </Back>
         </Link>
         <HeaderSingleInvoice setShowDelete={setShowDelete} />

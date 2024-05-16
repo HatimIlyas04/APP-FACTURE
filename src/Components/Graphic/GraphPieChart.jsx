@@ -121,39 +121,39 @@ const GraphPieChart = () => {
 
 
   return (
-    <Container>
-      <GraphContainer>
-        <PieChartContainer>
-          <PieChart
-            small={statusInDeg[0]}
-            mid={statusInDeg[1]}
-            big={statusInDeg[2]}
-            onMouseMove={getColorByMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onTouchMove={getColorByMouseMove}
-            onTouchEnd={handleMouseLeave}
-            ref={pieRef}
-          >
-            <Center ref={circleCenter} />
-          </PieChart>
-          {showTooltip && (
-            <Tooltip coords={tooltipCoords} color={tooltipCurrentData.type}>
-              Total: {tooltipCurrentData.value}
-            </Tooltip>
-          )}
-        </PieChartContainer>
-        <LegendContainer>
-          <LegendTitle>Quantity of status</LegendTitle>
-          <Legend>
-            {statusInPercentage.map(({ type, value }) => (
-              <LegendItem key={type} color={type}>
-                <p>{type}</p> <span>{value}%</span>
-              </LegendItem>
-            ))}
-          </Legend>
-        </LegendContainer>
-      </GraphContainer>
-    </Container>
+<Container>
+  <GraphContainer>
+    <PieChartContainer>
+      <PieChart
+        small={statusInDeg[0]}
+        mid={statusInDeg[1]}
+        big={statusInDeg[2]}
+        onMouseMove={getColorByMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onTouchMove={getColorByMouseMove}
+        onTouchEnd={handleMouseLeave}
+        ref={pieRef}
+      >
+        <Center ref={circleCenter} />
+      </PieChart>
+      {showTooltip && (
+        <Tooltip coords={tooltipCoords} color={tooltipCurrentData.type}>
+          Total : {tooltipCurrentData.value}
+        </Tooltip>
+      )}
+    </PieChartContainer>
+    <LegendContainer>
+      <LegendTitle>Quantité par statut</LegendTitle>
+      <Legend>
+        {statusInPercentage.map(({ type, value }) => (
+          <LegendItem key={type} color={type}>
+            <p>{type}</p> <span>{value}%</span>
+          </LegendItem>
+        ))}
+      </Legend>
+    </LegendContainer>
+  </GraphContainer>
+</Container>
   );
 };
 

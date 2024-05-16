@@ -7,30 +7,30 @@ const ItemsInvoice = ({ data }) => {
 
 
   return (
-    <Container>
-      <Content>
-        <FirstColumn>Item Name</FirstColumn>
-        <p>QTY.</p>
-        <p>Price</p>
-        <p>Total</p>
-        {items.map(({ name, price, total, quantity }, index) => {
-          return (
-            <React.Fragment key={index}>
-              <FirstColumn>
-                <TextBold>{name}</TextBold>
-              </FirstColumn>
-              <p>{quantity}</p>
-              <p>{formatCurrency(price)}</p>
-              <TextBold>{formatCurrency(total)}</TextBold>
-            </React.Fragment>
-          );
-        })}
-      </Content>
-      <AmountDue>
-        <p>Amount Due</p>
-        <Total>{formatCurrency(total)}</Total>
-      </AmountDue>
-    </Container>
+<Container>
+  <Content>
+    <FirstColumn>Nom de l'article</FirstColumn>
+    <p>Qté.</p>
+    <p>Prix</p>
+    <p>Total</p>
+    {items.map(({ name, price, total, quantity }, index) => {
+      return (
+        <React.Fragment key={index}>
+          <FirstColumn>
+            <TextBold>{name}</TextBold>
+          </FirstColumn>
+          <p>{quantity}</p>
+          <p>{formatCurrency(price)}</p>
+          <TextBold>{formatCurrency(total)}</TextBold>
+        </React.Fragment>
+      );
+    })}
+  </Content>
+  <AmountDue>
+    <p>Montant</p>
+    <Total>{formatCurrency(total)}</Total>
+  </AmountDue>
+</Container>
   );
 };
 

@@ -53,13 +53,10 @@ export const addDate = (date, value) => {
 };
 
 export const formatCurrency = (value) => {
-  return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  return value.toLocaleString("fr-MA", { style: "currency", currency: "MAD" });
 };
 
 export const formatCurrencyNotSymbol = (value) => {
-  const currency = value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-  return currency.slice(3);
+  const formattedValue = parseFloat(value).toFixed(2);
+  return formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

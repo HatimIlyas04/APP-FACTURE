@@ -22,21 +22,20 @@ const ConfirmDelete = ({ setShowDelete }) => {
   };
 
   return (
-    <Container>
-      <Content>
-        <Title>Confirm Deletion</Title>
-        <Paragraph>
-          Are you sure you want to delete invoice #{id}? This action cannot be
-          undone.
-        </Paragraph>
-        <ContainerButtons>
-          <ButtonTheme onClick={cancelDelete}>Cancel</ButtonTheme>
-          <ButtonDefault color="delete" onClick={deleteConfirmed}>
-            Delete
-          </ButtonDefault>
-        </ContainerButtons>
-      </Content>
-    </Container>
+<Container>
+  <Content>
+    <Title>Confirmer la suppression</Title>
+    <Paragraph>
+      Êtes-vous sûr de vouloir supprimer la facture #{id} ? Cette action est irréversible.
+    </Paragraph>
+    <ContainerButtons>
+      <ButtonTheme onClick={cancelDelete}>Annuler</ButtonTheme>
+      <ButtonDefault color="delete" onClick={deleteConfirmed}>
+        Supprimer
+      </ButtonDefault>
+    </ContainerButtons>
+  </Content>
+</Container>
   );
 };
 

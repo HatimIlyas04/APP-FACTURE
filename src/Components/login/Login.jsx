@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import GraphPieChart from "./GraphPieChart";
-import TriangleChart from "./TriangleChart";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { AnimeLeft } from "../../styles/animations";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../store/modal";
+import FormLogin from "./FormLogin";
 
-const Graphic = () => {
+const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,21 +19,17 @@ const Graphic = () => {
       <Content>
         <Link to="/">
           <Back>
-            <ArrowLeft />
-            Retour
+            
           </Back>
         </Link>
-        <Title>Graphiques</Title>
-        <ContainerGraphs>
-          {<GraphPieChart />}
-          <TriangleChart />
-        </ContainerGraphs>
+        <Title></Title>
+        <FormLogin />
       </Content>
     </Container>
   );
 };
 
-export default Graphic;
+export default Login;
 
 const Container = styled.div`
   width: 100%;
@@ -68,10 +63,4 @@ const Back = styled.button`
   svg {
     margin-right: 20px;
   }
-`;
-
-const ContainerGraphs = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 60px;a
 `;

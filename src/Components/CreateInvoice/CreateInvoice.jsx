@@ -223,42 +223,42 @@ const CreateInvoice = () => {
           {mobile && (
             <Back onClick={close}>
               <ArrowLeft />
-              Go Back
+              Retour
             </Back>
           )}
           <Title>
             {id ? (
               <>
-                Edit <span>#</span>
+                Modifier <span>#</span>
                 {id}
               </>
             ) : (
-              "New Invoice"
+              "Nouvelle Facture"
             )}
           </Title>
-          <BillTitle>Bill From</BillTitle>
+          <BillTitle>Expéditeur</BillTitle>
           <Input
-            label="Street Address"
+            label="Adresse"
             id="sendStreet"
             ref={forms.senderAddress.street.ref}
             {...forms.senderAddress.street}
           />
           <AddressFlex>
             <Input
-              label="City"
+              label="Ville"
               id="clientStreet"
               ref={forms.senderAddress.city.ref}
               {...forms.senderAddress.city}
             />
             <Input
-              label="Post Code"
+              label="Code Postal"
               id="sendPostCode"
               ref={forms.senderAddress.postCode.ref}
               {...forms.senderAddress.postCode}
             />
             <Country>
               <Input
-                label="Country"
+                label="Pays"
                 id="sendCountry"
                 ref={forms.senderAddress.country.ref}
                 {...forms.senderAddress.country}
@@ -266,22 +266,22 @@ const CreateInvoice = () => {
             </Country>
           </AddressFlex>
 
-          <BillTitle>Bill To</BillTitle>
+          <BillTitle>Destinataire</BillTitle>
           <Input
-            label="Client´s Name"
+            label="Nom du client"
             id="clientName"
             ref={forms.clientName.ref}
             {...forms.clientName}
           />
           <Input
-            label="Client´s Email"
+            label="Email du client"
             id="clientEmail"
-            placeholder="e.g. email@example.com"
+            placeholder="ex. email@example.com"
             ref={forms.clientEmail.ref}
             {...forms.clientEmail}
           />
           <Input
-            label="Street Address"
+            label="Adresse"
             id="ClientStreet"
             ref={forms.clientAddress.street.ref}
             {...forms.clientAddress.street}
@@ -289,20 +289,20 @@ const CreateInvoice = () => {
 
           <AddressFlex>
             <Input
-              label="City"
+              label="Ville"
               id="clientStreet"
               ref={forms.clientAddress.city.ref}
               {...forms.clientAddress.city}
             />
             <Input
-              label="Post Code"
+              label="Code Postal"
               id="clientPostCode"
               ref={forms.clientAddress.postCode.ref}
               {...forms.clientAddress.postCode}
             />
             <Country>
               <Input
-                label="Country"
+                label="Pays"
                 id="clientCountry"
                 ref={forms.clientAddress.country.ref}
                 {...forms.clientAddress.country}
@@ -312,24 +312,24 @@ const CreateInvoice = () => {
 
           <ContentDropDownInputs>
             <ContainerForInput>
-              <PseudoLabel>Invoice Date</PseudoLabel>
+              <PseudoLabel>Date de la facture</PseudoLabel>
               <DatePicker ref={date} />
             </ContainerForInput>
             <ContainerForInput>
-              <PseudoLabel>Payment Terms</PseudoLabel>
+              <PseudoLabel>Modalités de paiement</PseudoLabel>
               <DropDown setValue={setPaymentTerms} />
             </ContainerForInput>
           </ContentDropDownInputs>
 
           <Input
-            label="Project Description"
+            label="Description du projet"
             id="description"
-            placeholder="e.g. Graphic Design Service"
+            placeholder="ex. Service de conception graphique"
             ref={forms.description.ref}
             {...forms.description}
           />
 
-          <ItemListTitle>Item List</ItemListTitle>
+          <ItemListTitle>Liste des articles</ItemListTitle>
           <ItemList itemsForm={itemsForm} setItemsForm={setItemsForm} />
 
           <FormErrors>
@@ -342,23 +342,23 @@ const CreateInvoice = () => {
           {!id && (
             <ButtonsContainerCreate>
               <ButtonTheme type="button" custom={true} onClick={close}>
-                Discard
+                Annuler
               </ButtonTheme>
               <div>
                 <ButtonDraft type="button" onClick={saveToDraft}>
-                  Save as Draft
+                  brouillon
                 </ButtonDraft>
-                <ButtonDefault color="primary">Save & Send</ButtonDefault>
+                <ButtonDefault color="primary">Enregistrer et envoyer</ButtonDefault>
               </div>
             </ButtonsContainerCreate>
           )}
           {id && (
             <ButtonsContainerEdit>
               <ButtonTheme type="button" onClick={close}>
-                Cancel
+                Annuler
               </ButtonTheme>
               <ButtonDefault type="button" color="primary" onClick={saveEdit}>
-                Save Changes
+                Enregistrer
               </ButtonDefault>
             </ButtonsContainerEdit>
           )}

@@ -25,15 +25,15 @@ const ButtonsContainer = ({ setShowDelete }) => {
   };
 
   return (
-    <Container>
-      <ButtonTheme onClick={editInvoice}>Edit</ButtonTheme>
-      <ButtonDefault color="delete" onClick={deleteThisInvoice}>
-        Delete
-      </ButtonDefault>
-      <ButtonDefault color="primary" onClick={markToPaid}>
-        Mark as Paid
-      </ButtonDefault>
-    </Container>
+<Container>
+  <ButtonTheme onClick={editInvoice}>Modifier</ButtonTheme>
+  <ButtonDefault color="delete" onClick={deleteThisInvoice}>
+    Supprimer
+  </ButtonDefault>
+  <ButtonDefault color="primary" onClick={markToPaid}>
+    Marquer comme payé
+  </ButtonDefault>
+</Container>
   );
 };
 

@@ -14,9 +14,9 @@ const ItemsInvoiceMobile = ({ data }) => {
             <Item key={index}>
               <FirstColumn>
                 <TextBold>{name}</TextBold>
-                <p>{quantity} x R$ {price}</p>
+                <p>{quantity} x  {price}</p>
               </FirstColumn>
-              <TextBold>R$ {total}</TextBold>
+              <TextBold> {total}</TextBold>
             </Item>
           );
         })}

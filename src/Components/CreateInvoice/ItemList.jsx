@@ -10,6 +10,7 @@ import useMedia from "../../Hooks/useMedia";
 
 const ItemList = ({ itemsForm, setItemsForm }) => {
   const mobile = useMedia("(max-width: 700px)");
+  
   const AddNewItem = () => {
     const idItem = idGenerator();
     setItemsForm((items) => [
@@ -17,7 +18,6 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
       { id: idItem, name: "", quantity: "", price: "", total: "0.00" },
     ]);
   };
-  console.log(itemsForm)
 
   const removeItem = ({ currentTarget }) => {
     const idItem = currentTarget.dataset.id;
@@ -28,44 +28,45 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
     const targetId = target.id;
     const type = target.dataset.type;
     setItemsForm((items) =>
-      items.reduce((accum, item) => {
+      items.map((item) => {
         if (targetId.includes(item.id)) {
           item[type] = target.value;
           if (type === "quantity" || type === "price") {
-            const empty = item.quantity && item.price ? true : false;
-            item.total = empty
-              ? formatCurrencyNotSymbol(item.quantity * item.price)
-              : "0,00";
+            const parsedQuantity = parseFloat(item.quantity);
+            const parsedPrice = parseFloat(item.price);
+            const empty = !isNaN(parsedQuantity) && !isNaN(parsedPrice);
+            item.total = empty ? formatCurrencyNotSymbol(parsedQuantity * parsedPrice) : "0,00";
           }
         }
-        return [...items];
-      }, {})
+        return item;
+      })
     );
   };
+  
 
   return (
     <>
       <ItemGridLabel>
-        <p>Item Name</p>
-        <p>Qty.</p>
-        <p>Price</p>
+        <p>Nom de l'article</p>
+        <p>Qté.</p>
+        <p>Prix</p>
         <p>Total</p>
       </ItemGridLabel>
       {itemsForm.map(({ id, name, quantity, price, total, disabled }) => {
         return (
           <ItemSolo key={id}>
             <FirstColumn>
-              {mobile && <Label>Item Name</Label>}
+              {mobile && <Label>Nom de l'article</Label>}
               <Input
-                id={`${id}-1`}
-                data-type={"name"}
-                onChange={handleChangeItems}
-                value={name}
-                disabled={disabled ? true : false}
-              />
+            id={`${id}-1`}
+            data-type={"name"}
+            onChange={handleChangeItems}
+            value={name}
+            disabled={disabled ? true : false}
+          />
             </FirstColumn>
             <InputCont>
-              {mobile && <Label>Qty.</Label>}
+              {mobile && <Label>Qté.</Label>}
               <Input
                 id={`${id}-2`}
                 data-type={"quantity"}
@@ -77,7 +78,7 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
               />
             </InputCont>
             <InputCont>
-              {mobile && <Label>Price</Label>}
+              {mobile && <Label>Prix</Label>}
               <Input
                 id={`${id}-3`}
                 data-type={"price"}
@@ -100,7 +101,7 @@ const ItemList = ({ itemsForm, setItemsForm }) => {
         );
       })}
       <ButtonItem type="button" onClick={AddNewItem}>
-        + Add New Item
+        + Ajouter un nouvel article
       </ButtonItem>
     </>
   );
@@ -163,13 +164,11 @@ const FirstColumn = styled.div`
   }
 `;
 
-const GridInMobile = styled.div``;
-
 const InputCont = styled.div``;
 
 const Total = styled.div`
   margin-top: 16px;
   @media (max-width: 700px) {
-    margin-top: 28px;
-  }
+    margin-top: 28px;
+  }
 `;

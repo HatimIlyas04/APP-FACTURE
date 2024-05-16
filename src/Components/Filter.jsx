@@ -38,7 +38,7 @@ const Filter = ({ value, setValue }) => {
   return (
     <Container ref={dropDownRef}>
       <LabelType onClick={() => setDropdown(!dropdown)} active={dropdown}>
-        Filter {!mobile && <>by {data.type}</>} <ArrowDown />
+        Filtrer par{!mobile && <> {data.type}</>} <ArrowDown />
       </LabelType>
       {dropdown && (
         <Dropdown>
