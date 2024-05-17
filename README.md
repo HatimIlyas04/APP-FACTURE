@@ -54,8 +54,8 @@ Ce diagramme décrit les interactions entre les administrateurs, les clients et 
 
 ## Auteur ✍️
 
-- GitHub - [Votre Nom](https://github.com/hatimilyas04)
-- LinkedIn - [Votre Nom](https://www.linkedin.com/in/hatimilyas04/)
+- GitHub - [HATIM ILYAS](https://github.com/hatimilyas04)
+- LinkedIn - [hatim Ilyas](https://www.linkedin.com/in/hatimilyas04/)
 
 ## Licence 📄
 
