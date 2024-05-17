@@ -37,7 +37,7 @@ Ce diagramme illustre les classes principales du système, y compris `Facture`, 
 
 Ce diagramme décrit les interactions entre les administrateurs, les clients et le système pour les opérations clés comme la création, la lecture, la mise à jour, la suppression et le téléchargement des factures.
 
-![Diagramme de Séquence](./sequence.png)
+![Diagramme de Séquence](./Sequence.png)
 
 ## Technologies Utilisées 🛠️
 
