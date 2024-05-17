@@ -1,40 +1,62 @@
-# Frontend Mentor - Invoice App Solution
+# Facture-App - Application de Gestion de Factures 💼💸
 
-![Visualisation du design pour le défi de codage - Invoice app](./ui.PNG)
+![Facture-App Logo](./images/logo.png)
 
-Cette solution est réalisée pour le [défi de l'application de factures sur Frontend Mentor](https://www.frontendmentor.io/challenges/invoice-app-i7KaLTQjl). Avec une addition personnelle : une page de graphiques pour visualiser les statistiques de vos factures. Les défis de Frontend Mentor vous aident à améliorer vos compétences en codage en créant des projets réalistes.
+Facture-App est une solution complète de gestion de factures qui permet aux entreprises de créer, lire, mettre à jour, supprimer et gérer efficacement leurs factures, clients, et produits. Cette application propose également des statistiques visuelles pour une meilleure prise de décision.
 
-## 🔗 Liens
+## Table des Matières 📚
 
-- URL de la solution : [Cliquez ici](https://github.com/HatimIlyas04/APP-FACTURE)
-- URL du site en ligne : [Cliquez ici](https://invoice-app-six-delta.vercel.app/)
+1. [Description](#description)
+2. [Diagrammes](#diagrammes)
+   - [Diagramme de Cas d'Utilisation](#diagramme-de-cas-dutilisation)
+   - [Diagramme de Classes](#diagramme-de-classes)
+   - [Diagramme de Séquence](#diagramme-de-séquence)
+3. [Technologies Utilisées](#technologies-utilisées)
+4. [Installation](#installation)
+5. [Auteur](#auteur)
 
-### 🎯 Le défi
+## Description 📝
 
-Les utilisateurs doivent être capables de :
+Facture-App est conçu pour aider les administrateurs à gérer les factures de manière efficace et intuitive. Les administrateurs peuvent créer, lire, mettre à jour et supprimer des factures. Les clients peuvent consulter et télécharger leurs factures. L'application permet également de gérer les clients et les produits et de visualiser les statistiques pour une meilleure analyse des données.
 
-- Voir la mise en page idéale pour l'application, en fonction de la taille de l'écran de l'appareil
-- Voir les états de survol pour tous les éléments interactifs de la page
-- Créer, lire, mettre à jour et supprimer des factures
-- Recevoir des validations de formulaire lors de la création/modification d'une facture
-- Enregistrer des factures en tant que brouillons et marquer les factures en attente comme payées
-- Filtrer les factures par statut (brouillon/en attente/payé)
-- Changer le mode clair et sombre
+## Diagrammes 📊
 
-### 🛠️ Construit avec
+### Diagramme de Cas d'Utilisation 🔍
 
-- [React](https://reactjs.org/) - Bibliothèque JS
-- [Redux](https://redux.js.org/) - Redux
+Ce diagramme montre les principales interactions entre les administrateurs, les clients et le système pour la gestion des factures. Les administrateurs peuvent gérer les factures, les clients, les produits et voir les statistiques, tandis que les clients peuvent lire et télécharger leurs factures.
+
+![Diagramme de Cas d'Utilisation](./images/use_case_diagram.png)
+
+### Diagramme de Classes 🏷️
+
+Ce diagramme illustre les classes principales du système, y compris `Facture`, `Adresse`, `Item`, `Client`, et `Administrateur`, ainsi que leurs attributs et leurs relations.
+
+![Diagramme de Classes](./images/class_diagram.png)
+
+### Diagramme de Séquence 🔄
+
+Ce diagramme décrit les interactions entre les administrateurs, les clients et le système pour les opérations clés comme la création, la lecture, la mise à jour, la suppression et le téléchargement des factures.
+
+![Diagramme de Séquence](./images/sequence_diagram.png)
+
+## Technologies Utilisées 🛠️
+
+- [React](https://reactjs.org/) - Bibliothèque JavaScript
+- [Redux](https://redux.js.org/) - Gestion de l'état
 - [Styled Components](https://styled-components.com/) - Pour les styles
 
-### 🚀 Ce que j'ai appris
+## Installation ⚙️
 
-L'un des plus grands défis auxquels j'ai été confronté était la décision de ne pas utiliser de bibliothèques externes pour aider à la création des composants, comme celui de la date par exemple, ni à la création des graphiques. Cependant, cela m'a permis de mettre en pratique toutes les connaissances que j'ai acquises lors du développement de l'application. J'ai également pu constater en pratique les avantages de sauvegarder les données dans un état global en utilisant Redux.
+1. Clonez le repository : `git clone https://github.com/hatimilyas04/Facture-App.git`
+2. Accédez au répertoire du projet : `cd Facture-App`
+3. Installez les dépendances : `npm install`
+4. Démarrez l'application : `npm start`
 
-En ce qui concerne les graphiques, le plus grand défi était la création du graphique en secteurs, où j'ai utilisé la propriété `conic-gradient` pour séparer les couleurs. J'ai utilisé le pourcentage de chaque statut et l'ai transformé en degrés de 0 à 360. Ensuite, j'ai créé une fonction pour identifier dans quelle partie du graphique l'utilisateur passe la souris, en fonction des degrés, afin d'afficher une infobulle correspondante.
+## Auteur ✍️
 
-### 👨‍💻 Auteur
+- GitHub - [Votre Nom](https://github.com/hatimilyas04)
+- LinkedIn - [Votre Nom](https://www.linkedin.com/in/hatimilyas04/)
 
-- **Ilyas Hatim** - Stage
-- LinkedIn - [Ilyas Hatim](https://www.linkedin.com/in/ilyas-hatim/)
-- Frontend Mentor - [@HatimIlyas04](https://www.frontendmentor.io/profile/HatimIlyas04)
+## Licence 📄
+
+Ce projet est sous licence MIT.
