@@ -25,19 +25,19 @@ Facture-App est conçu pour aider les administrateurs à gérer les factures de 
 
 Ce diagramme montre les principales interactions entre les administrateurs, les clients et le système pour la gestion des factures. Les administrateurs peuvent gérer les factures, les clients, les produits et voir les statistiques, tandis que les clients peuvent lire et télécharger leurs factures.
 
-![Diagramme de Cas d'Utilisation](./)
+![Diagramme de Cas d'Utilisation](./useCase)
 
 ### Diagramme de Classes 🏷️
 
 Ce diagramme illustre les classes principales du système, y compris `Facture`, `Adresse`, `Item`, `Client`, et `Administrateur`, ainsi que leurs attributs et leurs relations.
 
-![Diagramme de Classes](./images/dagramclass.png)
+![Diagramme de Classes](./classDiagramm.png)
 
 ### Diagramme de Séquence 🔄
 
 Ce diagramme décrit les interactions entre les administrateurs, les clients et le système pour les opérations clés comme la création, la lecture, la mise à jour, la suppression et le téléchargement des factures.
 
-![Diagramme de Séquence](./images/sequence_diagram.png)
+![Diagramme de Séquence](./sequence.png)
 
 ## Technologies Utilisées 🛠️
 
