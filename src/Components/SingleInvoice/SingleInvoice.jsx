@@ -54,12 +54,12 @@ const MainBg = styled.main`
 `;
 
 const Container = styled.div`
-  max-width: 730px;
-  margin: 0 auto;
+  max-width: 800px;  /* Set a maximum width */
+  width: 100%;  /* Allow it to take full width up to the maximum */
+  margin: 0 auto;  /* Center the container */
   margin-top: 40px;
-  padding-left: 92px;
   @media (max-width: 800px) {
-    padding: 0px 18px;
+    padding: 0 18px;
   }
 `;
 
