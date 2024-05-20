@@ -14,6 +14,7 @@ Facture-App est une solution complète de gestion de factures qui permet aux ent
 3. [Technologies Utilisées](#technologies-utilisées)
 4. [Installation](#installation)
 5. [Auteur](#auteur)
+6. [Licence](#licence)
 
 ## Description 📝
 
