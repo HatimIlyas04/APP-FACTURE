@@ -16,13 +16,15 @@
 ![Login UI](./loginUI.PNG)
 *Interface de connexion pour les administrateurs, permettant l'accès sécurisé aux fonctionnalités de gestion de factures.*
 
+## Graphic View
+![GRAF View](./GRAF.PNG)
+*Vue graphique montrant les statistiques des factures, fournissant une analyse visuelle pour aider à la prise de décision.*
+
 ## Kanban View
 ![Kanban View](./KANBAN.PNG)
 *Vue Kanban pour la gestion des tâches, permettant aux administrateurs de suivre l'état des factures et des tâches associées.*
 
-## Graphic View
-![GRAF View](./GRAF.PNG)
-*Vue graphique montrant les statistiques des factures, fournissant une analyse visuelle pour aider à la prise de décision.*
+
 
 Facture-App est une solution complète de gestion de factures qui permet aux entreprises de créer, lire, mettre à jour, supprimer et gérer efficacement leurs factures, clients, et produits. Cette application propose également des statistiques visuelles pour une meilleure prise de décision.
 
