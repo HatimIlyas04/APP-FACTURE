@@ -1,8 +1,8 @@
 # Facture-App - Application de Gestion de Factures 💼💸
 
-## UI List of Factures
+## UI 
 ![UI List of Factures](./ui2.PNG)
-*Liste des factures affichant toutes les factures disponibles, avec des options pour créer, lire, mettre à jour et supprimer des factures.*
+Liste des factures affichant toutes les factures disponibles, avec des options pour créer, lire, mettre à jour et supprimer des factures.
 
 ## Facture Details
 ![Facture Details](./UIFACTURE.PNG)
