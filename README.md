@@ -1,11 +1,24 @@
 # Facture-App - Application de Gestion de Factures 💼💸
 
+## UI List of Factures
+![UI List of Factures](./ui2.PNG)
+*Liste des factures affichant toutes les factures disponibles, avec des options pour créer, lire, mettre à jour et supprimer des factures.*
 
-![Facture-App Logo](./ui2.PNG)
-![Facture-App Logo](./UIFACTURE.PNG)
-![Facture-App Logo](./NFACTURE.PNG)
-![Facture-App Logo](./loginUI.PNG)
-![Facture-App Logo](./KANBAN.PNG)
+## Facture Details
+![Facture Details](./UIFACTURE.PNG)
+*Détail d'une facture spécifique, montrant les informations complètes sur la facture, y compris les items, les prix et les informations client.*
+
+## New Facture
+![New Facture](./NFACTURE.PNG)
+*Interface pour créer une nouvelle facture, avec des champs pour entrer les informations nécessaires telles que les détails des clients et des produits.*
+
+## Login UI
+![Login UI](./loginUI.PNG)
+*Interface de connexion pour les administrateurs, permettant l'accès sécurisé aux fonctionnalités de gestion de factures.*
+
+## Kanban View
+![Kanban View](./KANBAN.PNG)
+*Vue Kanban pour la gestion des tâches, permettant aux administrateurs de suivre l'état des factures et des tâches associées.*
 
 Facture-App est une solution complète de gestion de factures qui permet aux entreprises de créer, lire, mettre à jour, supprimer et gérer efficacement leurs factures, clients, et produits. Cette application propose également des statistiques visuelles pour une meilleure prise de décision.
 
