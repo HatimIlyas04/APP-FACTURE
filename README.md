@@ -90,7 +90,7 @@ Ce projet est sous licence MIT.
 
 Ce diagramme montre les principaux éléments de données utilisés dans l'application, y compris leurs types, descriptions, et relations.
 
-![Dictionnaire de Données](./DD.png)
+![Dictionnaire de Données](./DD.PNG)
 
 ## Diagramme de Gantt 📅
 
