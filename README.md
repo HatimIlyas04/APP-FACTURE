@@ -96,4 +96,4 @@ Ce diagramme montre les principaux éléments de données utilisés dans l'appli
 
 Le diagramme de Gantt présente le calendrier de développement du projet, montrant les différentes phases et les tâches associées.
 
-![Diagramme de Gantt](./diagrammGantt.PNG)
+![Diagramme de Gantt](./ganttDiagramm.PNG)
