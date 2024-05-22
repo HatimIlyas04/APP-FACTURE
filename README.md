@@ -24,8 +24,6 @@
 ![Kanban View](./KANBAN.PNG)
 *Vue Kanban pour la gestion des tâches, permettant aux administrateurs de suivre l'état des factures et des tâches associées.*
 
-
-
 Facture-App est une solution complète de gestion de factures qui permet aux entreprises de créer, lire, mettre à jour, supprimer et gérer efficacement leurs factures, clients, et produits. Cette application propose également des statistiques visuelles pour une meilleure prise de décision.
 
 ## Table des Matières 📚
@@ -39,6 +37,8 @@ Facture-App est une solution complète de gestion de factures qui permet aux ent
 4. [Installation](#installation)
 5. [Auteur](#auteur)
 6. [Licence](#licence)
+7. [Dictionnaire de Données](#dictionnaire-de-données)
+8. [Diagramme de Gantt](#diagramme-de-gantt)
 
 ## Description 📝
 
@@ -85,3 +85,15 @@ Ce diagramme décrit les interactions entre les administrateurs, les clients et 
 ## Licence 📄
 
 Ce projet est sous licence MIT.
+
+## Dictionnaire de Données 📚
+
+Ce diagramme montre les principaux éléments de données utilisés dans l'application, y compris leurs types, descriptions, et relations.
+
+![Dictionnaire de Données](./DD.png)
+
+## Diagramme de Gantt 📅
+
+Le diagramme de Gantt présente le calendrier de développement du projet, montrant les différentes phases et les tâches associées.
+
+![Diagramme de Gantt](./ganttDiagram.png)
