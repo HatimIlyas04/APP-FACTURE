@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <Container>
       <HeaderMenu />
-      {!show && <ListOfInvoices />}
+      {!show && <ListOfInvoices />} 
       {modal && <CreateInvoice />}
     </Container>
   );
