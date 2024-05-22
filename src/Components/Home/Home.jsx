@@ -4,7 +4,7 @@ import styled from "styled-components";
 import useMedia from "../../Hooks/useMedia";
 import CreateInvoice from "../CreateInvoice/CreateInvoice";
 import HeaderMenu from "./HeaderMenu";
-import ListOfInvoices from "./ListOfInvoices";
+import ListOfInvoices from "./ListOfInvoices"; 
 
 const Home = () => {  
   const { modal } = useSelector((state) => state.modal);
