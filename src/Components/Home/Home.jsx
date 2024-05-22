@@ -10,7 +10,7 @@ const Home = () => {
   const { modal } = useSelector((state) => state.modal);
   const mobile = useMedia("(max-width: 700px)");
   const show = mobile && modal
-
+ 
   return (
     <Container>
       <HeaderMenu />
