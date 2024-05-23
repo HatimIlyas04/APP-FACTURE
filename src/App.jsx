@@ -34,7 +34,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="invoice/:id" element={<SingleInvoice />} />
             <Route path="graphic" element={<Graphic />} />
-            <Route path="/login" element={<Login />} /> {/* Add the login route */}
+            <Route path="/login" element={<Login />} />
           </Routes>
           
         </Container>
