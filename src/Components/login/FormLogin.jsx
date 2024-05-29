@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import style from './FormLogin.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGooglePlusG, faFacebookF, faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-
+import { useDispatch, useSelector } from "react-redux";
+import { login } from '../../store/auth';
+import { useEffect } from 'react';
 
 const FormLogin = () => {
     const [email, setEmail] = useState('');
@@ -13,18 +15,28 @@ const FormLogin = () => {
 
     const adminEmail = 'ilyas@gmail.com'; // E-mail administrateur statique
     const adminPassword = 'ilyas123'; // Mot de passe administrateur statique
+    const { loggedIn } = useSelector((state) => state.auth);
 
+    useEffect(() => {
+        if (loggedIn) {
+            navigate('/')
+        }
+    }, [])
+    
+    const dispatch = useDispatch()
     const handleLogin = (e) => {
         e.preventDefault();
         // Vérifier si l'e-mail et le mot de passe saisis correspondent aux identifiants de l'administrateur
         if (email === adminEmail && password === adminPassword) {
             // Définir isLoggedIn sur true lors de la connexion réussie
-            setIsLoggedIn(true);
+            // setIsLoggedIn(true);
+            dispatch(login())
+            // console.log(isLoggedIn);
             // Effacer les champs e-mail et mot de passe
             setEmail('');
             setPassword('');
             // Rediriger vers la page des factures après connexion réussie
-            navigate('/facture');
+            navigate('/');
         } else {
             alert('E-mail ou mot de passe incorrect. Veuillez réessayer.');
         }

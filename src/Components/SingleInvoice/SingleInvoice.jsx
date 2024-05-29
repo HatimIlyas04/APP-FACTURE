@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import HeaderSingleInvoice from "./HeaderSingleInvoice";
 import UniqueInvoiceData from "./UniqueInvoiceData";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getEnvoiceById } from "../../store/invoice";
 import { useSelector } from "react-redux";
 import ConfirmDelete from "./ConfirmDelete";
@@ -18,6 +18,13 @@ const SingleInvoice = () => {
   const data = useSelector(({ invoices }) => getEnvoiceById(invoices, id));
   const { modal } = useSelector((state) => state.modal);
   const [showDelete, setShowDelete] = useState(false);
+
+  const { loggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
+
+  if (!loggedIn) {
+    navigate('/login')
+}
 
   if (data === null) return null;
   return (

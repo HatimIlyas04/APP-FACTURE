@@ -8,14 +8,27 @@ import avatar from "../assets/image-avatar.png";
 import light from "../styles/light";
 import dark from "../styles/dark";
 import { AnimeScale } from "../styles/animations";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSuperpowers } from "@fortawesome/free-brands-svg-icons";
+import { logout } from "../store/auth";
 
 const Header = ({ theme, setTheme }) => {
+  const { loggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const changeTheme = () => {
     setTheme((theme) =>
       theme.name !== "light" ? (theme = light) : (theme = dark)
     );
   };
+
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate('/login')
+  }
 
   return (
     <HeaderContainer>
@@ -27,6 +40,7 @@ const Header = ({ theme, setTheme }) => {
         </Link>
         <Content>
           <NavIcons>
+            { loggedIn &&
             <LinkWrapper>
               <Link to="/graphic">
                 <ButtonGraph>
@@ -34,6 +48,8 @@ const Header = ({ theme, setTheme }) => {
                 </ButtonGraph>
               </Link>
             </LinkWrapper>
+            }
+            { !loggedIn && 
             <LinkWrapper>
               <Link to="/login">
                 <ButtonLogin>
@@ -46,9 +62,17 @@ const Header = ({ theme, setTheme }) => {
                 </ButtonLogin>
               </Link>
             </LinkWrapper>
+            }
             <ButtonTheme onClick={changeTheme}>
               {theme.name === "light" ? <Moon /> : <Sun />}
             </ButtonTheme>
+            { loggedIn && 
+            <LinkWrapper>
+              <ButtonGraph>
+                <img src="/src/assets/logout.png" alt="logout" title="logout" width={35} onClick={handleLogout} />
+              </ButtonGraph>
+            </LinkWrapper>
+            }
           </NavIcons>
           <ContainerImg>
             <img src={avatar} alt="Avatar" />

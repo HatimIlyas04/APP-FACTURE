@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import light from "./styles/light";
 import GlobalStyle from "./styles/global";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./Components/Header";
 import Home from "./Components/Home/Home";
 import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";
@@ -14,8 +14,9 @@ import Login from "./Components/Login/Login";
 function App() {
   const [theme, setTheme] = useState(light);
   const { modal } = useSelector((state) => state.modal);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  console.log(isLoggedIn);
   const mobile = useMedia("(max-width: 700px)");
-
   
   useEffect(() => {
     window.scrollTo(0, 0);

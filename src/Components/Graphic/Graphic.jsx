@@ -1,18 +1,24 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import GraphPieChart from "./GraphPieChart";
 import TriangleChart from "./TriangleChart";
 import { ReactComponent as ArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { AnimeLeft } from "../../styles/animations";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/modal";
 
 const Graphic = () => {
   const dispatch = useDispatch();
+  const { loggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
+  
   useEffect(() => {
     dispatch(closeModal());
+    if (!loggedIn) {
+      navigate('/login')
+    }
   }, []);
 
   return (
@@ -73,5 +79,5 @@ const Back = styled.button`
 const ContainerGraphs = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 60px;a
+  gap: 60px;
 `;

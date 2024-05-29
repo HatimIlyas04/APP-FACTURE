@@ -5,12 +5,22 @@ import useMedia from "../../Hooks/useMedia";
 import CreateInvoice from "../CreateInvoice/CreateInvoice";
 import HeaderMenu from "./HeaderMenu";
 import ListOfInvoices from "./ListOfInvoices"; 
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
  
 const Home = () => {   
   const { modal } = useSelector((state) => state.modal);
   const mobile = useMedia("(max-width: 700px)");
   const show = mobile && modal
-   
+  
+  const { loggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate('/login')
+    }
+  }, [])
   return (
     <Container>
       <HeaderMenu />
