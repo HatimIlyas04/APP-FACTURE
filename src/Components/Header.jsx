@@ -9,7 +9,7 @@ import light from "../styles/light";
 import dark from "../styles/dark";
 import { AnimeScale } from "../styles/animations";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSuperpowers } from "@fortawesome/free-brands-svg-icons";
 import { logout } from "../store/auth";
