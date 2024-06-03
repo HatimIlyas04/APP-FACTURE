@@ -7,7 +7,7 @@ import Header from "./Components/Header";
 import Home from "./Components/Home/Home";
 import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";    
 import { useSelector } from "react-redux";   
-import useMedia from "./Hooks/useMedia";    
+import useMedia from "./Hooks/useMedia";     
 import Graphic from "./Components/Graphic/Graphic";
 import Login from "./Components/Login/Login";    
  
