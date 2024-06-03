@@ -12,7 +12,7 @@ import Graphic from "./Components/Graphic/Graphic";
 import Login from "./Components/Login/Login";  
  
 function App() {
-  const [theme, setTheme] = useState(light);
+  const [theme, setTheme] = useState(light); 
   const { modal } = useSelector((state) => state.modal);
   const { isLoggedIn } = useSelector((state) => state.auth);
   console.log(isLoggedIn);
