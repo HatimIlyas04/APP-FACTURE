@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import useMedia from "./Hooks/useMedia";   
 import Graphic from "./Components/Graphic/Graphic";
 import Login from "./Components/Login/Login";  
-
+ 
 function App() {
   const [theme, setTheme] = useState(light);
   const { modal } = useSelector((state) => state.modal);
