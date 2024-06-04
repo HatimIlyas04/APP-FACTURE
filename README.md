@@ -54,7 +54,7 @@ Ce diagramme montre les principales interactions entre les administrateurs, les 
 
 ### Diagramme de Classes 🏷️
 
-Ce diagramme illustre les classes principales du système, y compris `Facture`, `Adresse`, `Item`, `Client`, et `Administrateur`, ainsi que leurs attributs et leurs relations.
+Ce diagramme illustre les classes principales du système, y compris `Facture`, `Adresse`, `Client`, et `Administrateur`, ainsi que leurs attributs et leurs relations.
 
 ![Diagramme de Classes](./classDiagramm.png)
 
