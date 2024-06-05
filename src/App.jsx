@@ -4,7 +4,7 @@ import light from "./styles/light";
 import GlobalStyle from "./styles/global";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Header from "./Components/Header";
-import Home from "./Components/Home/Home";
+import Home from "./Components/Home/Home"; 
 import SingleInvoice from "./Components/SingleInvoice/SingleInvoice";    
 import { useSelector } from "react-redux";   
 import useMedia from "./Hooks/useMedia";     
