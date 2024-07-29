@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/modal";
 import { changeFilters } from "../../store/invoice";
 import useMedia from "../../Hooks/useMedia";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const HeaderMenu = () => {
   const mobile = useMedia("(max-width: 700px)");
@@ -21,20 +22,22 @@ const HeaderMenu = () => {
   }, [filterValues]);
 
   return (
-<Container>
-  <TitleContainer>
-    <h1>Factures</h1>
-    {!mobile ? (
-      <p>Il y a un total de {invoices.length} factures</p>
-    ) : (
-      <p>{invoices.length} factures</p>
-    )}
-  </TitleContainer>
-  <Content>
-    <Filter value={filterValues} setValue={setFilterValues} />
-    <ButtonInvoice onClick={open}>Nouvelle {!mobile && "facture"}</ButtonInvoice>
-  </Content>
-</Container>
+    <Container className="container">
+      <TitleContainer className="d-flex flex-column align-items-start">
+        <h1 className="display-4">Factures</h1>
+        {!mobile ? (
+          <p>Il y a un total de {invoices.length} factures</p>
+        ) : (
+          <p>{invoices.length} factures</p>
+        )}
+      </TitleContainer>
+      <Content className="d-flex align-items-center">
+        <Filter value={filterValues} setValue={setFilterValues} />
+        <ButtonInvoice onClick={open} className="btn btn-primary">
+          Nouvelle {!mobile && "facture"}
+        </ButtonInvoice>
+      </Content>
+    </Container>
   );
 };
 
